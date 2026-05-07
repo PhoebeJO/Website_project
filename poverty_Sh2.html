@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界地圖與詳細資訊模組</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Chart.js 用於繪製下方圖表 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: { DEFAULT: 'green', dark: '#4a4e40' } } } } }
+    </script>
+    <style>
+        /* 地圖熱點的脈衝動畫 */
+        .hotspot-pulse {
+            box-shadow: 0 0 0 0 rgba(138, 154, 91, 0.7);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 154, 91, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(138, 154, 91, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 154, 91, 0); }
+        }
+        /* 簡單的過渡動畫 */
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 md:p-8 font-sans">
+
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-sm p-8">
+        
+        <!-- ========================================== -->
+        <!-- 視圖 1：世界地圖主頁 (Main Map View) -->
+        <!-- ========================================== -->
+        <div id="map-main-view" class="fade-in block">
+            <h2 class="text-3xl font-bold text-brand-dark mb-4 border-l-4 border-brand pl-3">世界地圖：貧窮現況探索</h2>
+            <p class="text-gray-600 mb-6">點擊地圖上的發光圓點，即可在同一個頁面下方展開該國家的詳細經濟與貧窮數據。</p>
+            
+            <div class="w-full aspect-[2/1] bg-sky-50 rounded-xl relative border border-gray-200 overflow-hidden shadow-inner">
+                <!-- 底圖 -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/BlankMap-World.png" alt="世界地圖" class="w-full h-full object-cover opacity-100">
+                
+                <!-- 熱點：馬達加斯加 (Madagascar) -->
+                <!-- 解答1：使用 onclick="showMapDetails(...)" 來觸發同頁面的切換邏輯 -->
+                <div class="absolute top-[68%] left-[58%] w-5 h-5 bg-brand rounded-full cursor-pointer hotspot-pulse border-2 border-white z-10"
+                     onmouseenter="showMapTooltip(event, 'Madagascar (馬達加斯加)', '點擊查看經濟與貧窮數據')" 
+                     onmousemove="moveMapTooltip(event)"
+                     onmouseleave="hideMapTooltip()" 
+                     onclick="showMapDetails('Madagascar')">
+                </div>
+            </div>
+        </div>
+
+        <!-- 跟隨滑鼠的提示框 (Tooltip) -->
+        <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 rounded-lg shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
+            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-b-2 border-r-2 border-brand rotate-45"></div>
+            <p id="tooltip-title" class="font-bold text-brand-dark text-lg"></p>
+            <p id="tooltip-desc" class="text-gray-600 text-sm mt-1"></p>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 視圖 2：點進去後的詳細資訊 (Detail View) -->
+        <!-- ========================================== -->
+        <div id="map-detail-view" class="hidden fade-in pt-4">
+            
+            <!-- 返回按鈕 -->
+            <button onclick="hideMapDetails()" class="mb-8 px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-brand hover:text-white transition flex items-center gap-2 font-bold shadow-sm">
+                <i class="fa-solid fa-arrow-left"></i> 返回世界地圖
+            </button>
+            
+            <!-- 標題區塊 (國旗 + 國名 + 簡介) -->
+            <div class="mb-8">
+                <div class="flex items-center gap-4 mb-4">
+                    <!-- 國旗預留 -->
+                    <div class="w-12 h-8 bg-green-600 relative border border-gray-200">
+                        <div class="absolute top-0 left-0 w-1/3 h-full bg-white"></div>
+                        <div class="absolute top-0 left-0 w-1/3 h-1/2 bg-red-600 z-10"></div>
+                    </div>
+                    <h2 id="detail-region-title" class="text-4xl font-serif font-bold text-gray-800">Madagascar</h2>
+                </div>
+                <p class="text-xl text-gray-700 font-medium leading-relaxed max-w-4xl">
+                    Includes historical data for Madagascar's Gross Domestic Product growth, debt-to-GDP ratio and more, as well as information on trade, banking and financial sector leadership.
+                </p>
+            </div>
+
+            <!-- 內容佈局：左側文字 / 右側表格 -->
+            <div class="grid grid-cols-1 lg:grid-cols-[60%_35%] gap-12 mb-12">
+                
+                <!-- 左側：現況描述 (文字區塊) -->
+                <div>
+                    <h3 class="text-2xl font-serif font-bold text-gray-800 mb-4">Economic Potential Undermined By Mismanagement</h3>
+                    <div class="space-y-4 text-gray-600 text-sm leading-relaxed">
+                        <p>Situated in the Indian Ocean off the coast of southern Africa, Madagascar—the world's fifth-largest island—is endowed with abundant mineral, agricultural and marine resources, and boasts a burgeoning tourism industry. With several trade agreements with the United States and the EU, in addition to memberships in various regional communities, Madagascar welcomes commercial partnerships and foreign investment.</p>
+                        <p>Still, due to chronic political instability and mismanagement of the country's finances and resources, the population faces persistently high poverty rates and widespread food insecurity. Foreign investors, despite laws granting them the same treatment as domestic investors, face additional scrutiny and unexplained delays. Additionally, convoluted administrative procedures, corruption and outdated labor laws undermine free economic activity. Inadequate infrastructure, as well as vulnerability to fluctuations in commodity prices and climatic hazards, compound the country's woes.</p>
+                    </div>
+                </div>
+
+                <!-- 右側：資料表格 (精美無邊框設計) -->
+                <!-- 解答1邏輯：使用 bg-gray-50 當底色，搭配 border-b 畫出乾淨的底線 -->
+                <div class="bg-gray-50/50 p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <h4 class="text-lg font-serif font-bold text-gray-800 mb-6">Macroeconomy & Sovereign Data</h4>
+                    <table class="w-full text-sm text-left">
+                        <tbody>
+                            <!-- 表格列 1 -->
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 text-gray-500 w-1/2">Type of Government</td>
+                                <td class="py-3 font-semibold text-gray-800">Semi-presidential republic</td>
+                            </tr>
+                            <!-- 表格列 2 (帶背景色) -->
+                            <tr class="bg-gray-100/50 border-b border-gray-200">
+                                <td class="py-3 px-2 text-gray-500">Capital</td>
+                                <td class="py-3 px-2 font-semibold text-gray-800">Antananarivo</td>
+                            </tr>
+                            <!-- 表格列 3 -->
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 text-gray-500 align-top">Sovereign Ratings</td>
+                                <td class="py-3 font-semibold text-gray-800 leading-relaxed">
+                                    S&P: Not rated<br>
+                                    Moody's: Not rated<br>
+                                    Fitch: Not rated
+                                </td>
+                            </tr>
+                            <!-- 表格列 4 (帶背景色) -->
+                            <tr class="bg-gray-100/50 border-b border-gray-200">
+                                <td class="py-3 px-2 text-gray-500">Total Population</td>
+                                <td class="py-3 px-2 font-semibold text-gray-800">30.6 million</td>
+                            </tr>
+                            <!-- 表格列 5 -->
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3 text-gray-500">Median Age</td>
+                                <td class="py-3 font-semibold text-gray-800">19.5</td>
+                            </tr>
+                            <!-- 表格列 6 (帶背景色) -->
+                            <tr class="bg-gray-100/50 border-b border-gray-200">
+                                <td class="py-3 px-2 text-gray-500">Adult Per Capita Income (PPP)</td>
+                                <td class="py-3 px-2 font-semibold text-gray-800">3,352.96</td>
+                            </tr>
+                            <!-- 表格列 7 -->
+                            <tr>
+                                <td class="py-3 text-gray-500">Total GDP (2023)</td>
+                                <td class="py-3 font-semibold text-gray-800">16.5 billion</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 下方圖表區塊 (Chart.js) -->
+            <div class="border-t border-gray-200 pt-10">
+                <h3 class="text-3xl font-serif font-bold text-gray-800 mb-8">Madagascar GDP & Economic Overview</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    
+                    <!-- 左側圖表：Africa Debt-to-GDP -->
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-800">Africa Debt-to-GDP</h4>
+                        <p class="text-sm text-gray-500 mb-4">Debt-to-GDP ratios for a sampling of neighbors as well as the regional average.</p>
+                        <!-- 解答2邏輯：使用 canvas 作為圖表容器 -->
+                        <div class="w-full aspect-[4/3] relative">
+                            <canvas id="debtChart"></canvas>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Source: International Monetary Fund</p>
+                    </div>
+
+                    <!-- 右側圖表：GDP, Inflation and Unemployment -->
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-800">GDP, Inflation and Unemployment</h4>
+                        <p class="text-sm text-gray-500 mb-4">These three statistics typically provide a good overview of an economy, but Madagascar does not release unemployment data.</p>
+                        <!-- 解答2邏輯：使用 canvas 作為圖表容器 -->
+                        <div class="w-full aspect-[4/3] relative">
+                            <canvas id="gdpChart"></canvas>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Source: IMF World Economic Outlook</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 互動與圖表繪製腳本 -->
+    <script>
+        // --- 1. 同頁面切換邏輯 (SPA) ---
+        const tooltip = document.getElementById('map-tooltip');
+        let chartsRendered = false; // 避免重複渲染圖表
+
+        function showMapTooltip(event, title, desc) {
+            document.getElementById('tooltip-title').innerText = title;
+            document.getElementById('tooltip-desc').innerText = desc;
+            tooltip.classList.remove('hidden');
+            moveMapTooltip(event); 
+        }
+
+        function moveMapTooltip(event) {
+            tooltip.style.left = event.clientX + 'px';
+            tooltip.style.top = (event.clientY - 15) + 'px'; 
+        }
+
+        function hideMapTooltip() {
+            tooltip.classList.add('hidden');
+        }
+
+        // 點擊地圖熱點，隱藏地圖，顯示詳細資訊
+        function showMapDetails(regionName) {
+            hideMapTooltip();
+            document.getElementById('map-main-view').classList.add('hidden');
+            document.getElementById('map-main-view').classList.remove('block');
+            
+            document.getElementById('map-detail-view').classList.remove('hidden');
+            document.getElementById('map-detail-view').classList.add('block');
+            
+            // 繪製圖表 (確保在區塊顯示後才繪製，尺寸才會正確)
+            if(!chartsRendered) {
+                renderCharts();
+                chartsRendered = true;
+            }
+        }
+
+        // 返回地圖
+        function hideMapDetails() {
+            document.getElementById('map-detail-view').classList.add('hidden');
+            document.getElementById('map-detail-view').classList.remove('block');
+            
+            document.getElementById('map-main-view').classList.remove('hidden');
+            document.getElementById('map-main-view').classList.add('block');
+        }
+
+        // --- 2. Chart.js 圖表繪製邏輯 ---
+        function renderCharts() {
+            // 左側圖表資料 (Debt-to-GDP)
+            const ctxDebt = document.getElementById('debtChart').getContext('2d');
+            new Chart(ctxDebt, {
+                type: 'line',
+                data: {
+                    labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [
+                        { label: 'Seychelles', data: [65, 63, 56, 51, 49, 78, 72, 59, 56, 58], borderColor: '#3b5998', tension: 0.3, fill: false },
+                        { label: 'Comoros', data: [15, 17, 20, 18, 22, 25, 27, 29, 34, 36], borderColor: '#f4b41a', tension: 0.3, fill: false },
+                        { label: 'Madagascar', data: [44, 40, 40, 43, 41, 52, 52, 53, 57, 56], borderColor: '#7cb342', tension: 0.3, fill: false },
+                        { label: 'Mauritius', data: [63, 63, 62, 64, 82, 95, 89, 85, 81, 81], borderColor: '#8e44ad', tension: 0.3, fill: false },
+                        { label: 'Regional Average', data: [50, 56, 58, 59, 62, 68, 65, 65, 68, 65], borderColor: '#45a049', tension: 0.3, fill: false }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top', labels: { boxWidth: 10, usePointStyle: true, pointStyle: 'rect' } } },
+                    scales: { y: { min: 0, max: 100 } }
+                }
+            });
+
+            // 右側圖表資料 (GDP & Inflation)
+            const ctxGdp = document.getElementById('gdpChart').getContext('2d');
+            new Chart(ctxGdp, {
+                type: 'line',
+                data: {
+                    labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [
+                        { label: 'Inflation', data: [7.5, 6, 8.5, 8.5, 5.5, 4.2, 5.8, 8, 9.8, 7.79], borderColor: '#2c3e50', backgroundColor: '#2c3e50', tension: 0.1, borderWidth: 3 },
+                        { label: 'GDP Growth', data: [3.1, 4, 3.9, 3.1, 4.4, -7.1, 5.8, 4, 3.8, 7.83], borderColor: '#f1c40f', backgroundColor: '#f1c40f', tension: 0.1, borderWidth: 3 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }, // 隱藏預設圖例，您圖片中的圖例是寫在線條末端
+                    scales: { y: { min: -10, max: 10 } }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
