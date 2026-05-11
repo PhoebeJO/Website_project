@@ -9,19 +9,57 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- 引入 Chart.js 用於繪製下方圖表 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 引入您 CSS 中使用的 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Noto+Serif+TC:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
     <script>
-        tailwind.config = { theme: { extend: { colors: { brand: { DEFAULT: 'green', dark: '#4a4e40' } } } } }
+        // 將您的 CSS 變數綁定到 Tailwind 配置中
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Serif TC', 'serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['DM Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            light: 'var(--olive-light)',
+                            DEFAULT: 'var(--olive)',
+                            dark: 'var(--olive-dark)'
+                        },
+                        cream: 'var(--cream)',
+                        charcoal: 'var(--charcoal)',
+                        customGray: 'var(--gray)',
+                        customBorder: 'var(--border)',
+                        customWhite: 'var(--white)'
+                    }
+                }
+            }
+        }
     </script>
     <style>
-        /* 地圖熱點的脈衝動畫 */
-        .hotspot-pulse {
-            box-shadow: 0 0 0 0 rgba(138, 154, 91, 0.7);
-            animation: pulse 2s infinite;
+        
+        /*全站色彩與字體*/
+        :root {
+            --olive:      #6b6b2a;
+            --olive-dark: #4a4a1a;
+            --olive-light:#a0a060;
+            --cream:      #f5f3ee;
+            --charcoal:   #1c1c1c;
+            --gray:       #888;
+            --border:     #d4d0c4;
+            --white:      #ffffff;
+            --nav-h:      68px;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 154, 91, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(138, 154, 91, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 154, 91, 0); }
+
+        /* 全域重置與基底 */
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
         /* 簡單的過渡動畫 */
         .fade-in { animation: fadeIn 0.5s ease-in-out; }
@@ -29,31 +67,119 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* 設定五大洲專屬的脈衝動畫 (Pulse)
+        透過自訂 CSS，讓發光圈圈的顏色與原點一致
+        */
+        /* 1. 亞洲：紅色 (Red) */
+        .pulse-asia {
+            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); /* Tailwind red-500 */
+            animation: pulseAsia 2s infinite;
+        }
+        @keyframes pulseAsia {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* 2. 歐洲：藍色 (Blue) */
+        .pulse-europe {
+            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); /* Tailwind blue-500 */
+            animation: pulseEurope 2s infinite;
+        }
+        @keyframes pulseEurope {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
+        /* 3. 非洲：黃色 (Yellow) */
+        .pulse-africa {
+            box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7); /* Tailwind yellow-500 */
+            animation: pulseAfrica 2s infinite;
+        }
+        @keyframes pulseAfrica {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(234, 179, 8, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+
+        /* 4. 美洲：綠色 (Green) - 這裡我們將南美洲與北美洲統稱美洲作為示範 */
+        .pulse-americas {
+            box-shadow: 0 0 0 0 rgba(4, 126, 49, 0.7); /* Tailwind green-500 */
+            animation: pulseAmericas 2s infinite;
+        }
+        @keyframes pulseAmericas {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(4, 126, 49, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(4, 126, 49, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(4, 126, 49, 0); }
+        }
+
+        /* 5. 大洋洲：紫色 (Purple) */
+        .pulse-oceania {
+            box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7); /* Tailwind purple-500 */
+            animation: pulseOceania 2s infinite;
+        }
+        @keyframes pulseOceania {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(168, 85, 247, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 p-4 md:p-8 font-sans">
 
-    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-sm p-8">
+    <div class="max-w-6xl mx-auto bg-customWhite rounded-2xl shadow-sm p-8 border border-customBorder">
         
         <!-- ========================================== -->
         <!-- 視圖 1：世界地圖主頁 (Main Map View) -->
         <!-- ========================================== -->
         <div id="map-main-view" class="fade-in block">
             <h2 class="text-3xl font-bold text-brand-dark mb-4 border-l-4 border-brand pl-3">世界地圖：貧窮現況探索</h2>
-            <p class="text-gray-600 mb-6">點擊地圖上的發光圓點，即可在同一個頁面下方展開該國家的詳細經濟與貧窮數據。</p>
+            <p class="text-gray-600 mb-6">點擊地圖上的發光圓點，即可在展開該國家的詳細經濟與貧窮數據。</p>
             
             <div class="w-full aspect-[2/1] bg-sky-50 rounded-xl relative border border-gray-200 overflow-hidden shadow-inner">
                 <!-- 底圖 -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/BlankMap-World.png" alt="世界地圖" class="w-full h-full object-cover opacity-100">
-                
-                <!-- 熱點：馬達加斯加 (Madagascar) -->
-                <!-- 解答1：使用 onclick="showMapDetails(...)" 來觸發同頁面的切換邏輯 -->
-                <div class="absolute top-[68%] left-[58%] w-5 h-5 bg-brand rounded-full cursor-pointer hotspot-pulse border-2 border-white z-10"
-                     onmouseenter="showMapTooltip(event, 'Madagascar (馬達加斯加)', '點擊查看經濟與貧窮數據')" 
-                     onmousemove="moveMapTooltip(event)"
-                     onmouseleave="hideMapTooltip()" 
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/BlankMap-World.png" alt="世界地圖" class="w-full h-full object-contain opacity-100">
+
+                <!-- 💡 修改點：傳入國家的代號(Key)，例如 'Taiwan', 'Madagascar' -->
+                <!-- 使用 onclick="showMapDetails(...)" 來觸發同頁面的切換邏輯 -->
+                <!-- 1. 亞洲熱點 - 紅色 -->
+                <div class="absolute top-[45%] left-[70%] w-4 h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border-2 border-customWhite z-10"
+                     onmouseenter="showMapTooltip(event, '台灣 (Taiwan)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                     onclick="showMapDetails('Taiwan')">
+                </div>
+                <!-- 2. 歐洲熱點 - 藍色 -->
+                <div class="absolute top-[3.5%] left-[59.5%] w-4 h-4 bg-blue-400 rounded-full cursor-pointer pulse-europe border-2 border-customWhite z-10"
+                     onmouseenter="showMapTooltip(event, '義大利 (Italy)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                     onclick="showMapDetails('Italy')">
+                </div>
+                <!-- 3. 非洲熱點 - 黃色 -->
+                <!-- 馬達加斯加 (Madagascar) -->
+                <div class="absolute top-[60.5%] left-[59.5%] w-4 h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border-2 border-customWhite z-10"
+                     onmouseenter="showMapTooltip(event, '馬達加斯加 (Madagascar)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
                      onclick="showMapDetails('Madagascar')">
                 </div>
+                <!-- 4. 美洲熱點 - 綠色 -->
+                <div class="absolute top-[65%] left-[32%] w-4 h-4 bg-green-700 rounded-full cursor-pointer pulse-americas border-2 border-customWhite z-10"
+                     onmouseenter="showMapTooltip(event, '巴西 (Brazil)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                     onclick="showMapDetails('Brazil')">
+                </div>
+
+                <!-- 5. 大洋洲熱點 - 紫色 -->
+                <div class="absolute top-[15%] left-[32%] w-4 h-4 bg-purple-700 rounded-full cursor-pointer pulse-oceania border-2 border-customWhite z-10"
+                     onmouseenter="showMapTooltip(event, '紐西蘭 (New Zealand)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                     onclick="showMapDetails('New Zealand')">
+                </div>
+
+                <div class="flex justify-center gap-6 mt-4 text-sm text-customGray font-medium flex-wrap">
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-500"></div> 亞洲</span>
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-blue-400"></div> 歐洲</span>
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-yellow-400"></div> 非洲</span>
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-green-700"></div> 美洲</span>
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-purple-700"></div> 大洋洲</span>
+                </div>
+
             </div>
         </div>
 
@@ -65,131 +191,292 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- 視圖 2：點進去後的詳細資訊 (Detail View) -->
+        <!-- 視圖 2：點進去後的詳細資訊【模板區塊】 -->
+        <!-- 💡 這裡整區只寫一次 HTML！內容全靠 JS 動態塞入 -->
         <!-- ========================================== -->
         <div id="map-detail-view" class="hidden fade-in pt-4">
             
-            <!-- 返回按鈕 -->
-            <button onclick="hideMapDetails()" class="mb-8 px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-brand hover:text-white transition flex items-center gap-2 font-bold shadow-sm">
+            <button onclick="hideMapDetails()" class="mb-8 px-5 py-2.5 bg-cream text-charcoal border border-customBorder rounded-lg hover:bg-brand hover:text-customWhite transition flex items-center gap-2 font-bold shadow-sm">
                 <i class="fa-solid fa-arrow-left"></i> 返回世界地圖
             </button>
             
-            <!-- 標題區塊 (國旗 + 國名 + 簡介) -->
+            <!-- 標題區 -->
             <div class="mb-8">
                 <div class="flex items-center gap-4 mb-4">
-                    <!-- 國旗預留 -->
-                    <div class="w-12 h-8 bg-green-600 relative border border-gray-200">
-                        <div class="absolute top-0 left-0 w-1/3 h-full bg-white"></div>
-                        <div class="absolute top-0 left-0 w-1/3 h-1/2 bg-red-600 z-10"></div>
-                    </div>
-                    <h2 id="detail-region-title" class="text-4xl font-serif font-bold text-gray-800">Madagascar</h2>
+                    <h2 id="detail-title" class="text-4xl font-serif font-bold text-charcoal">【國家標題】</h2>
                 </div>
-                <p class="text-xl text-gray-700 font-medium leading-relaxed max-w-4xl">
-                    Includes historical data for Madagascar's Gross Domestic Product growth, debt-to-GDP ratio and more, as well as information on trade, banking and financial sector leadership.
+                <p id="detail-subtitle" class="text-xl text-gray-800 font-medium leading-relaxed max-w-4xl opacity-90">
+                    【國家簡介副標題預留位】
                 </p>
             </div>
 
-            <!-- 內容佈局：左側文字 / 右側表格 -->
             <div class="grid grid-cols-1 lg:grid-cols-[60%_35%] gap-12 mb-12">
-                
-                <!-- 左側：現況描述 (文字區塊) -->
+                <!-- 左側：動態文字區 -->
                 <div>
-                    <h3 class="text-2xl font-serif font-bold text-gray-800 mb-4">Economic Potential Undermined By Mismanagement</h3>
-                    <div class="space-y-4 text-gray-600 text-sm leading-relaxed">
-                        <p>Situated in the Indian Ocean off the coast of southern Africa, Madagascar—the world's fifth-largest island—is endowed with abundant mineral, agricultural and marine resources, and boasts a burgeoning tourism industry. With several trade agreements with the United States and the EU, in addition to memberships in various regional communities, Madagascar welcomes commercial partnerships and foreign investment.</p>
-                        <p>Still, due to chronic political instability and mismanagement of the country's finances and resources, the population faces persistently high poverty rates and widespread food insecurity. Foreign investors, despite laws granting them the same treatment as domestic investors, face additional scrutiny and unexplained delays. Additionally, convoluted administrative procedures, corruption and outdated labor laws undermine free economic activity. Inadequate infrastructure, as well as vulnerability to fluctuations in commodity prices and climatic hazards, compound the country's woes.</p>
+                    <h3 id="detail-desc-title" class="text-2xl font-serif font-bold text-charcoal mb-4">【現況描述標題】</h3>
+                    <div id="detail-desc-content" class="space-y-4 text-gray-800 text-lg leading-relaxed">
+                        <!-- JS 將會在這裡插入 <p> 段落 -->
                     </div>
                 </div>
 
-                <!-- 右側：資料表格 (精美無邊框設計) -->
-                <!-- 解答1邏輯：使用 bg-gray-50 當底色，搭配 border-b 畫出乾淨的底線 -->
-                <div class="bg-gray-50/50 p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <h4 class="text-lg font-serif font-bold text-gray-800 mb-6">Macroeconomy & Sovereign Data</h4>
+                <!-- 右側：資料表格區 (左側英文固定，右側數據動態更新) -->
+                <div class="bg-cream p-6 rounded-xl border border-customBorder shadow-sm">
+                    <h4 class="text-lg font-serif font-bold text-charcoal mb-6">Macroeconomy & Sovereign Data</h4>
                     <table class="w-full text-sm text-left">
                         <tbody>
-                            <!-- 表格列 1 -->
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 text-gray-500 w-1/2">Type of Government</td>
-                                <td class="py-3 font-semibold text-gray-800">Semi-presidential republic</td>
+                            <tr class="border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600 w-1/2">Type of Government</td>
+                                <td id="table-gov" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
-                            <!-- 表格列 2 (帶背景色) -->
-                            <tr class="bg-gray-100/50 border-b border-gray-200">
-                                <td class="py-3 px-2 text-gray-500">Capital</td>
-                                <td class="py-3 px-2 font-semibold text-gray-800">Antananarivo</td>
+                            <tr class="bg-customWhite border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600">Capital</td>
+                                <td id="table-capital" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
-                            <!-- 表格列 3 -->
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 text-gray-500 align-top">Sovereign Ratings</td>
-                                <td class="py-3 font-semibold text-gray-800 leading-relaxed">
-                                    S&P: Not rated<br>
-                                    Moody's: Not rated<br>
-                                    Fitch: Not rated
-                                </td>
+                            <tr class="border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600 align-top">Sovereign Ratings</td>
+                                <td id="table-ratings" class="py-3 px-2 font-semibold text-charcoal leading-relaxed"></td>
                             </tr>
-                            <!-- 表格列 4 (帶背景色) -->
-                            <tr class="bg-gray-100/50 border-b border-gray-200">
-                                <td class="py-3 px-2 text-gray-500">Total Population</td>
-                                <td class="py-3 px-2 font-semibold text-gray-800">30.6 million</td>
+                            <tr class="bg-customWhite border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600">Total Population</td>
+                                <td id="table-pop" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
-                            <!-- 表格列 5 -->
-                            <tr class="border-b border-gray-200">
-                                <td class="py-3 text-gray-500">Median Age</td>
-                                <td class="py-3 font-semibold text-gray-800">19.5</td>
+                            <tr class="border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600">Median Age</td>
+                                <td id="table-age" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
-                            <!-- 表格列 6 (帶背景色) -->
-                            <tr class="bg-gray-100/50 border-b border-gray-200">
-                                <td class="py-3 px-2 text-gray-500">Adult Per Capita Income (PPP)</td>
-                                <td class="py-3 px-2 font-semibold text-gray-800">3,352.96</td>
+                            <tr class="bg-customWhite border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600">Adult Per Capita Income (PPP)</td>
+                                <td id="table-income" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
-                            <!-- 表格列 7 -->
                             <tr>
-                                <td class="py-3 text-gray-500">Total GDP (2023)</td>
-                                <td class="py-3 font-semibold text-gray-800">16.5 billion</td>
+                                <td class="py-3 px-2 text-gray-600">Total GDP (2023)</td>
+                                <td id="table-gdp" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- 下方圖表區塊 (Chart.js) -->
-            <div class="border-t border-gray-200 pt-10">
-                <h3 class="text-3xl font-serif font-bold text-gray-800 mb-8">Madagascar GDP & Economic Overview</h3>
-                
+            <!-- ================= 新增區塊：如果沒有資料就隱藏 ================= -->
+
+            <!-- 區段 A：左右雙圖表 (GDP Overview) -->
+            <div id="section-overview-charts" class="hidden border-t border-customBorder pt-10 mb-12">
+                <h3 id="detail-chart-maintitle" class="text-3xl font-serif font-bold text-charcoal mb-8">【國家】 GDP & Economic Overview</h3>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    
-                    <!-- 左側圖表：Africa Debt-to-GDP -->
-                    <div>
-                        <h4 class="text-lg font-bold text-gray-800">Africa Debt-to-GDP</h4>
-                        <p class="text-sm text-gray-500 mb-4">Debt-to-GDP ratios for a sampling of neighbors as well as the regional average.</p>
-                        <!-- 解答2邏輯：使用 canvas 作為圖表容器 -->
-                        <div class="w-full aspect-[4/3] relative">
-                            <canvas id="debtChart"></canvas>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-2">Source: International Monetary Fund</p>
+                    <div id="wrapper-chart-left" class="hidden">
+                        <h4 id="chart-left-title" class="text-lg font-bold text-charcoal"></h4>
+                        <p id="chart-left-subtitle" class="text-sm text-customGray mb-4"></p>
+                        <div id="chart-left-html" class="w-full aspect-[4/3] relative"></div>
+                        <p id="chart-left-source" class="text-xs text-customGray opacity-70 mt-2"></p>
                     </div>
-
-                    <!-- 右側圖表：GDP, Inflation and Unemployment -->
-                    <div>
-                        <h4 class="text-lg font-bold text-gray-800">GDP, Inflation and Unemployment</h4>
-                        <p class="text-sm text-gray-500 mb-4">These three statistics typically provide a good overview of an economy, but Madagascar does not release unemployment data.</p>
-                        <!-- 解答2邏輯：使用 canvas 作為圖表容器 -->
-                        <div class="w-full aspect-[4/3] relative">
-                            <canvas id="gdpChart"></canvas>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-2">Source: IMF World Economic Outlook</p>
+                    <div id="wrapper-chart-right" class="hidden">
+                        <h4 id="chart-right-title" class="text-lg font-bold text-charcoal"></h4>
+                        <p id="chart-right-subtitle" class="text-sm text-customGray mb-4"></p>
+                        <div id="chart-right-html" class="w-full aspect-[4/3] relative"></div>
+                        <p id="chart-right-source" class="text-xs text-customGray opacity-70 mt-2"></p>
                     </div>
-
                 </div>
+            </div>
+
+            <!-- 區段 B：Banking & Finance (左表格 + 右圖表) -->
+            <div id="section-banking" class="hidden border-t border-customBorder pt-10 mb-12">
+                <h3 class="text-3xl font-serif font-bold text-charcoal mb-8">Banking & Finance</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-[40%_55%] gap-12">
+                    
+                    <!-- 左側：貿易表格 -->
+                    <div id="wrapper-trade-invest" class="hidden bg-customWhite p-6 rounded-xl border border-customBorder shadow-sm self-start">
+                        <h4 class="text-xl font-serif font-bold text-charcoal mb-6">Trade & Investment</h4>
+                        <table class="w-full text-sm text-left">
+                            <tbody id="trade-invest-tbody">
+                                <!-- JS 動態生成列 -->
+                            </tbody>
+                        </table>
+                        <p id="trade-source" class="text-xs text-customGray opacity-70 mt-4"></p>
+                    </div>
+
+                    <!-- 右側：FDI 圖表 -->
+                    <div id="wrapper-fdi-chart" class="hidden">
+                        <h4 id="fdi-chart-title" class="text-lg font-bold text-charcoal"></h4>
+                        <p id="fdi-chart-subtitle" class="text-sm text-customGray mb-4"></p>
+                        <div id="fdi-chart-html" class="w-full relative"></div>
+                        <p id="fdi-chart-source" class="text-xs text-customGray opacity-70 mt-2"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 區段 C：三個表格 (上方深色大表 + 下方左右兩個淺色表) -->
+            <div id="section-tables" class="hidden pt-2 mb-12">
+                
+                <!-- 上方：Leading Companies (深色滿版表格) -->
+                <div id="wrapper-leading-companies" class="hidden bg-[var(--charcoal-light)] text-customWhite p-8 rounded-xl shadow-md mb-8">
+                    <h3 id="leading-companies-title" class="text-2xl font-serif font-bold text-white mb-6">【國家】 Leading Companies</h3>
+                    <table class="w-full text-sm text-left">
+                        <tbody id="leading-companies-tbody" class="divide-y divide-gray-600">
+                            <!-- JS 動態生成列 -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 下方：Major Trade Partners (左右並排) -->
+                <div id="wrapper-trade-partners" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Import 表格 -->
+                    <div class="bg-customWhite p-8 rounded-xl border border-customBorder shadow-sm">
+                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">Major Trade Partners — Import</h4>
+                        <table class="w-full text-sm text-left">
+                            <tbody id="partners-import-tbody">
+                                <!-- JS 動態生成列 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Export 表格 -->
+                    <div class="bg-customWhite p-8 rounded-xl border border-customBorder shadow-sm">
+                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">Major Trade Partners — Export</h4>
+                        <table class="w-full text-sm text-left">
+                            <tbody id="partners-export-tbody">
+                                <!-- JS 動態生成列 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p id="partners-source" class="text-xs text-customGray opacity-70 mt-4"></p>
             </div>
 
         </div>
     </div>
 
-    <!-- 互動與圖表繪製腳本 -->
+    <!-- ========================================== -->
+    <!-- JS 資料庫與互動腳本 -->
+    <!-- ========================================== -->
     <script>
-        // --- 1. 同頁面切換邏輯 (SPA) ---
+        // ----------------------------------------------------
+        // 1. 建立「國家資料庫」 (新增國家只需在這裡加資料就好，不需改 HTML)
+        // ----------------------------------------------------
+        const countryDatabase = {
+            'Madagascar': {
+                title: '馬達加斯加 (Madagascar)',
+                subtitle: '包含馬達加斯加的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+                descTitle: '經濟潛力受管理不善所削弱',
+                descParagraphs: [
+                    '馬達加斯加位於非洲南部海岸外的印度洋上，是世界第五大島。該國擁有豐富的礦產、農業及海洋資源，並以蓬勃發展的旅遊業著稱。憑藉與美國、歐盟簽署的多項貿易協定，以及多個區域共同體的成員身份，馬達加斯加對商業合作夥伴關係與外國投資持歡迎態度。',
+                    '然而，由於長期的政治動盪以及對國家財政與資源的管理不善，該國人民面臨著持續的高貧窮率與普遍的糧食不安全問題。儘管法律規定外國投資者享有與國內投資者同等的待遇，但他們仍面臨額外的審查與不明原因的延誤。此外，繁雜的行政程序、腐敗以及過時的勞工法規也損害了自由經濟活動。基礎設施不足，加上易受大宗商品價格波動與氣候災害的影響，更使該國的困境雪上加霜。'
+                ],
+                table: {
+                    gov: '半總統制共和國',
+                    capital: '安塔那那利佛',
+                    ratings: 'S&P: 未評級<br>Moody\'s: 未評級<br>Fitch: 未評級',
+                    pop: '3,060 萬人',
+                    age: '19.5 歲',
+                    income: '3,352.96 美元',
+                    gdp: '165 億美元'
+                },
+                
+                // 若要直接插入 HTML 圖表，就把 HTML 碼寫在這裡
+                //GDP & Economic Overview圖表 折線圖
+                charts: {
+                    left: {
+                        html: `<iframe src="https://flo.uri.sh/visualisation/18716499/embed#?secret=D8JaCD9M0j" class="w-full h-full border-none" scrolling="no"></iframe>`
+                    },
+                    right: {
+                        html: `<iframe src="https://flo.uri.sh/visualisation/18596139/embed#?secret=FSIBNCbzcH" class="w-full h-full border-none" scrolling="no"></iframe>`
+                    }
+                },
+                //Banking & Finance
+                //Trade & Investment表格
+                tradeAndInvestment: {
+                    exports: 'USD 4.2 billion (2023)',
+                    leadingExports: 'Vanilla<br>Nickel<br>Clothing And Apparel<br>Titanium<br>Gold<br>Cloves',
+                    imports: 'USD 4.8 billion (2022)',
+                    leadingImports: 'Refined Petroleum<br>Rice<br>Cars<br>Packaged Medicines<br>Clothing And Apparel',
+                    source: 'Source: World Integrated Trade Solution'
+                },
+                //Investments長條圖
+                fdiChart: {
+                    html: ` <iframe src="https://flo.uri.sh/visualisation/18692455/embed#?secret=oJSiD0R84Y" class="w-full h-full border-none" scrolling="no"></iframe>`
+                },
+                //Leading Companies表格
+                leadingCompanies: [
+                    { name: 'BNI Madagascar', sector: 'Financials' },
+                    { name: 'Axian Group', sector: 'Conglomerate, Energy, Real Estate, Telecommunication Services' },
+                    { name: 'Jirama', sector: 'Utilities' },
+                    { name: 'Telma', sector: 'Telecommunication Services' },
+                    { name: 'Socolait', sector: 'Consumer Staples, Food Products' },
+                    { name: 'Ambatovy', sector: 'Materials, Metals & Mining' }
+                ],
+                //Major Trade Partners表格 Import&Export
+                tradePartners: {
+                    import: [
+                        { country: 'China', percent: '19%' },
+                        { country: 'France', percent: '10%' },
+                        { country: 'Oman', percent: '10%' },
+                        { country: 'India', percent: '8%' },
+                        { country: 'United Arab Emirates', percent: '6%' }
+                    ],
+                    export: [
+                        { country: 'France', percent: '19%' },
+                        { country: 'United States', percent: '18%' },
+                        { country: 'China', percent: '13%' },
+                        { country: 'Japan', percent: '9%' },
+                        { country: 'Netherlands', percent: '5%' }
+                    ],
+                    source: 'Source: World Integrated Trade Solution'
+                }
+            },
+
+            'Taiwan': {
+                title: '台灣 (Taiwan)',
+                subtitle: '包含台灣的國內生產毛額成長、相關福利支出與經濟數據，以及社會救助相關的基礎資訊。',
+                descTitle: '貧富差距與相對貧窮的挑戰',
+                descParagraphs: [
+                    '台灣位於東亞，擁有高度發展的科技產業與強健的經濟實力。雖然表面上絕對貧窮的比例極低，但實質上社會面臨著「相對貧窮」以及城鄉資源不均的問題。',
+                    '現行社會救助法所定義的中低收入戶門檻，可能無法完全涵蓋邊緣戶的需求。近年來，房價高漲與通膨壓力，使得年輕世代與弱勢族群的經濟負擔日益沉重，這是未來政策需要持續關注的焦點。'
+                ],
+                table: {
+                    gov: '民主共和國',
+                    capital: '台北',
+                    ratings: 'S&P: AA+<br>Moody\'s: Aa3<br>Fitch: AA',
+                    pop: '2,340 萬人',
+                    age: '44.4 歲',
+                    income: '約 72,500 美元 (PPP)',
+                    gdp: '約 7,500 億美元'
+                },
+                chartHtml: `
+                    <div class="bg-blue-50 p-6 rounded-lg text-center border border-blue-200">
+                        <h4 class="font-bold text-blue-800 mb-2">台灣歷年經濟成長率 (示意圖表 HTML)</h4>
+                        <div class="h-32 bg-blue-200 flex items-center justify-center text-blue-500">[外部圖表 HTML 嵌入區]</div>
+                    </div>
+                `
+            },
+            'Brazil': {
+                title: '巴西 (Brazil)',
+                subtitle: '南美洲最大經濟體，展示其債務變化、貧富差距指數及社會福利發放歷史數據。',
+                descTitle: '龐大經濟體背後的嚴重貧富懸殊',
+                descParagraphs: [
+                    '巴西擁有豐富的自然資源與廣大的農業出口，是金磚五國(BRICS)之一。然而，歷史遺留的土地分配問題與區域發展失衡，導致了世界上最嚴重的貧富差距之一。',
+                    '儘管政府曾推行「家庭補助金 (Bolsa Família)」等大型社會福利計畫，成功使數百萬人脫離極端貧窮，但近年的經濟波動與高通貨膨脹，再次對底層民眾的生活造成了巨大衝擊。'
+                ],
+                table: {
+                    gov: '聯邦總統制',
+                    capital: '巴西利亞',
+                    ratings: 'S&P: BB<br>Moody\'s: Ba2<br>Fitch: BB',
+                    pop: '2.14 億人',
+                    age: '33.5 歲',
+                    income: '約 17,821 美元 (PPP)',
+                    gdp: '1.92 兆美元'
+                },
+                chartHtml: `
+                    <div class="bg-green-50 p-6 rounded-lg text-center border border-green-200">
+                        <h4 class="font-bold text-green-800 mb-2">巴西貧富差距指數 (示意圖表 HTML)</h4>
+                        <div class="h-32 bg-green-200 flex items-center justify-center text-green-600">[外部圖表 HTML 嵌入區]</div>
+                    </div>
+                `
+            }
+            
+        };
+
+        // ----------------------------------------------------
+        // 2. 視圖切換與資料綁定邏輯
+        // ----------------------------------------------------
         const tooltip = document.getElementById('map-tooltip');
-        let chartsRendered = false; // 避免重複渲染圖表
 
         function showMapTooltip(event, title, desc) {
             document.getElementById('tooltip-title').innerText = title;
@@ -207,73 +494,145 @@
             tooltip.classList.add('hidden');
         }
 
-        // 點擊地圖熱點，隱藏地圖，顯示詳細資訊
-        function showMapDetails(regionName) {
+        function showMapDetails(countryKey) {
             hideMapTooltip();
+            const data = countryDatabase[countryKey];
+            
+            if(!data) return;
+
+            // 1. 填入基礎資料
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-subtitle').innerText = data.subtitle;
+            document.getElementById('detail-desc-title').innerText = data.descTitle;
+            
+            const contentDiv = document.getElementById('detail-desc-content');
+            contentDiv.innerHTML = ''; 
+            data.descParagraphs.forEach(para => {
+                const p = document.createElement('p'); p.innerText = para; contentDiv.appendChild(p);
+            });
+
+            document.getElementById('table-gov').innerText = data.table.gov;
+            document.getElementById('table-capital').innerText = data.table.capital;
+            document.getElementById('table-ratings').innerHTML = data.table.ratings;
+            document.getElementById('table-pop').innerText = data.table.pop;
+            document.getElementById('table-age').innerText = data.table.age;
+            document.getElementById('table-income').innerText = data.table.income;
+            document.getElementById('table-gdp').innerText = data.table.gdp;
+
+            // ============================================
+            // 以下為「動態顯示/隱藏」模組的邏輯
+            // ============================================
+
+            // A. 雙圖表 (GDP Overview)
+            const sectionOverview = document.getElementById('section-overview-charts');
+            const wrapLeft = document.getElementById('wrapper-chart-left');
+            const wrapRight = document.getElementById('wrapper-chart-right');
+            
+            if (data.charts) {
+                sectionOverview.classList.remove('hidden');
+                document.getElementById('detail-chart-maintitle').innerText = `${countryKey} GDP & Economic Overview`;
+                
+                if (data.charts.left) {
+                    wrapLeft.classList.remove('hidden');
+                    document.getElementById('chart-left-html').innerHTML = data.charts.left.html;
+                } else { wrapLeft.classList.add('hidden'); }
+
+                if (data.charts.right) {
+                    wrapRight.classList.remove('hidden');
+                    document.getElementById('chart-right-html').innerHTML = data.charts.right.html;
+                } else { wrapRight.classList.add('hidden'); }
+            } else {
+                sectionOverview.classList.add('hidden'); // 沒有資料就完全隱藏
+            }
+
+            // B. Banking & Finance
+            const sectionBanking = document.getElementById('section-banking');
+            const wrapTradeInvest = document.getElementById('wrapper-trade-invest');
+            const wrapFdi = document.getElementById('wrapper-fdi-chart');
+
+            if (data.tradeAndInvestment || data.fdiChart) {
+                sectionBanking.classList.remove('hidden');
+                
+                if (data.tradeAndInvestment) {
+                    wrapTradeInvest.classList.remove('hidden');
+                    document.getElementById('trade-source').innerText = data.tradeAndInvestment.source;
+                    const tb = document.getElementById('trade-invest-tbody');
+                    tb.innerHTML = `
+                        <tr class="border-b border-customBorder"><td class="py-3 text-customGray w-2/5">Total Exports</td><td class="py-3 font-semibold text-charcoal">${data.tradeAndInvestment.exports}</td></tr>
+                        <tr class="bg-customWhite border-b border-customBorder"><td class="py-3 px-2 text-customGray align-top">Leading Exports</td><td class="py-3 px-2 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingExports}</td></tr>
+                        <tr class="border-b border-customBorder"><td class="py-3 text-customGray">Total Imports</td><td class="py-3 font-semibold text-charcoal">${data.tradeAndInvestment.imports}</td></tr>
+                        <tr class="bg-customWhite"><td class="py-3 px-2 text-customGray align-top">Leading Imports</td><td class="py-3 px-2 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingImports}</td></tr>
+                    `;
+                } else { wrapTradeInvest.classList.add('hidden'); }
+
+                if (data.fdiChart) {
+                    wrapFdi.classList.remove('hidden');
+                    document.getElementById('fdi-chart-html').innerHTML = data.fdiChart.html;
+                } else { wrapFdi.classList.add('hidden'); }
+            } else {
+                sectionBanking.classList.add('hidden');
+            }
+
+            // C. 底部三大表格
+            const sectionTables = document.getElementById('section-tables');
+            const wrapLeading = document.getElementById('wrapper-leading-companies');
+            const wrapPartners = document.getElementById('wrapper-trade-partners');
+
+            if (data.leadingCompanies || data.tradePartners) {
+                sectionTables.classList.remove('hidden');
+                
+                // 深色大表
+                if (data.leadingCompanies && data.leadingCompanies.length > 0) {
+                    wrapLeading.classList.remove('hidden');
+                    document.getElementById('leading-companies-title').innerText = `${countryKey} Leading Companies`;
+                    const tbLeading = document.getElementById('leading-companies-tbody');
+                    tbLeading.innerHTML = '';
+                    data.leadingCompanies.forEach(comp => {
+                        tbLeading.innerHTML += `<tr><td class="py-4 font-semibold">${comp.name}</td><td class="py-4 text-right font-bold text-gray-300">${comp.sector}</td></tr>`;
+                    });
+                } else { wrapLeading.classList.add('hidden'); }
+
+                // 左右進出口表格
+                if (data.tradePartners) {
+                    wrapPartners.classList.remove('hidden');
+                    document.getElementById('partners-source').innerText = data.tradePartners.source || '';
+                    
+                    const tbImp = document.getElementById('partners-import-tbody');
+                    tbImp.innerHTML = '';
+                    data.tradePartners.import.forEach((p, index) => {
+                        const bg = index % 2 !== 0 ? 'bg-gray-50' : '';
+                        tbImp.innerHTML += `<tr class="border-b border-gray-100 ${bg}"><td class="py-3 px-2 text-customGray">${p.country}</td><td class="py-3 px-2 text-right font-bold text-charcoal">${p.percent}</td></tr>`;
+                    });
+
+                    const tbExp = document.getElementById('partners-export-tbody');
+                    tbExp.innerHTML = '';
+                    data.tradePartners.export.forEach((p, index) => {
+                        const bg = index % 2 !== 0 ? 'bg-gray-50' : '';
+                        tbExp.innerHTML += `<tr class="border-b border-gray-100 ${bg}"><td class="py-3 px-2 text-customGray">${p.country}</td><td class="py-3 px-2 text-right font-bold text-charcoal">${p.percent}</td></tr>`;
+                    });
+                } else {
+                    wrapPartners.classList.add('hidden');
+                    document.getElementById('partners-source').innerText = '';
+                }
+            } else {
+                sectionTables.classList.add('hidden');
+            }
+
+            // 切換視圖
             document.getElementById('map-main-view').classList.add('hidden');
             document.getElementById('map-main-view').classList.remove('block');
-            
             document.getElementById('map-detail-view').classList.remove('hidden');
             document.getElementById('map-detail-view').classList.add('block');
-            
-            // 繪製圖表 (確保在區塊顯示後才繪製，尺寸才會正確)
-            if(!chartsRendered) {
-                renderCharts();
-                chartsRendered = true;
-            }
+            // 視窗捲動到詳細資訊的頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 返回地圖
         function hideMapDetails() {
             document.getElementById('map-detail-view').classList.add('hidden');
             document.getElementById('map-detail-view').classList.remove('block');
             
             document.getElementById('map-main-view').classList.remove('hidden');
             document.getElementById('map-main-view').classList.add('block');
-        }
-
-        // --- 2. Chart.js 圖表繪製邏輯 ---
-        function renderCharts() {
-            // 左側圖表資料 (Debt-to-GDP)
-            const ctxDebt = document.getElementById('debtChart').getContext('2d');
-            new Chart(ctxDebt, {
-                type: 'line',
-                data: {
-                    labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
-                    datasets: [
-                        { label: 'Seychelles', data: [65, 63, 56, 51, 49, 78, 72, 59, 56, 58], borderColor: '#3b5998', tension: 0.3, fill: false },
-                        { label: 'Comoros', data: [15, 17, 20, 18, 22, 25, 27, 29, 34, 36], borderColor: '#f4b41a', tension: 0.3, fill: false },
-                        { label: 'Madagascar', data: [44, 40, 40, 43, 41, 52, 52, 53, 57, 56], borderColor: '#7cb342', tension: 0.3, fill: false },
-                        { label: 'Mauritius', data: [63, 63, 62, 64, 82, 95, 89, 85, 81, 81], borderColor: '#8e44ad', tension: 0.3, fill: false },
-                        { label: 'Regional Average', data: [50, 56, 58, 59, 62, 68, 65, 65, 68, 65], borderColor: '#45a049', tension: 0.3, fill: false }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'top', labels: { boxWidth: 10, usePointStyle: true, pointStyle: 'rect' } } },
-                    scales: { y: { min: 0, max: 100 } }
-                }
-            });
-
-            // 右側圖表資料 (GDP & Inflation)
-            const ctxGdp = document.getElementById('gdpChart').getContext('2d');
-            new Chart(ctxGdp, {
-                type: 'line',
-                data: {
-                    labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
-                    datasets: [
-                        { label: 'Inflation', data: [7.5, 6, 8.5, 8.5, 5.5, 4.2, 5.8, 8, 9.8, 7.79], borderColor: '#2c3e50', backgroundColor: '#2c3e50', tension: 0.1, borderWidth: 3 },
-                        { label: 'GDP Growth', data: [3.1, 4, 3.9, 3.1, 4.4, -7.1, 5.8, 4, 3.8, 7.83], borderColor: '#f1c40f', backgroundColor: '#f1c40f', tension: 0.1, borderWidth: 3 }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } }, // 隱藏預設圖例，您圖片中的圖例是寫在線條末端
-                    scales: { y: { min: -10, max: 10 } }
-                }
-            });
         }
     </script>
 </body>
