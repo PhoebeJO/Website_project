@@ -328,6 +328,231 @@ const countryDatabase = {
             source: 'Source: World Integrated Trade Solution'
         }
     },
+    'Malawi': {
+        title: '馬拉威 (Malawi)',
+        flagUrl: 'https://flagcdn.com/w160/mw.png',
+        subtitle: '包含馬拉威的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '基礎設施落後損害經濟成長',
+        descParagraphs: [
+            '馬拉威擁有約 2,340 萬的快速成長人口，受惠於豐富的農業資源、蓬勃發展的服務業，以及在採礦、能源、交通與資訊科技領域的巨大潛力。',
+            '在邁向經濟成長與穩定的道路上，馬拉威面臨著諸多挑戰，包含基礎設施網路不足、法律與商業架構不發達、普遍缺乏透明度與腐敗問題，以及缺乏技術與半技術勞工。'
+        ],
+        table: {
+            gov: '總統制共和國',
+            capital: '里朗威',
+            ratings: 'S&P: 未評級<br>Moody\'s: 未評級<br>Fitch: 觀察中評級',
+            pop: '2,340 萬人',
+            age: '17.5 歲',
+            income: '3,468.43 美元',
+            gdp: '112 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18707456/embed#?secret=ODdifeh6yB" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18605836/embed#?secret=Ulia6KQZ01" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '18 億美元 (2023)',
+            leadingExports: '菸草<br>黃金<br>大豆<br>原糖<br>茶葉<br>乾豆與堅果',
+            imports: '11 億美元 (2022)',
+            leadingImports: '郵票<br>精煉石油<br>包裝藥品<br>肥料<br>辦公室機械與零件',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18692566/embed#?secret=vYJt7P3YOU" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'National Bank of Malawi', sector: '金融業' },
+            { name: 'FDH Banks', sector: '金融業' },
+            { name: 'Press Corporation', sector: '綜合企業、金融業、房地產、電信服務' },
+            { name: 'Illovo Sugar', sector: '民生必需品、食品' },
+            { name: 'Malawi Telecommunications', sector: '電信服務' },
+            { name: 'Escom', sector: '公用事業' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '18%' },
+                { country: '南非', percent: '18%' },
+                { country: '阿拉伯聯合大公國', percent: '9%' },
+                { country: '印度', percent: '7%' },
+                { country: '尚比亞', percent: '3%' }
+            ],
+            export: [
+                { country: '比利時', percent: '14%' },
+                { country: '印度', percent: '8%' },
+                { country: '坦尚尼亞', percent: '7%' },
+                { country: '南非', percent: '7%' },
+                { country: '阿拉伯聯合大公國', percent: '5%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
+        }
+    },
+    'Democratic Republic of the Congo': {
+        title: '剛果民主共和國 (Democratic Republic of the Congo)',
+        flagUrl: 'https://flagcdn.com/w160/cd.png',
+        subtitle: '包含剛果民主共和國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '戰爭與政治動盪阻礙經濟潛力',
+        descParagraphs: [
+            '剛果民主共和國（DRC）是撒哈拉以南非洲第二大國，人口超過 1 億且快速成長。該國擁有得天獨厚的自然資源，包含銅、鈷、鑽石與黃金等礦物蘊藏；巨大的水力發電潛能；廣闊的肥沃土地；豐富的生物多樣性，以及世界第二大熱帶雨林。其位於非洲心臟地帶的戰略位置，使其成為對外國投資者深具吸引力的潛在目的地。',
+            '儘管具備這些優勢，該國仍處於 1990 年代爆發並奪走多達 600 萬人生命的連串內戰後的復原期。不穩定、暴力與薄弱的法治持續阻礙其經濟發展。交通、能源與電信基礎設施不足，加上世界上名列前茅的高貧窮率，進一步限制了該國發揮其全面的社經潛力。'
+        ],
+        table: {
+            gov: '半總統制共和國',
+            capital: '金夏沙',
+            ratings: 'S&P: B–<br>Moody\'s: B3<br>Fitch: 未評級',
+            pop: '1 億 320 萬人',
+            age: '15.6 歲',
+            income: '3,050.40 美元',
+            gdp: '738 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18716638/embed#?secret=1j26i3l2MV" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18592469/embed#?secret=jhrqNQ5zyC" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '133 億美元 (2023)',
+            leadingExports: '銅<br>鈷<br>原油<br>錫<br>鑽石',
+            imports: '225 億美元 (2022)',
+            leadingImports: '包裝藥品<br>精煉石油<br>硫酸<br>石材加工機械<br>送貨卡車',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18691606/embed#?secret=9e1G2PPkI7" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'Rawbank', sector: '金融業' },
+            { name: 'Kibali Gold Mine', sector: '原物料、金屬與採礦' },
+            { name: 'Gécamines', sector: '原物料、金屬與採礦' },
+            { name: 'Altech Group', sector: '公用事業' },
+            { name: 'Equity Banque Commerciale du Congo', sector: '金融業' },
+            { name: 'Cohydro', sector: '綜合石油與天然氣' },
+            { name: 'Feronia', sector: '民生必需品、食品生產' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '27%' },
+                { country: '南非', percent: '13%' },
+                { country: '美國', percent: '9%' },
+                { country: '印度', percent: '7%' },
+                { country: '阿拉伯聯合大公國', percent: '4%' }
+            ],
+            export: [
+                { country: '中國', percent: '47%' },
+                { country: '坦尚尼亞', percent: '9%' },
+                { country: '南非', percent: '9%' },
+                { country: '新加坡', percent: '9%' },
+                { country: '尚比亞', percent: '6%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
+        }
+    },
+    'Somalia': {
+        title: '索馬利亞 (Somalia)',
+        flagUrl: 'https://flagcdn.com/w160/so.png',
+        subtitle: '包含索馬利亞的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '動盪損害經濟發展潛能',
+        descParagraphs: [
+            '索馬利亞自1960年獨立以來，面臨了重大的動盪，包含1991年政府遭推翻，導致長達數十年的內戰與無政府狀態。在政治分裂、持續的衝突、人道主義危機以及該國南部青年黨 (Al-Shabab) 叛亂份子的挑戰下，促進社會與治理穩定的努力至今仍在持續。農業、畜牧業與漁業依然是經濟的支柱。',
+            '儘管在能源、數位科技、教育與健康等各個領域具備發展潛力，其商業環境卻不利於吸引投資與促進創新。該國的生活水準在全球名列最低的國家之一，許多索馬利亞人仰賴匯款與國際援助來維持生計。'
+        ],
+        table: {
+            gov: '聯邦議會共和國',
+            capital: '摩加迪休',
+            ratings: 'S&P: 未評級<br>Moody\'s: 未評級<br>Fitch: 未評級',
+            pop: '1,650 萬人',
+            age: '15.3 歲',
+            income: '3,343.25 美元',
+            gdp: '128 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18609766/embed#?secret=qYmGDGH7zM" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '40 億美元 (2023)',
+            leadingExports: '黃金<br>綿羊<br>山羊<br>芝麻<br>昆蟲樹脂<br>牛',
+            imports: '7 億美元 (2022)',
+            leadingImports: '香菸<br>原糖<br>稻米<br>廣播設備<br>紡織品',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18702567/embed#?secret=Uay71vReUJ" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'International Bank of Somalia', sector: '金融業' },
+            { name: 'Salaam Somali Bank', sector: '金融業' },
+            { name: 'Premier Bank', sector: '金融業' },
+            { name: 'Hormuud', sector: '電信服務' },
+            { name: 'Trans-National Industrial Electricity and Gas Company', sector: '公用事業' },
+            { name: 'Somaliland Beverage Industries', sector: '民生必需品、飲料' }
+        ]
+    },
+    'Liberia': {
+        title: '賴比瑞亞 (Liberia)',
+        flagUrl: 'https://flagcdn.com/w160/lr.png',
+        subtitle: '包含賴比瑞亞的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '仰賴匯款與豐富自然資源驅動的經濟',
+        descParagraphs: [
+            '賴比瑞亞的經濟正從2003年結束、長達十多年的毀滅性內戰中緩慢復甦。 儘管面臨諸多挑戰，該國仍擁有豐富的自然資源，如礦業、農業、漁業與林業。 賴比瑞亞亦受惠於大量的海外僑民匯款，以及身為西非國家經濟共同體（ECOWAS）成員的優勢，這促進了區域貿易與合作。 然而，賴比瑞亞近期且脆弱的民主政體尚未達到戰前的發展水準。',
+            '此外，賴比瑞亞以大宗商品為主的經濟體系，在滿足服飾、燃料與重要主食稻米等基本需求上，嚴重仰賴進口。 供電不穩、道路條件惡劣以及缺乏可靠的網際網路存取，也對賴比瑞亞轉型為現代化市場經濟構成重大挑戰。'
+        ],
+        table: {
+            gov: '總統制共和國',
+            capital: '蒙羅維亞',
+            ratings: 'S&P: 未評級<br>Moody\'s: 未評級<br>Fitch: 未評級',
+            pop: '560 萬人',
+            age: '18.5 歲',
+            income: '3,382.10 美元',
+            gdp: '48 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18822605/embed#?secret=v21S4L4fAk" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18595742/embed#?secret=IqnErycINu" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '263 億美元 (2023)',
+            leadingExports: '黃金<br>船舶<br>鐵<br>橡膠<br>可可豆<br>棕櫚油',
+            imports: '20 億美元 (2022)',
+            leadingImports: '船舶<br>精煉石油<br>鐵製結構<br>船用螺旋槳<br>離心機',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18692431/embed#?secret=06uj5RXUiz" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        }
+    },
     //亞洲
     'Taiwan': {
         title: '台灣 (Taiwan)',
@@ -448,33 +673,214 @@ const countryDatabase = {
             source: 'Source: World Integrated Trade Solution'
         }
     },
+    'Bangladesh': {
+        title: '孟加拉 (Bangladesh)',
+        flagUrl: 'https://flagcdn.com/w160/bd.png',
+        subtitle: '包含孟加拉的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '經濟繁榮但挑戰依然存在',
+descParagraphs: [
+            '孟加拉的經濟格局展現了優勢與挑戰的交織。這個擁有約 1.7 億人口的國家取得了顯著的進步，從 1971 年建國之初世界上最貧窮的國家之一，在 2015 年躍升為中低收入國家。主要的優勢包含有利的人口結構、強勁的服飾出口、大量的匯款流入，以及透過微型金融與行動服務促進了普惠金融的發展。',
+            '然而，從繁雜的行政程序與腐敗，到落後的基礎設施與氣候脆弱性等種種挑戰，持續阻礙著外國投資，並削弱了政府致力於在 2031 年實現中高收入地位的努力。'
+        ],
+        table: {
+            gov: '議會制共和國',
+            capital: '達卡',
+            ratings: 'S&P: B+<br>Moody\'s: B2<br>Fitch: B+',
+            pop: '1 億 7,370 萬人',
+            age: '25.98 歲',
+            income: '14,621.11 美元',
+            gdp: '4,750 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17488208/embed#?secret=dJX1WAbhrB" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17492084/embed#?secret=ZnuGPagROS" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '414 億美元 (2024)',
+            leadingExports: '服飾<br>鞋類<br>布料<br>紡織品<br>行李箱與旅行箱',
+            imports: '630 億美元 (2024)',
+            leadingImports: '精煉石油<br>棉布<br>天然氣',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/17489864/embed#?secret=v2SDAXq3Ks" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'Sonali Bank', sector: '金融業' },
+            { name: 'Square Pharmaceuticals', sector: '醫療保健' },
+            { name: 'Petrobangla', sector: '能源、探勘與生產' },
+            { name: 'Bangladesh Steel Corporation', sector: '原物料' },
+            { name: 'Walton Hi-Tech Industries', sector: '消費性電子產品與家電' },
+            { name: 'Janata Bank Limited', sector: '金融業' },
+            { name: 'Grameenphone Bangladesh', sector: '電信服務' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '21.5%' },
+                { country: '印度', percent: '12.2%' },
+                { country: '新加坡', percent: '9.19%' },
+                { country: '香港特別行政區', percent: '5.5%' },
+                { country: '印尼', percent: '4.6%' }
+            ],
+            export: [
+                { country: '美國', percent: '19.3%' },
+                { country: '德國', percent: '14.7%' },
+                { country: '英國', percent: '11%' },
+                { country: '西班牙', percent: '5.8%' },
+                { country: '法國', percent: '5.5%' }
+            ],
+            source: 'Source: IMF, CIA The World Factbook'
+        }
+    },
     //美洲
     'Brazil': {
         title: '巴西 (Brazil)',
-        subtitle: '南美洲最大經濟體，展示其債務變化、貧富差距指數及社會福利發放歷史數據。',
-        descTitle: '龐大經濟體背後的嚴重貧富懸殊',
-        descParagraphs: [
-            '巴西擁有豐富的自然資源與廣大的農業出口，是金磚五國(BRICS)之一。然而，歷史遺留的土地分配問題與區域發展失衡，導致了世界上最嚴重的貧富差距之一。',
-            '儘管政府曾推行「家庭補助金 (Bolsa Família)」等大型社會福利計畫，成功使數百萬人脫離極端貧窮，但近年的經濟波動與高通貨膨脹，再次對底層民眾的生活造成了巨大衝擊。'
+        flagUrl: 'https://flagcdn.com/w160/br.png',
+        subtitle: '包含巴西的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '以大宗商品出口為導向的經濟',
+descParagraphs: [
+            '巴西是拉丁美洲的經濟強國，也是全球依國內生產毛額排名的前十大經濟體之一。其經濟實力主要建立在大豆、甘蔗、咖啡、鐵與原油等原物料商品的出口上。',
+            '除了金融、房地產與服務業之外，其他關鍵產業還包含汽車製造、再生能源以及建築業。在多數經濟領域中，外國投資者享有與國內投資者同等的法律權利。因此，近年來該國吸收了拉丁美洲超過一半的外國直接投資總額。然而，其經濟弱點包含國家對許多經濟領域的干預、高水準的公共債務以及繁雜的行政程序。'
         ],
         table: {
-            gov: '聯邦總統制',
+            gov: '聯邦總統制共和國',
             capital: '巴西利亞',
-            ratings: 'S&P: BB<br>Moody\'s: Ba2<br>Fitch: BB',
-            pop: '2.14 億人',
-            age: '33.5 歲',
-            income: '約 17,821 美元 (PPP)',
-            gdp: '1.92 兆美元'
+            ratings: 'S&P: CCC+<br>Moody\'s: Caa1<br>Fitch: CCC',
+            pop: '2 億 540 萬人',
+            age: '34.0 歲',
+            income: '22,707.10 美元',
+            gdp: '2.3 兆美元'
         },
-        chartHtml: `
-            <div class="bg-green-50 p-6 rounded-lg text-center border border-green-200">
-                <h4 class="font-bold text-green-800 mb-2">巴西貧富差距指數 (示意圖表 HTML)</h4>
-                <div class="h-32 bg-green-200 flex items-center justify-center text-green-600">[外部圖表 HTML 嵌入區]</div>
-            </div>
-        `
-    }
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18009771/embed#?secret=pRH3MicFw6" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17991478/embed#?secret=R6PQdKXbjx" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '2,417 億美元 (2023)',
+            leadingExports: '鐵<br>大豆<br>原油<br>糖<br>家禽肉類',
+            imports: '3,744 億美元 (2022)',
+            leadingImports: '精煉石油<br>汽車零件<br>原油<br>積體電路<br>農藥',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18044181/embed#?secret=7z07cWGM3C" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'Petrobras', sector: '石油與天然氣探勘與生產' },
+            { name: 'Vale', sector: '原物料、金屬與採礦' },
+            { name: 'Ambev', sector: '民生必需品、啤酒釀造' },
+            { name: 'JBS Foods', sector: '民生必需品、肉類加工' },
+            { name: 'Cielo', sector: '金融業' },
+            { name: 'Itaú Unibanco', sector: '金融業' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '23%' },
+                { country: '美國', percent: '18%' },
+                { country: '阿根廷', percent: '5%' },
+                { country: '德國', percent: '5%' },
+                { country: '印度', percent: '3%' }
+            ],
+            export: [
+                { country: '中國', percent: '31%' },
+                { country: '美國', percent: '11%' },
+                { country: '阿根廷', percent: '4%' },
+                { country: '荷蘭', percent: '3%' },
+                { country: '智利', percent: '3%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
+        }
+    },
     //大洋洲
-    
+    'New Zealand': {
+        title: '紐西蘭 (New Zealand)',
+        flagUrl: 'https://flagcdn.com/w160/nz.png',
+        subtitle: '包含紐西蘭的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '從農業邁向現代化、科技驅動的經濟',
+        descParagraphs: [
+            '在過去的五十年裡，紐西蘭成功地從農業經濟轉型為更多元化、更具全球競爭力的自由市場體系，並在服務業、科技業和旅遊業中擁抱創新與投資。如今，紐西蘭充滿韌性的經濟以強大的法治、透明且穩定的投資環境，以及培育了充滿活力的勞動力市場的靈活法規為特徵。此外，憑藉其鄰近亞洲和澳洲的地理優勢、有限的公共債務以及優越的生活水準，該國成為外國投資的絕佳目的地。',
+            '儘管具備這些優勢，紐西蘭在邁向永續成長的道路上仍面臨諸多挑戰，包含其身為島國的地位、過度依賴中國的需求、技術勞工短缺，以及地方性的社會經濟不平等問題。'
+        ],
+        table: {
+            gov: '君主立憲制下的議會民主制；大英國協王國',
+            capital: '威靈頓',
+            ratings: 'S&P: AA+<br>Moody\'s: Aaa<br>Fitch: AAA',
+            pop: '530 萬人',
+            age: '37.7 歲',
+            income: '59,065.59 美元',
+            gdp: '2,629 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17521146/embed#?secret=UFTJ0jRVQB" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17517351/embed#?secret=Y2gECcvYMo" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '429 億美元 (2024)',
+            leadingExports: '牛奶<br>木材<br>牛肉<br>奶油<br>羊肉',
+            imports: '475 億美元 (2024)',
+            leadingImports: '汽車<br>精煉石油<br>燃氣輪機<br>廣播設備<br>卡車',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/17502099/embed#?secret=CLXHRXYc3E" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'ANZ Bank New Zealand', sector: '金融業' },
+            { name: 'Kiwi Group Holdings Ltd', sector: '金融業' },
+            { name: 'Fonterra Co-operative Group', sector: '民生必需品、食品' },
+            { name: 'Spark New Zealand', sector: '電信服務' },
+            { name: 'Fletcher Building Limited', sector: '綜合企業、金融業、消費性電子產品、飯店、餐廳與休閒' },
+            { name: 'Air New Zealand Limited', sector: '交通運輸、航空業' },
+            { name: 'Sky Network Television', sector: '通訊服務、媒體' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '26.9%' },
+                { country: '澳洲', percent: '12.9%' },
+                { country: '美國', percent: '12%' },
+                { country: '日本', percent: '5.53%' },
+                { country: '南韓', percent: '3.47%' }
+            ],
+            export: [
+                { country: '中國', percent: '20.73%' },
+                { country: '澳洲', percent: '10.81%' },
+                { country: '美國', percent: '9.71%' },
+                { country: '南韓', percent: '7.52%' },
+                { country: '日本', percent: '6.82%' }
+            ],
+            source: 'Source: IMF, CIA The World Factbook'
+        }
+    }
     //歐洲
     
 };
