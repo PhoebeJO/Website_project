@@ -136,7 +136,7 @@
         <!-- ========================================== -->
         <div id="map-main-view" class="fade-in block">
             <h2 class="text-3xl font-bold text-brand-dark mb-4 border-l-4 border-brand pl-3">世界地圖：貧窮現況探索</h2>
-            <p class="text-gray-600 mb-6">點擊地圖上的發光圓點，即可在展開該國家的詳細經濟與貧窮數據。</p>
+            <p class="text-gray-600 mb-6">點擊地圖上的發光圓點，即可在展開該國家的詳細經濟與貧窮數據。(數據來源:Global Finance Magazine)</p>
             
             <div class="w-full aspect-[2/1] bg-sky-50 rounded-xl relative border border-gray-200 overflow-hidden shadow-inner">
                 <!-- 底圖 -->
@@ -144,32 +144,67 @@
 
                 <!-- 💡 修改點：傳入國家的代號(Key)，例如 'Taiwan', 'Madagascar' -->
                 <!-- 使用 onclick="showMapDetails(...)" 來觸發同頁面的切換邏輯 -->
+                <!-- ----------------------------- -->
                 <!-- 1. 亞洲熱點 - 紅色 -->
-                <div class="absolute top-[45%] left-[70%] w-4 h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border-2 border-customWhite z-10"
-                     onmouseenter="showMapTooltip(event, '台灣 (Taiwan)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
-                     onclick="showMapDetails('Taiwan')">
+                <!-- ----------------------------- -->
+                <!-- 台灣 (Taiwan) -->
+                <div class="absolute top-[34%] left-[79%] w-4 h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, '台灣 (Taiwan)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('Taiwan')">
                 </div>
+                <!-- 葉門 (Yemen) -->
+                <div class="absolute top-[39.5%] left-[59.35%] w-4 h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, '葉門 (Yemen)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('Yemen')">
+                </div>
+                <!-- ----------------------------- -->
                 <!-- 2. 歐洲熱點 - 藍色 -->
+                <!-- ----------------------------- -->
                 <div class="absolute top-[3.5%] left-[59.5%] w-4 h-4 bg-blue-400 rounded-full cursor-pointer pulse-europe border-2 border-customWhite z-10"
-                     onmouseenter="showMapTooltip(event, '義大利 (Italy)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
-                     onclick="showMapDetails('Italy')">
+                    onmouseenter="showMapTooltip(event, '義大利 (Italy)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('Italy')">
                 </div>
+                <!-- ----------------------------- -->
                 <!-- 3. 非洲熱點 - 黃色 -->
+                <!-- ----------------------------- -->
                 <!-- 馬達加斯加 (Madagascar) -->
                 <div class="absolute top-[60.5%] left-[59.5%] w-4 h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border-2 border-customWhite z-10"
                      onmouseenter="showMapTooltip(event, '馬達加斯加 (Madagascar)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
                      onclick="showMapDetails('Madagascar')">
                 </div>
-                <!-- 4. 美洲熱點 - 綠色 -->
-                <div class="absolute top-[65%] left-[32%] w-4 h-4 bg-green-700 rounded-full cursor-pointer pulse-americas border-2 border-customWhite z-10"
-                     onmouseenter="showMapTooltip(event, '巴西 (Brazil)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
-                     onclick="showMapDetails('Brazil')">
+                <!-- 南蘇丹 (South Sudan) -->
+                <div class="absolute top-[44.8%] left-[55.5%] w-4 h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, '南蘇丹 (South Sudan)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('South Sudan')">
                 </div>
-
+                <!-- 蒲隆地 (Burundi) -->
+                <div class="absolute top-[50%] left-[55%] w-4 h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, '蒲隆地 (Burundi)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('Burundi')">
+                </div>
+                <!-- 中非共和國 (Central African Republic) -->
+                <div class="absolute top-[45%] left-[52%] w-4 h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, '中非共和國 (Central African Republic)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('Central African Republic')">
+                </div>
+                <!-- 莫三比克 (Mozambique) -->
+                <div class="absolute top-[62.5%] left-[56.1%] w-4 h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, '莫三比克 (Mozambique)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('Mozambique')">
+                </div>
+                <!-- ----------------------------- -->
+                <!-- 4. 美洲熱點 - 綠色 -->
+                <!-- ----------------------------- -->
+                <div class="absolute top-[65%] left-[32%] w-4 h-4 bg-green-700 rounded-full cursor-pointer pulse-americas border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, '巴西 (Brazil)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('Brazil')">
+                </div>
+                <!-- ----------------------------- -->
                 <!-- 5. 大洋洲熱點 - 紫色 -->
+                <!-- ----------------------------- -->
                 <div class="absolute top-[15%] left-[32%] w-4 h-4 bg-purple-700 rounded-full cursor-pointer pulse-oceania border-2 border-customWhite z-10"
-                     onmouseenter="showMapTooltip(event, '紐西蘭 (New Zealand)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
-                     onclick="showMapDetails('New Zealand')">
+                    onmouseenter="showMapTooltip(event, '紐西蘭 (New Zealand)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('New Zealand')">
                 </div>
 
                 <div class="flex justify-center gap-6 mt-4 text-sm text-customGray font-medium flex-wrap">
@@ -203,6 +238,7 @@
             <!-- 標題區 -->
             <div class="mb-8">
                 <div class="flex items-center gap-4 mb-4">
+                    <img id="detail-flag" src="" alt="國旗" class="hidden h-8 md:h-10 w-auto border border-customBorder shadow-sm object-cover">
                     <h2 id="detail-title" class="text-4xl font-serif font-bold text-charcoal">【國家標題】</h2>
                 </div>
                 <p id="detail-subtitle" class="text-xl text-gray-800 font-medium leading-relaxed max-w-4xl opacity-90">
@@ -221,35 +257,35 @@
 
                 <!-- 右側：資料表格區 (左側英文固定，右側數據動態更新) -->
                 <div class="bg-cream p-6 rounded-xl border border-customBorder shadow-sm">
-                    <h4 class="text-lg font-serif font-bold text-charcoal mb-6">Macroeconomy & Sovereign Data</h4>
+                    <h4 class="text-lg font-serif font-bold text-charcoal mb-6">宏觀經濟與主權數據</h4>
                     <table class="w-full text-sm text-left">
                         <tbody>
                             <tr class="border-b border-customBorder">
-                                <td class="py-3 px-2 text-gray-600 w-1/2">Type of Government</td>
+                                <td class="py-3 px-2 text-gray-600 w-1/2">政府體制</td>
                                 <td id="table-gov" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
                             <tr class="bg-customWhite border-b border-customBorder">
-                                <td class="py-3 px-2 text-gray-600">Capital</td>
+                                <td class="py-3 px-2 text-gray-600">首都</td>
                                 <td id="table-capital" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
                             <tr class="border-b border-customBorder">
-                                <td class="py-3 px-2 text-gray-600 align-top">Sovereign Ratings</td>
+                                <td class="py-3 px-2 text-gray-600 align-top">主權信用評級</td>
                                 <td id="table-ratings" class="py-3 px-2 font-semibold text-charcoal leading-relaxed"></td>
                             </tr>
                             <tr class="bg-customWhite border-b border-customBorder">
-                                <td class="py-3 px-2 text-gray-600">Total Population</td>
+                                <td class="py-3 px-2 text-gray-600">總人口</td>
                                 <td id="table-pop" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
                             <tr class="border-b border-customBorder">
-                                <td class="py-3 px-2 text-gray-600">Median Age</td>
+                                <td class="py-3 px-2 text-gray-600">年齡中位數</td>
                                 <td id="table-age" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
                             <tr class="bg-customWhite border-b border-customBorder">
-                                <td class="py-3 px-2 text-gray-600">Adult Per Capita Income (PPP)</td>
+                                <td class="py-3 px-2 text-gray-600">成人平均每人所得(購買力平價PPP)</td>
                                 <td id="table-income" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
                             <tr>
-                                <td class="py-3 px-2 text-gray-600">Total GDP (2023)</td>
+                                <td class="py-3 px-2 text-gray-600">國內生產總值(2023)</td>
                                 <td id="table-gdp" class="py-3 px-2 font-semibold text-charcoal"></td>
                             </tr>
                         </tbody>
@@ -261,7 +297,7 @@
 
             <!-- 區段 A：左右雙圖表 (GDP Overview) -->
             <div id="section-overview-charts" class="hidden border-t border-customBorder pt-10 mb-12">
-                <h3 id="detail-chart-maintitle" class="text-3xl font-serif font-bold text-charcoal mb-8">【國家】 GDP & Economic Overview</h3>
+                <h3 id="detail-chart-maintitle" class="text-3xl font-serif font-bold text-charcoal mb-8">【國家】GDP與經濟概況</h3>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <div id="wrapper-chart-left" class="hidden">
                         <h4 id="chart-left-title" class="text-lg font-bold text-charcoal"></h4>
@@ -280,12 +316,12 @@
 
             <!-- 區段 B：Banking & Finance (左表格 + 右圖表) -->
             <div id="section-banking" class="hidden border-t border-customBorder pt-10 mb-12">
-                <h3 class="text-3xl font-serif font-bold text-charcoal mb-8">Banking & Finance</h3>
+                <h3 class="text-3xl font-serif font-bold text-charcoal mb-8">銀行與金融</h3>
                 <div class="grid grid-cols-1 lg:grid-cols-[40%_55%] gap-12">
                     
                     <!-- 左側：貿易表格 -->
                     <div id="wrapper-trade-invest" class="hidden bg-customWhite p-6 rounded-xl border border-customBorder shadow-sm self-start">
-                        <h4 class="text-xl font-serif font-bold text-charcoal mb-6">Trade & Investment</h4>
+                        <h4 class="text-xl font-serif font-bold text-charcoal mb-6">貿易與投資</h4>
                         <table class="w-full text-sm text-left">
                             <tbody id="trade-invest-tbody">
                                 <!-- JS 動態生成列 -->
@@ -308,8 +344,8 @@
             <div id="section-tables" class="hidden pt-2 mb-12">
                 
                 <!-- 上方：Leading Companies (深色滿版表格) -->
-                <div id="wrapper-leading-companies" class="hidden bg-[var(--charcoal-light)] text-customWhite p-8 rounded-xl shadow-md mb-8">
-                    <h3 id="leading-companies-title" class="text-2xl font-serif font-bold text-white mb-6">【國家】 Leading Companies</h3>
+                <div id="wrapper-leading-companies" class="hidden bg-[#2b323c] text-white p-8 rounded-xl shadow-md mb-8">
+                    <h3 id="leading-companies-title" class="text-2xl font-serif font-bold text-white mb-6">【國家】 主要企業</h3>
                     <table class="w-full text-sm text-left">
                         <tbody id="leading-companies-tbody" class="divide-y divide-gray-600">
                             <!-- JS 動態生成列 -->
@@ -321,7 +357,7 @@
                 <div id="wrapper-trade-partners" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- Import 表格 -->
                     <div class="bg-customWhite p-8 rounded-xl border border-customBorder shadow-sm">
-                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">Major Trade Partners — Import</h4>
+                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">主要貿易夥伴 — 進口</h4>
                         <table class="w-full text-sm text-left">
                             <tbody id="partners-import-tbody">
                                 <!-- JS 動態生成列 -->
@@ -330,7 +366,7 @@
                     </div>
                     <!-- Export 表格 -->
                     <div class="bg-customWhite p-8 rounded-xl border border-customBorder shadow-sm">
-                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">Major Trade Partners — Export</h4>
+                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">主要貿易夥伴 — 出口</h4>
                         <table class="w-full text-sm text-left">
                             <tbody id="partners-export-tbody">
                                 <!-- JS 動態生成列 -->
@@ -347,135 +383,16 @@
     <!-- ========================================== -->
     <!-- JS 資料庫與互動腳本 -->
     <!-- ========================================== -->
+    
+    <!-- ------------------------------------------------------>
+    <!--1. 建立「國家資料庫」-->
+    <!-- ------------------------------------------------------>
+    <script src="country_data.js"></script>
+        
+    <!-- ------------------------------------------------------>
+    <!--2. 視圖切換與資料綁定邏輯-->
+    <!-------------------------------------------------------->
     <script>
-        // ----------------------------------------------------
-        // 1. 建立「國家資料庫」 (新增國家只需在這裡加資料就好，不需改 HTML)
-        // ----------------------------------------------------
-        const countryDatabase = {
-            'Madagascar': {
-                title: '馬達加斯加 (Madagascar)',
-                subtitle: '包含馬達加斯加的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
-                descTitle: '經濟潛力受管理不善所削弱',
-                descParagraphs: [
-                    '馬達加斯加位於非洲南部海岸外的印度洋上，是世界第五大島。該國擁有豐富的礦產、農業及海洋資源，並以蓬勃發展的旅遊業著稱。憑藉與美國、歐盟簽署的多項貿易協定，以及多個區域共同體的成員身份，馬達加斯加對商業合作夥伴關係與外國投資持歡迎態度。',
-                    '然而，由於長期的政治動盪以及對國家財政與資源的管理不善，該國人民面臨著持續的高貧窮率與普遍的糧食不安全問題。儘管法律規定外國投資者享有與國內投資者同等的待遇，但他們仍面臨額外的審查與不明原因的延誤。此外，繁雜的行政程序、腐敗以及過時的勞工法規也損害了自由經濟活動。基礎設施不足，加上易受大宗商品價格波動與氣候災害的影響，更使該國的困境雪上加霜。'
-                ],
-                table: {
-                    gov: '半總統制共和國',
-                    capital: '安塔那那利佛',
-                    ratings: 'S&P: 未評級<br>Moody\'s: 未評級<br>Fitch: 未評級',
-                    pop: '3,060 萬人',
-                    age: '19.5 歲',
-                    income: '3,352.96 美元',
-                    gdp: '165 億美元'
-                },
-                
-                // 若要直接插入 HTML 圖表，就把 HTML 碼寫在這裡
-                //GDP & Economic Overview圖表 折線圖
-                charts: {
-                    left: {
-                        html: `<iframe src="https://flo.uri.sh/visualisation/18716499/embed#?secret=D8JaCD9M0j" class="w-full h-full border-none" scrolling="no"></iframe>`
-                    },
-                    right: {
-                        html: `<iframe src="https://flo.uri.sh/visualisation/18596139/embed#?secret=FSIBNCbzcH" class="w-full h-full border-none" scrolling="no"></iframe>`
-                    }
-                },
-                //Banking & Finance
-                //Trade & Investment表格
-                tradeAndInvestment: {
-                    exports: 'USD 4.2 billion (2023)',
-                    leadingExports: 'Vanilla<br>Nickel<br>Clothing And Apparel<br>Titanium<br>Gold<br>Cloves',
-                    imports: 'USD 4.8 billion (2022)',
-                    leadingImports: 'Refined Petroleum<br>Rice<br>Cars<br>Packaged Medicines<br>Clothing And Apparel',
-                    source: 'Source: World Integrated Trade Solution'
-                },
-                //Investments長條圖
-                fdiChart: {
-                    html: ` <iframe src="https://flo.uri.sh/visualisation/18692455/embed#?secret=oJSiD0R84Y" class="w-full h-full border-none" scrolling="no"></iframe>`
-                },
-                //Leading Companies表格
-                leadingCompanies: [
-                    { name: 'BNI Madagascar', sector: 'Financials' },
-                    { name: 'Axian Group', sector: 'Conglomerate, Energy, Real Estate, Telecommunication Services' },
-                    { name: 'Jirama', sector: 'Utilities' },
-                    { name: 'Telma', sector: 'Telecommunication Services' },
-                    { name: 'Socolait', sector: 'Consumer Staples, Food Products' },
-                    { name: 'Ambatovy', sector: 'Materials, Metals & Mining' }
-                ],
-                //Major Trade Partners表格 Import&Export
-                tradePartners: {
-                    import: [
-                        { country: 'China', percent: '19%' },
-                        { country: 'France', percent: '10%' },
-                        { country: 'Oman', percent: '10%' },
-                        { country: 'India', percent: '8%' },
-                        { country: 'United Arab Emirates', percent: '6%' }
-                    ],
-                    export: [
-                        { country: 'France', percent: '19%' },
-                        { country: 'United States', percent: '18%' },
-                        { country: 'China', percent: '13%' },
-                        { country: 'Japan', percent: '9%' },
-                        { country: 'Netherlands', percent: '5%' }
-                    ],
-                    source: 'Source: World Integrated Trade Solution'
-                }
-            },
-
-            'Taiwan': {
-                title: '台灣 (Taiwan)',
-                subtitle: '包含台灣的國內生產毛額成長、相關福利支出與經濟數據，以及社會救助相關的基礎資訊。',
-                descTitle: '貧富差距與相對貧窮的挑戰',
-                descParagraphs: [
-                    '台灣位於東亞，擁有高度發展的科技產業與強健的經濟實力。雖然表面上絕對貧窮的比例極低，但實質上社會面臨著「相對貧窮」以及城鄉資源不均的問題。',
-                    '現行社會救助法所定義的中低收入戶門檻，可能無法完全涵蓋邊緣戶的需求。近年來，房價高漲與通膨壓力，使得年輕世代與弱勢族群的經濟負擔日益沉重，這是未來政策需要持續關注的焦點。'
-                ],
-                table: {
-                    gov: '民主共和國',
-                    capital: '台北',
-                    ratings: 'S&P: AA+<br>Moody\'s: Aa3<br>Fitch: AA',
-                    pop: '2,340 萬人',
-                    age: '44.4 歲',
-                    income: '約 72,500 美元 (PPP)',
-                    gdp: '約 7,500 億美元'
-                },
-                chartHtml: `
-                    <div class="bg-blue-50 p-6 rounded-lg text-center border border-blue-200">
-                        <h4 class="font-bold text-blue-800 mb-2">台灣歷年經濟成長率 (示意圖表 HTML)</h4>
-                        <div class="h-32 bg-blue-200 flex items-center justify-center text-blue-500">[外部圖表 HTML 嵌入區]</div>
-                    </div>
-                `
-            },
-            'Brazil': {
-                title: '巴西 (Brazil)',
-                subtitle: '南美洲最大經濟體，展示其債務變化、貧富差距指數及社會福利發放歷史數據。',
-                descTitle: '龐大經濟體背後的嚴重貧富懸殊',
-                descParagraphs: [
-                    '巴西擁有豐富的自然資源與廣大的農業出口，是金磚五國(BRICS)之一。然而，歷史遺留的土地分配問題與區域發展失衡，導致了世界上最嚴重的貧富差距之一。',
-                    '儘管政府曾推行「家庭補助金 (Bolsa Família)」等大型社會福利計畫，成功使數百萬人脫離極端貧窮，但近年的經濟波動與高通貨膨脹，再次對底層民眾的生活造成了巨大衝擊。'
-                ],
-                table: {
-                    gov: '聯邦總統制',
-                    capital: '巴西利亞',
-                    ratings: 'S&P: BB<br>Moody\'s: Ba2<br>Fitch: BB',
-                    pop: '2.14 億人',
-                    age: '33.5 歲',
-                    income: '約 17,821 美元 (PPP)',
-                    gdp: '1.92 兆美元'
-                },
-                chartHtml: `
-                    <div class="bg-green-50 p-6 rounded-lg text-center border border-green-200">
-                        <h4 class="font-bold text-green-800 mb-2">巴西貧富差距指數 (示意圖表 HTML)</h4>
-                        <div class="h-32 bg-green-200 flex items-center justify-center text-green-600">[外部圖表 HTML 嵌入區]</div>
-                    </div>
-                `
-            }
-            
-        };
-
-        // ----------------------------------------------------
-        // 2. 視圖切換與資料綁定邏輯
-        // ----------------------------------------------------
         const tooltip = document.getElementById('map-tooltip');
 
         function showMapTooltip(event, title, desc) {
@@ -505,6 +422,15 @@
             document.getElementById('detail-subtitle').innerText = data.subtitle;
             document.getElementById('detail-desc-title').innerText = data.descTitle;
             
+            // 動態判斷並載入國旗圖片
+            const flagImg = document.getElementById('detail-flag');
+            if (data.flagUrl) {
+                flagImg.src = data.flagUrl;
+                flagImg.classList.remove('hidden');
+            } else {
+                flagImg.classList.add('hidden');
+            }
+
             const contentDiv = document.getElementById('detail-desc-content');
             contentDiv.innerHTML = ''; 
             data.descParagraphs.forEach(para => {
@@ -530,7 +456,7 @@
             
             if (data.charts) {
                 sectionOverview.classList.remove('hidden');
-                document.getElementById('detail-chart-maintitle').innerText = `${countryKey} GDP & Economic Overview`;
+                document.getElementById('detail-chart-maintitle').innerText = `${countryKey} GDP與經濟概況`;
                 
                 if (data.charts.left) {
                     wrapLeft.classList.remove('hidden');
@@ -555,13 +481,12 @@
                 
                 if (data.tradeAndInvestment) {
                     wrapTradeInvest.classList.remove('hidden');
-                    document.getElementById('trade-source').innerText = data.tradeAndInvestment.source;
                     const tb = document.getElementById('trade-invest-tbody');
                     tb.innerHTML = `
-                        <tr class="border-b border-customBorder"><td class="py-3 text-customGray w-2/5">Total Exports</td><td class="py-3 font-semibold text-charcoal">${data.tradeAndInvestment.exports}</td></tr>
-                        <tr class="bg-customWhite border-b border-customBorder"><td class="py-3 px-2 text-customGray align-top">Leading Exports</td><td class="py-3 px-2 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingExports}</td></tr>
-                        <tr class="border-b border-customBorder"><td class="py-3 text-customGray">Total Imports</td><td class="py-3 font-semibold text-charcoal">${data.tradeAndInvestment.imports}</td></tr>
-                        <tr class="bg-customWhite"><td class="py-3 px-2 text-customGray align-top">Leading Imports</td><td class="py-3 px-2 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingImports}</td></tr>
+                        <tr class="border-b border-customBorder"><td class="py-3 text-customGray w-2/5">總出口額</td><td class="py-3 font-semibold text-charcoal">${data.tradeAndInvestment.exports}</td></tr>
+                        <tr class="bg-customWhite border-b border-customBorder"><td class="py-3 text-customGray align-top">主要出口項目</td><td class="py-3 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingExports}</td></tr>
+                        <tr class="border-b border-customBorder"><td class="py-3 text-customGray">總進口額</td><td class="py-3 font-semibold text-charcoal">${data.tradeAndInvestment.imports}</td></tr>
+                        <tr class="bg-customWhite"><td class="py-3 text-customGray align-top">主要進口項目</td><td class="py-3 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingImports}</td></tr>
                     `;
                 } else { wrapTradeInvest.classList.add('hidden'); }
 
@@ -584,7 +509,7 @@
                 // 深色大表
                 if (data.leadingCompanies && data.leadingCompanies.length > 0) {
                     wrapLeading.classList.remove('hidden');
-                    document.getElementById('leading-companies-title').innerText = `${countryKey} Leading Companies`;
+                    document.getElementById('leading-companies-title').innerText = `${countryKey} 主要企業`;
                     const tbLeading = document.getElementById('leading-companies-tbody');
                     tbLeading.innerHTML = '';
                     data.leadingCompanies.forEach(comp => {
