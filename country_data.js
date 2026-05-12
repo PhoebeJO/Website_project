@@ -604,6 +604,75 @@ const countryDatabase = {
             { name: 'Evergreen Marine Corp.', sector: '交通運輸、航運與港口' }
         ]
     },
+    'China': {
+        title: '中國 (China)',
+        flagUrl: 'https://flagcdn.com/w160/cn.png',
+        subtitle: '包含中國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '世界第二大經濟體',
+        descParagraphs: [
+            '憑藉龐大的勞動力市場，中國幾十年來一直是全球經濟格局中的關鍵角色。自 1970 年代末以來，中國的年平均國內生產毛額 (GDP) 成長率超過 9%。在同一時期，超過 8 億人擺脫了貧困，並享有更好的醫療、教育和就業機會。近年來，中國透過「一帶一路」倡議 (BRI) 等舉措，不斷擴大其在新興與開發中國家的影響力。',
+            '同時，中國通常是僅次於美國的全球第二大外國直接投資 (FDI) 目的地。作為一個中高所得國家，中國正迅速從低成本製造業經濟轉型為高附加價值、創新驅動的經濟體。人口老化、與美國的貿易及科技競爭、經濟成長放緩，以及全球供應鏈動態的轉變，是中國目前面臨的部分挑戰。'
+        ],
+        table: {
+            gov: '一黨專政',
+            capital: '北京',
+            ratings: 'S&P: A+<br>Moody\'s: A1<br>Fitch: A+',
+            pop: '14 億人',
+            age: '40 歲',
+            income: '27,582 美元',
+            gdp: '19.4 兆美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17491692/embed#?secret=8ctSNJrP1B" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17492860/embed#?secret=hLn5M8paFA" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '3.58 兆美元 (2024)',
+            leadingExports: '廣播設備<br>電腦<br>積體電路<br>服飾與成衣<br>機器零件',
+            imports: '2.59 兆美元 (2024)',
+            leadingImports: '原油<br>積體電路<br>鐵礦砂<br>天然氣<br>黃金',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/17489934/embed#?secret=QUHGrCFDGW" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: '中國工商銀行 (ICBC)', sector: '金融業' },
+            { name: '中國石化 (Sinopec)', sector: '能源、綜合石油與天然氣' },
+            { name: '騰訊控股 (Tencent Holdings)', sector: '科技、通訊服務' },
+            { name: '阿里巴巴 (Alibaba)', sector: '非必需消費品' },
+            { name: '中國移動 (China Mobile)', sector: '電信服務' },
+            { name: '中國平安保險集團 (Ping An Insurance Group)', sector: '金融業、保險業' },
+            { name: '中國石油 (PetroChina)', sector: '能源、勘探與生產' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '其他亞洲地區', percent: '7.8%' },
+                { country: '美國', percent: '6.46%' },
+                { country: '南韓', percent: '6.33%' },
+                { country: '日本', percent: '6.28%' },
+                { country: '澳洲', percent: '6.09%' }
+            ],
+            export: [
+                { country: '美國', percent: '14.83%' },
+                { country: '香港特別行政區', percent: '8.12%' },
+                { country: '日本', percent: '4.66%' },
+                { country: '南韓', percent: '4.41%' },
+                { country: '越南', percent: '4.07%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
+        }
+    },
     'Yemen': {
         title: '葉門 (Yemen)',
         flagUrl: 'https://flagcdn.com/w160/ye.png',
@@ -740,6 +809,213 @@ descParagraphs: [
                 { country: '法國', percent: '5.5%' }
             ],
             source: 'Source: IMF, CIA The World Factbook'
+        }
+    },
+    'India': {
+        title: '印度 (India)',
+        flagUrl: 'https://flagcdn.com/w160/in.png',
+        subtitle: '包含印度的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '崛起中的經濟強權',
+descParagraphs: [
+            '預計在本年代末成為僅次於美國和中國的世界第三大經濟體，印度從龐大且日益熟練的勞動力、快速的工業化以及全球供應鏈動態的有利轉變中獲益。儘管其監管框架仍然繁瑣，但近期的改革透過減少外國投資限制與簡化稅收條款，改善了商業環境。',
+            '雖然印度擁有高度多元化的經濟，出口產品涵蓋石油產品、農業及製藥，但其約 70% 的發電需求仍依賴煤炭，這對追求永續發展構成了重大挑戰。'
+        ],
+        table: {
+            gov: '議會制共和國',
+            capital: '新德里',
+            ratings: 'S&P: BBB–<br>Moody\'s: Baa3<br>Fitch: BBB–',
+            pop: '14 億人',
+            age: '28.8 歲',
+            income: '13,656.82 美元',
+            gdp: '4.1 兆美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17488208/embed#?secret=Bpd3UlIjEe" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17505804/embed#?secret=boz5NEl5n4" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '4,425 億美元 (2024)',
+            leadingExports: '精煉石油<br>鑽石<br>包裝藥品<br>廣播設備<br>服飾與成衣',
+            imports: '7,179 億美元 (2024)',
+            leadingImports: '原油<br>黃金<br>煤炭<br>天然氣<br>積體電路',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/17501898/embed#?secret=qmQYZicpDB" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'Reliance Industries Limited', sector: '能源、勘探與生產' },
+            { name: 'Infosys', sector: '科技、IT 服務' },
+            { name: 'Tata Steel', sector: '原物料' },
+            { name: 'Tata Motors', sector: '工業、汽車' },
+            { name: 'Adani Enterprises', sector: '多元化工業' },
+            { name: 'State Bank of India', sector: '金融業' },
+            { name: 'HDFC Bank', sector: '金融業' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '18.2%' },
+                { country: '俄羅斯', percent: '9.98%' },
+                { country: '美國', percent: '6.27%' },
+                { country: '阿拉伯聯合大公國', percent: '5.59%' },
+                { country: '沙烏地阿拉伯', percent: '5.15%' }
+            ],
+            export: [
+                { country: '美國', percent: '17.57%' },
+                { country: '阿拉伯聯合大公國', percent: '7.65%' },
+                { country: '荷蘭', percent: '5.36%' },
+                { country: '中國', percent: '3.77%' },
+                { country: '英國', percent: '2.89%' }
+            ],
+            source: 'Source: IMF, CIA The World Factbook'
+        }
+    },
+    'Japan': {
+        title: '日本 (Japan)',
+        flagUrl: 'https://flagcdn.com/w160/jp.png',
+        subtitle: '包含日本的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '應對人口老化的先進經濟體',
+        descParagraphs: [
+            '身為全球第四大經濟體，日本以其高度發達的製造業、科技創新及強大的出口導向型經濟而聞名。儘管缺乏豐富的自然資源，但憑藉高素質的勞動力與先進的技術，日本在汽車、電子產品、機器人與精密設備等領域處於全球領先地位。',
+            '然而，日本經濟長期面臨人口快速老化與少子化的嚴峻挑戰，這導致勞動力短缺並對社會福利體系帶來巨大壓力。經過多年的通貨緊縮與低度經濟成長，日本央行近期已開始逐步調整其歷史性的寬鬆貨幣政策。儘管面臨這些內部結構性挑戰及全球供應鏈波動的影響，日本依然保持著高度穩定的經商環境與全球重要外資目的地的地位。'
+        ],
+        table: {
+            gov: '議會制君主立憲制',
+            capital: '東京',
+            ratings: 'S&P: A+<br>Moody\'s: A1<br>Fitch: A',
+            pop: '1.24 億人',
+            age: '49.5 歲',
+            income: '33,800 美元',
+            gdp: '4.2 兆美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17521134/embed#?secret=cXwBoubCPZ" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17506887/embed#?secret=GDj5AteruR" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '7,170 億美元 (2023)',
+            leadingExports: '汽車<br>車輛零件<br>積體電路<br>半導體製造設備<br>客船',
+            imports: '7,560 億美元 (2023)',
+            leadingImports: '原油<br>石油氣<br>煤炭<br>廣播設備<br>積體電路',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/17703638/embed#?secret=SyLsdv3ovi" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: '豐田汽車 (Toyota Motor)', sector: '非必需消費品、汽車' },
+            { name: '索尼 (Sony)', sector: '非必需消費品、科技' },
+            { name: '三菱UFJ金融集團 (Mitsubishi UFJ Financial Group)', sector: '金融業' },
+            { name: '本田汽車 (Honda Motor)', sector: '非必需消費品、汽車' },
+            { name: '軟銀集團 (SoftBank Group)', sector: '通訊服務、投資' },
+            { name: '日立 (Hitachi)', sector: '工業、科技' },
+            { name: '三井住友金融集團 (Sumitomo Mitsui Financial Group)', sector: '金融業' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '21.0%' },
+                { country: '美國', percent: '10.3%' },
+                { country: '澳洲', percent: '9.8%' },
+                { country: '南韓', percent: '4.6%' },
+                { country: '阿拉伯聯合大公國', percent: '4.3%' }
+            ],
+            export: [
+                { country: '美國', percent: '20.1%' },
+                { country: '中國', percent: '17.6%' },
+                { country: '南韓', percent: '7.1%' },
+                { country: '台灣', percent: '5.6%' },
+                { country: '香港特別行政區', percent: '4.6%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
+        }
+    },
+    'Saudi Arabia': {
+        title: '沙烏地阿拉伯 (Saudi Arabia)',
+        flagUrl: 'https://flagcdn.com/w160/sa.png',
+        subtitle: '包含沙烏地阿拉伯的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '目前經濟仍由碳氫化合物驅動',
+        descParagraphs: [
+            '作為擁有全球超過 15% 已探明儲量的重要產油國，沙烏地阿拉伯正在其「2030 年願景」計畫下經歷重大的經濟轉型。該計畫旨在實現經濟多元化，擺脫對石油的依賴；目前石油佔其公共收入約三分之二，並佔出口的 75%。因此，政府的重點是提高人力資本素質、提升公共行政效率並吸引外資。',
+            '該國是連接亞洲、歐洲和非洲的蓬勃發展的運輸和物流樞紐，然而外國投資者對於透明度、政治風險以及國家干預經濟等問題仍存有疑慮。'
+        ],
+        table: {
+            gov: '絕對君主制',
+            capital: '利雅德',
+            ratings: 'S&P: A+<br>Moody\'s: Aa3<br>Fitch: A+',
+            pop: '3,600 萬人',
+            age: '29.6 歲',
+            income: '81,848.10 美元',
+            gdp: '1.268 兆美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/23375173/embed#?secret=BvbuCRiIdE" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/19583232/embed#?secret=WF4E4D1OPA" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '3,055 億美元 (2024)',
+            leadingExports: '原油<br>精煉石油<br>乙烯聚合物<br>塑膠<br>肥料',
+            imports: '2,328.1 億美元 (2024)',
+            leadingImports: '汽車<br>廣播設備<br>服飾與成衣<br>黃金<br>精煉石油',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/19581892/embed#?secret=qqr1arO1RH" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: '沙烏地阿美 (Saudi Aramco)', sector: '能源、勘探與生產' },
+            { name: '沙烏地國家銀行 (The Saudi National Bank)', sector: '金融業' },
+            { name: '拉吉希銀行 (Al Rajhi Bank)', sector: '金融業' },
+            { name: '利雅德銀行 (Riyad Bank)', sector: '金融業' },
+            { name: '國際水務及電力公司 (ACWA Power)', sector: '公用事業' },
+            { name: '沙烏地電信 (Saudi Telecom)', sector: '電信服務' },
+            { name: '沙烏地阿拉伯礦業公司 (Saudi Arabian Mining)', sector: '原物料、金屬與採礦' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '20%' },
+                { country: '美國', percent: '11%' },
+                { country: '阿拉伯聯合大公國', percent: '8%' },
+                { country: '印度', percent: '5%' },
+                { country: '德國', percent: '5%' }
+            ],
+            export: [
+                { country: '未指定', percent: '60%' },
+                { country: '阿拉伯聯合大公國', percent: '5%' },
+                { country: '中國', percent: '4%' },
+                { country: '印度', percent: '3%' },
+                { country: '埃及', percent: '3%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
         }
     },
     //美洲
@@ -880,7 +1156,75 @@ descParagraphs: [
             ],
             source: 'Source: IMF, CIA The World Factbook'
         }
-    }
+    },
     //歐洲
-    
+    'Germany': {
+        title: '德國 (Germany)',
+        flagUrl: 'https://flagcdn.com/w160/de.png',
+        subtitle: '包含德國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '歐洲的工業強國',
+        descParagraphs: [
+            '作為歐洲最大的經濟體，德國擁有成熟的金融部門、高技能的勞動力、穩定的監管環境、可靠的基礎設施以及尖端的研發資源。德國在政治和經濟上都具有全球影響力，其外國直接投資（FDI）的流入與流出及出口額均位居世界前列。汽車、機械、化學和電子工業是其經濟支柱。',
+            '然而，其弱點包括對中國貿易與國際能源進口過度依賴、經濟高度仰賴少數產業，以及複雜的法規與會計制度可能拖慢創業活動並阻礙更強勁的經濟成長。'
+        ],
+        table: {
+            gov: '聯邦議會制共和國',
+            capital: '柏林',
+            ratings: 'S&P: AAA<br>Moody\'s: Aaa<br>Fitch: AAA',
+            pop: '8,460 萬人',
+            age: '45.0 歲',
+            income: '64,297.95 美元',
+            gdp: '4.6 兆美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18497769/embed#?secret=9SrVbvT9fR" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18470391/embed#?secret=TV9yoIuoyW" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '1.5 兆美元 (2023)',
+            leadingExports: '汽車與車輛零件<br>包裝藥品<br>醫療培養物與疫苗<br>航空器<br>工業機械<br>醫療儀器',
+            imports: '1.7 兆美元 (2022)',
+            leadingImports: '汽車與車輛零件<br>包裝藥品<br>廣播設備<br>醫療培養物與疫苗<br>電腦',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18499704/embed#?secret=SIo5gdhyi7" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: '安聯 (Allianz)', sector: '金融業' },
+            { name: '德國商業銀行 (Commerzbank)', sector: '金融業' },
+            { name: '福斯集團 (Volkswagen Group)', sector: '汽車與零組件' },
+            { name: '戴姆勒 (Daimler)', sector: '汽車與零組件' },
+            { name: '德國電信 (Deutsche Telekom)', sector: '媒體與通訊' },
+            { name: '拜耳 (Bayer)', sector: '製藥' },
+            { name: '西門子 (Siemens)', sector: '科技' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '12%' },
+                { country: '荷蘭', percent: '8%' },
+                { country: '美國', percent: '6%' },
+                { country: '波蘭', percent: '6%' },
+                { country: '義大利', percent: '5%' }
+            ],
+            export: [
+                { country: '美國', percent: '9%' },
+                { country: '中國', percent: '8%' },
+                { country: '法國', percent: '7%' },
+                { country: '荷蘭', percent: '7%' },
+                { country: '波蘭', percent: '6%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
+        }
+    },
 };
