@@ -559,12 +559,7 @@
       <li><a id="nav-home" class="active" onclick="switchPage('home')">首頁</a></li>
       <li><a id="nav-game" href="game.html">互動遊戲</a></li>
       <li>
-        <a id="nav-map" href="poverty_Sh2.html">世界地圖 <span class="arrow">▾</span></a>
-        <div class="dropdown">
-          <a onclick="switchPage('map'); showDetail('africa')">非洲</a>
-          <a onclick="switchPage('map'); showDetail('asia')">亞洲</a>
-          <a onclick="switchPage('map'); showDetail('america')">南美洲</a>
-        </div>
+        <a id="nav-map" onclick="switchPage('map')">世界地圖 <span class="arrow">▾</span></a>
       </li>
       <li><a id="nav-orgs" onclick="switchPage('orgs')">捐款組織</a></li>
       <li>
@@ -730,72 +725,13 @@
        ========================================= -->
   <div id="page-map" class="page">
     <section class="map-section">
-      <div class="map-header">
-        <div>
-          <p class="section-label">World Poverty Map · 全球貧窮地圖</p>
-          <h2 class="section-title" style="margin-bottom:0">世界地圖</h2>
-        </div>
-        <p>將游標移至地圖上的地區可查看簡介，點擊進入詳細資訊頁面，了解當地貧窮現況、統計圖表與相關政策。</p>
-      </div>
-
-      <!-- 地圖主畫面 -->
-      <div id="map-main">
-        <div class="map-container" id="map-container">
-          <div class="map-placeholder">
-            <div class="map-continent" style="width:18%;height:40%;left:10%;top:25%;border-radius:4px;"
-                 onmousemove="showTooltip(event,'北美洲','貧窮率約 11.6%｜政策：SNAP 食物券計畫')"
-                 onmouseleave="hideTooltip()" onclick="showDetail('namerica')"></div>
-            <div class="map-continent" style="width:10%;height:30%;left:30%;top:40%;border-radius:4px;"
-                 onmousemove="showTooltip(event,'南美洲','貧窮率約 27.8%｜政策：Bolsa Família 家庭補助')"
-                 onmouseleave="hideTooltip()" onclick="showDetail('america')"></div>
-            <div class="map-continent" style="width:14%;height:35%;left:42%;top:20%;border-radius:4px;"
-                 onmousemove="showTooltip(event,'歐洲','貧窮率約 17.1%｜政策：社會安全網體系完善')"
-                 onmouseleave="hideTooltip()" onclick="showDetail('europe')"></div>
-            <div class="map-continent" style="width:13%;height:28%;left:42%;top:50%;border-radius:4px;opacity:0.55;"
-                 onmousemove="showTooltip(event,'非洲','貧窮率約 40%+｜政策：國際援助與 SDG 計畫推進中')"
-                 onmouseleave="hideTooltip()" onclick="showDetail('africa')"></div>
-            <div class="map-continent" style="width:24%;height:40%;left:58%;top:20%;border-radius:4px;"
-                 onmousemove="showTooltip(event,'亞洲','貧窮率約 13.2%｜政策：各國政策差異大')"
-                 onmouseleave="hideTooltip()" onclick="showDetail('asia')"></div>
-            <div class="map-continent" style="width:9%;height:12%;left:73%;top:68%;border-radius:4px;"
-                 onmousemove="showTooltip(event,'大洋洲','貧窮率約 9.8%｜政策：原住民族扶貧政策')"
-                 onmouseleave="hideTooltip()" onclick="showDetail('oceania')"></div>
-            <div class="map-tooltip" id="map-tooltip">
-              <h4 id="tooltip-region">地區名稱</h4>
-              <p id="tooltip-info">地區簡介</p>
-            </div>
-            <div style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--olive-light);letter-spacing:0.1em;pointer-events:none;">
-              ↑ 點擊各洲進入詳細資訊
-            </div>
-          </div>
-        </div>
-        <div class="map-legend">
-          <span class="legend-label">貧窮率</span>
-          <div>
-            <div class="legend-scale"></div>
-            <div class="legend-range"><span>0%</span><span>20%</span><span>40%+</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 地圖詳細分頁（點擊洲後顯示） -->
-      <div class="map-detail" id="map-detail">
-        <button class="btn-back" onclick="hideDetail()">← 返回地圖</button>
-        <p class="section-label" id="detail-label">Africa · 非洲</p>
-        <h2 class="section-title" id="detail-title">非洲貧窮現況</h2>
-        <div class="detail-grid">
-          <div>
-            <div class="detail-img-box">【圖片預留區】各地貧窮問題相關圖片</div>
-            <div class="detail-chart-box">【圖表預留區】各地區貧窮率統計圖表</div>
-          </div>
-          <div class="detail-text">
-            <h3 id="detail-sub">現況描述</h3>
-            <p id="detail-desc">這裡填入該地區的貧窮現況描述。</p>
-            <div class="detail-stat"><span class="stat-k">極端貧窮率</span><span class="stat-v" id="detail-rate">—</span></div>
-            <div class="detail-stat"><span class="stat-k">每日生活費（貧窮線以下）</span><span class="stat-v" id="detail-income">—</span></div>
-            <div class="detail-stat"><span class="stat-k">主要推行政策</span><span class="stat-v" id="detail-policy">—</span></div>
-          </div>
-        </div>
+  <section style="padding: 0; height: calc(100vh - 68px);">
+    <iframe 
+      src="poverty_Sh2.html" 
+      style="width: 100%; height: 100%; border: none; display: block;">
+    </iframe>
+  </section>
+</div>
       </div>
     </section>
 
@@ -1051,62 +987,6 @@
       document.getElementById('game-result').classList.remove('show');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    /* ------------------------------------------
-       4. 世界地圖 Tooltip
-       ------------------------------------------ */
-    function showTooltip(e, region, info) {
-      const tooltip   = document.getElementById('map-tooltip');
-      const container = document.getElementById('map-container');
-      const rect      = container.getBoundingClientRect();
-      let x = e.clientX - rect.left + 12;
-      let y = e.clientY - rect.top  + 12;
-      if (x + 200 > rect.width)  x = e.clientX - rect.left - 200;
-      if (y + 100 > rect.height) y = e.clientY - rect.top  - 100;
-      tooltip.style.left = x + 'px';
-      tooltip.style.top  = y + 'px';
-      tooltip.classList.add('show');
-      document.getElementById('tooltip-region').textContent = region;
-      document.getElementById('tooltip-info').textContent   = info;
-    }
-    function hideTooltip() {
-      document.getElementById('map-tooltip').classList.remove('show');
-    }
-
-    /* ------------------------------------------
-       5. 地圖詳細分頁
-       點擊洲際色塊後展開詳細資訊
-       ------------------------------------------ */
-    const regionData = {
-      africa:   { label: 'Africa · 非洲',   title: '非洲貧窮現況',   rate: '約 40%+', income: '< USD 2.15 / 日', policy: '國際援助、SDG 計畫' },
-      asia:     { label: 'Asia · 亞洲',     title: '亞洲貧窮現況',   rate: '約 13.2%', income: '< USD 3.65 / 日', policy: '各國差異大，印度 MGNREGS' },
-      america:  { label: 'S. America · 南美洲', title: '南美洲貧窮現況', rate: '約 27.8%', income: '< USD 3.65 / 日', policy: '巴西 Bolsa Família' },
-      namerica: { label: 'N. America · 北美洲', title: '北美洲貧窮現況', rate: '約 11.6%', income: '< USD 6.85 / 日', policy: '美國 SNAP 食物券計畫' },
-      europe:   { label: 'Europe · 歐洲',   title: '歐洲貧窮現況',   rate: '約 17.1%', income: '相對貧窮定義',  policy: '社會安全網體系完善' },
-      oceania:  { label: 'Oceania · 大洋洲', title: '大洋洲貧窮現況', rate: '約 9.8%',  income: '< USD 3.65 / 日', policy: '原住民族扶貧政策' },
-    };
-
-    function showDetail(regionId) {
-      const d = regionData[regionId];
-      if (!d) return;
-      document.getElementById('detail-label').textContent  = d.label;
-      document.getElementById('detail-title').textContent  = d.title;
-      document.getElementById('detail-sub').textContent    = '現況描述及相關政策';
-      document.getElementById('detail-desc').textContent   = `【文字預留區】請填入${d.title}的詳細描述，包含歷史背景、氣候因素、城鄉差距等資訊。`;
-      document.getElementById('detail-rate').textContent   = d.rate;
-      document.getElementById('detail-income').textContent = d.income;
-      document.getElementById('detail-policy').textContent = d.policy;
-
-      document.getElementById('map-main').style.display   = 'none';
-      document.getElementById('map-detail').classList.add('show');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function hideDetail() {
-      document.getElementById('map-main').style.display = 'block';
-      document.getElementById('map-detail').classList.remove('show');
-    }
-
     /* ------------------------------------------
        6. 捐款組織 Tab 切換
        ------------------------------------------ */
