@@ -559,7 +559,7 @@
       <li><a id="nav-home" class="active" onclick="switchPage('home')">首頁</a></li>
       <li><a id="nav-game" href="game.html">互動遊戲</a></li>
       <li>
-        <a id="nav-map" onclick="switchPage('map')">世界地圖 <span class="arrow">▾</span></a>
+        <a id="nav-map" onclick="switchPage('map')">世界地圖 <span class="arrow"></span></a>
       </li>
       <li><a id="nav-orgs" onclick="switchPage('orgs')">捐款組織</a></li>
       <li>
@@ -593,10 +593,6 @@
         <p class="hero-subtitle">
           One of the biggest world issues. 聯合國永續發展目標第一項——終結各地一切形式的貧窮，是實現公平、包容世界的第一步。
         </p>
-        <div>
-          <a href="game.html" class="btn-primary">互動遊戲 →</a>
-          <a href="poverty_Sh2.html" class="btn-secondary">世界地圖</a>
-        </div>
       </div>
       <div class="hero-image fade-in">
         <div class="hero-line"></div>
@@ -636,88 +632,13 @@
        ========================================= -->
   <div id="page-game" class="page">
     <section class="game-hero">
-      <div class="game-inner">
-        <div class="game-text fade-in">
-          <p class="section-label">Interactive · 體驗遊戲</p>
-          <h2 class="section-title">互動小遊戲</h2>
-          <p>選擇成為不同地區的貧困居民，依據當地的貧窮線獲得有限的每日經費，看看你能用這些錢買到什麼——體驗貧窮不只是數字，是每天的選擇。</p>
-          <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);">勾選你今天想購買的項目，看看預算夠不夠。</p>
-        </div>
-        <div class="game-card fade-in">
-          <label>步驟 1 — 選擇國家 / 地區</label>
-          <select class="game-select" id="country-select" onchange="updateBudget()">
-            <option value="">請選擇國家 ...</option>
-            <option value="haiti">海地（Haiti）</option>
-            <option value="india">印度（India）</option>
-            <option value="nigeria">奈及利亞（Nigeria）</option>
-            <option value="philippines">菲律賓（Philippines）</option>
-            <option value="taiwan">台灣（Taiwan）</option>
-          </select>
-          <div class="game-budget">
-            <p class="budget-label">您今日一日的經費為</p>
-            <div class="budget-amount" id="budget-display">— —</div>
-            <p class="budget-unit" id="budget-note">選擇國家後顯示金額</p>
-          </div>
-          <div class="game-task">
-            <p>勾選今天想購買的項目：</p>
-            <label class="task-item" style="cursor:pointer;">
-              <span>🍚 今日早餐（米飯+蔬菜）</span>
-              <span style="display:flex;align-items:center;gap:10px;">
-                <span class="task-cost" id="cost-1">— 元</span>
-                <input type="checkbox" id="chk-1" style="width:16px;height:16px;accent-color:var(--olive-light);">
-              </span>
-            </label>
-            <label class="task-item" style="cursor:pointer;">
-              <span>🍽️ 今日午餐</span>
-              <span style="display:flex;align-items:center;gap:10px;">
-                <span class="task-cost" id="cost-2">— 元</span>
-                <input type="checkbox" id="chk-2" style="width:16px;height:16px;accent-color:var(--olive-light);">
-              </span>
-            </label>
-            <label class="task-item" style="cursor:pointer;">
-              <span>🏠 今日住所（違建一晚）</span>
-              <span style="display:flex;align-items:center;gap:10px;">
-                <span class="task-cost" id="cost-3">— 元</span>
-                <input type="checkbox" id="chk-3" style="width:16px;height:16px;accent-color:var(--olive-light);">
-              </span>
-            </label>
-            <label class="task-item" style="cursor:pointer;">
-              <span>💊 基本醫療（感冒藥）</span>
-              <span style="display:flex;align-items:center;gap:10px;">
-                <span class="task-cost" id="cost-4">— 元</span>
-                <input type="checkbox" id="chk-4" style="width:16px;height:16px;accent-color:var(--olive-light);">
-              </span>
-            </label>
-            <label class="task-item" style="cursor:pointer;">
-              <span>🚌 交通費（單趟）</span>
-              <span style="display:flex;align-items:center;gap:10px;">
-                <span class="task-cost" id="cost-5">— 元</span>
-                <input type="checkbox" id="chk-5" style="width:16px;height:16px;accent-color:var(--olive-light);">
-              </span>
-            </label>
-          </div>
-          <button class="btn-game" onclick="submitGame()">計算今日花費 →</button>
-        </div>
-      </div>
+      <section style="padding: 0; height: calc(100vh - 68px);">
+    <iframe 
+      src="game.html" 
+      style="width: 100%; height: 100%; border: none; display: block;">
+    </iframe>
+  </section>
     </section>
-
-    <!-- 遊戲結果 -->
-    <div class="game-result" id="game-result">
-      <div class="result-card">
-        <div class="result-title" id="result-title">今日花費結算</div>
-        <div id="result-items"></div>
-        <div class="result-remaining">
-          <p>今日剩餘金額</p>
-          <div class="remaining-amount" id="remaining-amount"></div>
-        </div>
-        <div class="result-msg" id="result-msg"></div>
-        <button class="btn-restart" onclick="restartGame()">← 重新選擇</button>
-      </div>
-    </div>
-
-    <footer style="margin-top:0;">
-      <span>POVERTY ERADICATION · 消除貧窮 </span>
-    </footer>
   </div>
 
   <!-- =========================================
@@ -797,7 +718,7 @@
     </section>
 
     <footer>
-      <span>POVERTY ERADICATION · 消除貧窮 · 第七組</span>
+      <span>POVERTY ERADICATION · 消除貧窮</span>
     </footer>
   </div>
 
@@ -835,26 +756,26 @@
           <div class="policy-card fade-in">
             <h3>社會救助法</h3>
             <p>規定低收入戶與中低收入戶的認定標準，提供生活扶助、醫療補助、教育補助等多項現金與實物援助，為台灣社會安全網的核心法制。</p>
-              <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0050078" 
-   target="_blank" class="policy-link">了解詳情 →</a>
+                <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0050078" 
+   target="_blank" target="_blank" class="org-link">了解詳情 →</a>
           </div>
           <div class="policy-card fade-in">
             <h3>社會住宅與租屋補助</h3>
             <p>透過公辦社會住宅與租金補貼，協助低收入及弱勢家庭解決居住困境。目標至2025年提供20萬戶以上社會住宅。</p>
               <a href="https://www.moi.gov.tw/cl.aspx?n=9606" 
-   target="_blank" class="policy-link">了解詳情 →</a>
+   target="_blank" target="_blank" class="org-link">了解詳情 →</a>
           </div>
           <div class="policy-card fade-in">
             <h3>就業促進方案</h3>
             <p>針對長期失業、身心障礙、原住民族等弱勢族群，提供職業訓練、就業媒合與創業輔導，以促進經濟自立。</p>
               <a href="https://cdj.sfaa.gov.tw/Journal/FileLoad?no=193437" 
-   target="_blank" class="policy-link">了解詳情 →</a>
+   target="_blank" target="_blank" class="org-link">了解詳情 →</a>
           </div>
             <div class="policy-card fade-in">
             <h3>近貧/相對貧窮因應措施</h3>
             <p>台灣對「相對貧窮」尚無法定定義，近年學界與政策圈積極倡議擴大中低收入戶認定範圍，以涵蓋更多邊緣脆弱人口。</p>
-              <a href="https://www.ly.gov.tw/EngPages/Detail.aspx?nodeid=4933&pid=16178" 
-   target="_blank" class="policy-link">了解詳情 →</a>
+              <a href="https://www.ly.gov.tw/EngPages/Detail.aspx?nodeid=4933&pid=16178"  
+   target="_blank" target="_blank" class="org-link">了解詳情 →</a>  
           </div>
         </div>
       </div>
@@ -925,71 +846,6 @@
     }
     triggerFadeIn(); // 首頁初始觸發
 
-    /* ------------------------------------------
-       3. 互動小遊戲
-       ------------------------------------------ */
-    const budgetData = {
-      haiti:       { daily: 55,  note: '約 NT$55（USD 1.90）', costs: [8, 10, 25, 18, 5] },
-      india:       { daily: 70,  note: '約 NT$70（USD 2.15）', costs: [10, 12, 30, 25, 8] },
-      nigeria:     { daily: 80,  note: '約 NT$80（USD 2.50）', costs: [12, 15, 35, 27, 10] },
-      philippines: { daily: 130, note: '約 NT$130（USD 4.00）', costs: [20, 25, 60, 40, 15] },
-      taiwan:      { daily: 473, note: '約 NT$473（最低工資日薪）', costs: [60, 80, 200, 100, 30] },
-    };
-    const itemNames = ['🍚 今日早餐', '🍽️ 今日午餐', '🏠 今日住所', '💊 基本醫療', '🚌 交通費'];
-
-    function updateBudget() {
-      const sel  = document.getElementById('country-select').value;
-      const data = budgetData[sel];
-      document.getElementById('budget-display').textContent = data ? `NT$ ${data.daily}` : '— —';
-      document.getElementById('budget-note').textContent    = data ? data.note : '選擇國家後顯示金額';
-      for (let i = 1; i <= 5; i++) {
-        document.getElementById('cost-' + i).textContent = data ? `NT$ ${data.costs[i-1]}` : '— 元';
-        document.getElementById('chk-' + i).checked = false;
-      }
-      document.getElementById('game-result').classList.remove('show');
-    }
-
-    function submitGame() {
-      const sel  = document.getElementById('country-select').value;
-      const data = budgetData[sel];
-      if (!data) { alert('請先選擇國家！'); return; }
-
-      let total = 0;
-      let html  = '';
-      for (let i = 1; i <= 5; i++) {
-        if (document.getElementById('chk-' + i).checked) {
-          const cost = data.costs[i-1];
-          total += cost;
-          const over = total > data.daily;
-          html += `<div class="result-item">
-            <span class="item-name">${itemNames[i-1]}</span>
-            <span class="item-price ${over ? 'over' : ''}">NT$ ${cost}</span>
-          </div>`;
-        }
-      }
-      if (!html) { alert('請至少勾選一項！'); return; }
-
-      const remaining = data.daily - total;
-      const remEl = document.getElementById('remaining-amount');
-      remEl.textContent = `NT$ ${remaining}`;
-      remEl.className = 'remaining-amount ' + (remaining >= 0 ? 'positive' : 'negative');
-
-      document.getElementById('result-items').innerHTML = html;
-      document.getElementById('result-title').textContent = `今日花費：NT$ ${total} / 預算：NT$ ${data.daily}`;
-
-      const msgs = {
-        positive: `你今天還剩下 NT$${remaining}。在這個地區，許多人每天就靠這樣的金額生活，有時甚至更少。`,
-        negative: `你今天超支了 NT$${Math.abs(remaining)}。這代表你必須放棄其中某些項目——這就是貧窮的真實選擇。`
-      };
-      document.getElementById('result-msg').textContent = remaining >= 0 ? msgs.positive : msgs.negative;
-      document.getElementById('game-result').classList.add('show');
-      document.getElementById('game-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function restartGame() {
-      document.getElementById('game-result').classList.remove('show');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
     /* ------------------------------------------
        6. 捐款組織 Tab 切換
        ------------------------------------------ */
