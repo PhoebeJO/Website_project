@@ -556,6 +556,7 @@ const countryDatabase = {
     //亞洲
     'Taiwan': {
         title: '台灣 (Taiwan)',
+        ranking: '178',
         subtitle: '包含台灣的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '主導全球半導體產業',
         descParagraphs: [
@@ -1153,6 +1154,75 @@ descParagraphs: [
                 { country: '美國', percent: '9.71%' },
                 { country: '南韓', percent: '7.52%' },
                 { country: '日本', percent: '6.82%' }
+            ],
+            source: 'Source: IMF, CIA The World Factbook'
+        }
+    },
+    'Australia': {
+        title: '澳洲 (Australia)',
+        flagUrl: 'https://flagcdn.com/w160/au.png',
+        subtitle: '包含澳洲的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '繁榮源於鄰近亞洲經濟體',
+        descParagraphs: [
+            '澳洲經濟受惠於開放市場原則、對法治的堅定承諾以及透明的法規而蓬勃發展。憑藉與所有全球主要合作夥伴簽署的自由貿易協定，以及現代化銀行體系的支持，澳洲對外國投資持歡迎態度，並在金融服務、科技與高附加價值製造業等領域保持競爭優勢。配合其淨零排放目標，澳洲亦鼓勵推動潔淨科技。此外，澳洲具備鄰近快速成長的亞洲市場之戰略地理位置，加上豐富的礦產資源，進一步鞏固了其經濟優勢。',
+            '然而，其弱點包括勞動力市場緊縮導致技能短缺、易受大宗商品價格波動影響，以及氣候變遷帶來的不確定性。此外，該國經濟高度依賴中國的需求，且因國土遼闊而面臨基礎設施不足的困境。'
+        ],
+        table: {
+            gov: '君主立憲制下的聯邦議會民主制；大英國協王國',
+            capital: '坎培拉',
+            ratings: 'S&P: AAA<br>Moody\'s: Aaa<br>Fitch: AAA',
+            pop: '2,774 萬人',
+            age: '38.26 歲',
+            income: '77,543.33 美元',
+            gdp: '1.83 兆美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17491692/embed#?secret=VRTAjzaqUX" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17492008/embed#?secret=vI8VCyHZjL" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '3,416 億美元 (2024)',
+            leadingExports: '鐵礦砂<br>煤炭<br>天然氣<br>黃金<br>礦物',
+            imports: '3,009 億美元 (2024)',
+            leadingImports: '精煉石油<br>汽車<br>送貨卡車<br>廣播設備<br>服飾',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/17489811/embed#?secret=sr7PbrWimI" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'Commonwealth Bank of Australia', sector: '金融業' },
+            { name: 'Macquarie Group', sector: '金融業' },
+            { name: 'Westpac Banking Corporation', sector: '金融業' },
+            { name: 'Rio Tinto', sector: '金屬與採礦' },
+            { name: 'Woolworths Group', sector: '民生必需品經銷與零售' },
+            { name: 'Telstra', sector: '電信服務' },
+            { name: 'Wesfarmers', sector: '非必需消費品經銷與零售、肥料與農業化學品' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '25%' },
+                { country: '美國', percent: '11.3%' },
+                { country: '日本', percent: '6.29%' },
+                { country: '南韓', percent: '6.29%' },
+                { country: '泰國', percent: '4.54%' }
+            ],
+            export: [
+                { country: '中國', percent: '32.56%' },
+                { country: '未指定', percent: '17.3%' },
+                { country: '日本', percent: '9.8%' },
+                { country: '南韓', percent: '5.66%' },
+                { country: '印度', percent: '4.38%' }
             ],
             source: 'Source: IMF, CIA The World Factbook'
         }

@@ -137,7 +137,9 @@
         <div id="map-main-view" class="fade-in block">
             <h2 class="text-3xl font-bold text-brand-dark mb-4 border-l-4 border-brand pl-3">世界地圖：貧窮現況探索</h2>
             <p class="text-gray-600 mb-6">點擊地圖上的發光圓點，即可在展開該國家的詳細經濟與貧窮數據。(數據來源:Global Finance Magazine)</p>
-            
+            <a href="https://gfmag.com/data/economic-data/poorest-country-in-the-world/" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-brand hover:text-brand-dark mt-2 md:mt-0 flex items-center gap-1 transition-colors border-b border-brand pb-0.5">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> 資料來源：Global Finance Magazine
+            </a>
             <div class="w-full aspect-[2/1] bg-sky-50 rounded-xl relative border border-gray-200 overflow-hidden shadow-inner">
                 <!-- 底圖 -->
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/BlankMap-World.png" alt="世界地圖" class="w-full h-full object-contain opacity-100">
@@ -149,7 +151,7 @@
                 <!-- ----------------------------- -->
                 <!-- 台灣 (Taiwan) -->
                 <div class="absolute top-[34%] left-[79.8%] w-2.5 h-2.5 md:w-4 md:h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border md:border-2 border-customWhite z-10"
-                    onmouseenter="showMapTooltip(event, '台灣 (Taiwan)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onmouseenter="showMapTooltip(event, '台灣 (Taiwan)', '點擊查看詳細資料', 'Taiwan')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()"
                     onclick="showMapDetails('Taiwan')">
                 </div>
                 <!-- 中國 (China) -->
@@ -255,7 +257,11 @@
                     onclick="showMapDetails('New Zealand')">
                 </div>
 
-
+                <!-- 澳洲 (Australia) -->
+                <div class="absolute top-[73.5%] left-[92%] w-2.5 h-2.5 md:w-4 md:h-4 bg-purple-700 rounded-full cursor-pointer pulse-oceania border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, '澳洲 (Australia)', '點擊查看詳細資料')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" 
+                    onclick="showMapDetails('Australia')">
+                </div>
                 <div class="flex justify-center gap-6 mt-4 text-sm text-customGray font-medium flex-wrap">
                 <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-500"></div> 亞洲</span>
                 <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-blue-400"></div> 歐洲</span>
@@ -263,16 +269,28 @@
                 <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-green-700"></div> 美洲</span>
                 <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-purple-700"></div> 大洋洲</span>
                 </div>
-
             </div>
+            
+            <!-- 跟隨滑鼠的提示框 (Tooltip) -->
+            <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 rounded-lg shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
+                <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-b-2 border-r-2 border-brand rotate-45"></div>
+                <p id="tooltip-title" class="font-bold text-brand-dark text-lg"></p>
+                <p id="tooltip-desc" class="text-gray-600 text-sm mt-1"></p>
+            </div>
+            <!-- 跟隨滑鼠的提示框新增「排名徽章預留區」 -->
+            <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 rounded-lg shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
+                <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-b-2 border-r-2 border-brand rotate-45"></div>
+                <p id="tooltip-title" class="font-bold text-brand-dark text-lg"></p>
+            <!-- 新增排名顯示區 (預設隱藏) -->
+                <div id="tooltip-ranking-badge" class="hidden mt-1 mb-1 bg-red-50 text-red-700 px-2 py-1 rounded text-xs font-bold border border-red-200 items-center gap-1">
+                    <i class="fa-solid fa-ranking-star"></i> <span id="tooltip-ranking"></span>
+                </div>
+                <p id="tooltip-desc" class="text-gray-600 text-sm mt-1"></p>
+            </div>
+
         </div>
 
-        <!-- 跟隨滑鼠的提示框 (Tooltip) -->
-        <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 rounded-lg shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
-            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-b-2 border-r-2 border-brand rotate-45"></div>
-            <p id="tooltip-title" class="font-bold text-brand-dark text-lg"></p>
-            <p id="tooltip-desc" class="text-gray-600 text-sm mt-1"></p>
-        </div>
+
 
         <!-- ========================================== -->
         <!-- 視圖 2：點進去後的詳細資訊【模板區塊】 -->
@@ -289,6 +307,9 @@
                 <div class="flex items-center gap-4 mb-4">
                     <img id="detail-flag" src="" alt="國旗" class="hidden h-8 md:h-10 w-auto border border-customBorder shadow-sm object-cover">
                     <h2 id="detail-title" class="text-4xl font-serif font-bold text-charcoal">【國家標題】</h2>
+                    <div id="detail-ranking-badge" class="hidden bg-red-50 text-red-700 px-3 py-1.5 rounded-md text-sm font-bold border border-red-200 shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-ranking-star"></i> <span id="detail-ranking"></span>
+                    </div>
                 </div>
                 <p id="detail-subtitle" class="text-xl text-gray-800 font-medium leading-relaxed max-w-4xl opacity-90">
                     【國家簡介副標題預留位】
@@ -444,11 +465,23 @@
     <script>
         const tooltip = document.getElementById('map-tooltip');
 
-        function showMapTooltip(event, title, desc) {
+        function showMapTooltip(event, title, desc, countryKey) {
             document.getElementById('tooltip-title').innerText = title;
             document.getElementById('tooltip-desc').innerText = desc;
+
+            const rankingBadge = document.getElementById('tooltip-ranking-badge');
+            
+            if (countryKey && typeof countryDatabase !== 'undefined' && countryDatabase[countryKey] && countryDatabase[countryKey].ranking) {
+                document.getElementById('tooltip-ranking').innerText = `全球最貧窮排名：第 ${countryDatabase[countryKey].ranking} 名`;
+                rankingBadge.classList.remove('hidden');
+                rankingBadge.classList.add('inline-flex');
+            } else {
+                rankingBadge.classList.add('hidden');
+                rankingBadge.classList.remove('inline-flex');
+            }
+
             tooltip.classList.remove('hidden');
-            moveMapTooltip(event); 
+            moveMapTooltip(event);
         }
 
         function moveMapTooltip(event) {
@@ -478,6 +511,14 @@
                 flagImg.classList.remove('hidden');
             } else {
                 flagImg.classList.add('hidden');
+            }
+            
+            const rankingBadgeDetail = document.getElementById('detail-ranking-badge');
+            if (data.ranking) {
+                document.getElementById('detail-ranking').innerText = `全球最貧窮排名(2025)：第 ${data.ranking} 名`;
+                rankingBadgeDetail.classList.remove('hidden');
+            } else {
+                rankingBadgeDetail.classList.add('hidden');
             }
 
             const contentDiv = document.getElementById('detail-desc-content');
