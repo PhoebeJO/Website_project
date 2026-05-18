@@ -385,7 +385,7 @@
     /* ===========================
        PAGE 3：世界地圖
        =========================== */
-    #page-map { background: var(--cream); }
+    #page-map { background: var(--cream); height: 100vh; overflow: hidden; }
     .map-section { padding: 60px 48px 80px; }
     .map-header {
       display: flex; justify-content: space-between;
@@ -487,6 +487,11 @@
       font-family: 'DM Mono', monospace; font-size: 0.68rem;
       color: var(--gray); letter-spacing: 0.1em;
     }
+    .org-logo {
+      width: 160px; height: 56px;
+      object-fit: contain; object-position: left center;
+      display: block;
+    }
     .org-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
     .org-desc { font-size: 0.84rem; color: var(--gray); line-height: 1.7; flex: 1; }
     .org-link {
@@ -553,11 +558,11 @@
        ========================================= -->
   <nav>
     <div class="nav-logo" onclick="switchPage('home')">
-      POVERTY <span>ERADICATION · 消除貧窮</span>
+      POVERTY ERADICATION<span> 消除貧窮</span>
     </div>
     <ul class="nav-links">
       <li><a id="nav-home" class="active" onclick="switchPage('home')">首頁</a></li>
-      <li><a id="nav-game" href="game.html">互動遊戲</a></li>
+      <li><a id="nav-game" onclick="switchPage('game')">互動遊戲 <span class="arrow"></span></a>
       <li>
         <a id="nav-map" onclick="switchPage('map')">世界地圖 <span class="arrow"></span></a>
       </li>
@@ -580,8 +585,7 @@
     <section class="hero">
       <div class="hero-marquee">
         <div class="hero-marquee-inner">
-          social issue | social issue | social issue | social issue | social issue | social issue | social issue | social issue |
-          social issue | social issue | social issue | social issue | social issue | social issue | social issue | social issue |
+          Poverty Eradication | Taiwan poverty | SDGs 01 | social issue | Poverty Eradication | Taiwan poverty | SDGs 01 
         </div>
       </div>
       <div class="hero-text fade-in">
@@ -591,7 +595,8 @@
           <span class="en">POVERTY<br>ERADICATION</span>
         </h1>
         <p class="hero-subtitle">
-          One of the biggest world issues. 聯合國永續發展目標第一項——終結各地一切形式的貧窮，是實現公平、包容世界的第一步。
+          One of the biggest world issues. <br>
+          聯合國永續發展目標第一項——終結各地一切形式的貧窮，是實現公平、包容世界的第一步。
         </p>
       </div>
       <div class="hero-image fade-in">
@@ -605,11 +610,11 @@
     <section class="sdgs-section">
       <div class="sdg-img-wrap fade-in">
         <span class="sdg-badge">SDG 01 · POVERTY</span>
-        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80" alt="Poverty in community" />
+        <img src="https://www.bhorkiran.org/img/programs/poverty-eradication.jpg" alt="Poverty in community" />
       </div>
       <div class="fade-in">
         <p class="section-label">United Nations · 2030 Agenda</p>
-        <h2 class="section-title">SDGs 目標<br>消除各地一切<br>形式的貧窮</h2>
+        <h2 class="section-title">SDGs 目標<br>消除各地一切形式的貧窮</h2>
         <ul class="sdg-list">
           <li><span class="sdg-num">1.1</span><span>終結極端貧窮，確保所有人脫離每日生活費不足1.25美元的狀態</span></li>
           <li><span class="sdg-num">1.2</span><span>至少減少50%各國定義下的各年齡層貧窮人口</span></li>
@@ -621,23 +626,14 @@
         </ul>
       </div>
     </section>
-
-    <footer>
-      <span>POVERTY ERADICATION · 消除貧窮</span>
-    </footer>
   </div>
 
   <!-- =========================================
        PAGE 2：互動小遊戲
        ========================================= -->
   <div id="page-game" class="page">
-    <section class="game-hero">
-      <section style="padding: 0; height: calc(100vh - 68px);">
-    <iframe 
-      src="game.html" 
-      style="width: 100%; height: 100%; border: none; display: block;">
-    </iframe>
-  </section>
+    <section style="padding: 0; height: calc(100vh - 68px);">
+      <iframe src="game1.html" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
     </section>
   </div>
 
@@ -645,20 +641,9 @@
        PAGE 3：世界地圖
        ========================================= -->
   <div id="page-map" class="page">
-    <section class="map-section">
-  <section style="padding: 0; height: calc(100vh - 68px);">
-    <iframe 
-      src="poverty_Sh2.html" 
-      style="width: 100%; height: 100%; border: none; display: block;">
-    </iframe>
-  </section>
-</div>
-      </div>
+    <section style="padding: 0; height: calc(100vh - 68px);">
+      <iframe src="poverty_Sh2.html" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
     </section>
-
-    <footer>
-      <span>POVERTY ERADICATION · 消除貧窮 </span>
-    </footer>
   </div>
 
   <!-- =========================================
@@ -676,25 +661,25 @@
 
       <div class="org-grid" id="tab-intl">
         <div class="org-card fade-in">
-          <div class="org-logo-placeholder">WORLD VISION</div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/World_Vision_Taiwan_logo.svg/1280px-World_Vision_Taiwan_logo.svg.png" alt="台灣世界展望會" class="org-logo">
           <div class="org-name">台灣世界展望會</div>
           <p class="org-desc">全球最大的基督徒人道救援組織之一，深入貧困地區提供兒童、家庭與社區長期扶助，並致力推動永續發展。</p>
           <a href="https://www.worldvision.org.tw/cart" target="_blank" class="org-link">前往捐款 →</a>
         </div>
         <div class="org-card fade-in">
-          <div class="org-logo-placeholder">MERCY CORPS</div>
+          <img src="https://cdn.cookielaw.org/logos/2eeb7614-4758-4934-8047-90b755c094ae/373bd1d0-6dae-47ba-83ad-e695c391af8d/dba55bcb-a521-45c4-abe7-e27754d4c1a4/MC_Logo.png" alt="Mercy Corps" class="org-logo">
           <div class="org-name">Mercy Corps</div>
           <p class="org-desc">聚焦於衝突地區與自然災害後的人道援助，幫助脆弱社群重建生計、糧食安全與經濟自主能力。</p>
           <a href="https://www.mercycorps.org/donate" target="_blank" class="org-link">前往捐款 →</a>
         </div>
         <div class="org-card fade-in">
-          <div class="org-logo-placeholder">OXFAM</div>
+          <img src="https://www.oxfam.org.tw/f/sub_website/3065/981c288/Untitled%20design%20%2814%29.png" alt="Oxfam" class="org-logo">
           <div class="org-name">樂施會 OXFAM</div>
           <p class="org-desc">全球反貧困倡議組織，致力消除不平等、推動公平貿易，並在緊急人道危機中提供即時援助。</p>
           <a href="https://www.oxfam.org.tw/tc/donate" target="_blank" class="org-link">前往捐款 →</a>
         </div>
         <div class="org-card fade-in">
-          <div class="org-logo-placeholder">WELT HUNGER HILFE</div>
+          <img src="https://www.welthungerhilfe.de/fileadmin/pictures/graphics/socialshare/welthungerhilfe-logo-share-de.png" alt="Welthungerhilfe" class="org-logo">
           <div class="org-name">Welthungerhilfe (WHH)</div>
           <p class="org-desc">德國最大的私人發展援助組織之一，專注於消除飢餓、推動農業發展與強化糧食系統韌性。</p>
           <a href="https://www.welthungerhilfe.org/donate" target="_blank" class="org-link">前往捐款 →</a>
@@ -703,23 +688,19 @@
 
       <div class="org-grid" id="tab-tw" style="display:none;">
         <div class="org-card fade-in">
-          <div class="org-logo-placeholder">家扶基金會</div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRgcMWE1IdmiXGXhR7KtMB6GQF7mT0OkRTWw&s" alt="家扶基金會" class="org-logo">
           <div class="org-name">家扶基金會</div>
           <p class="org-desc">深耕台灣七十餘年，提供弱勢兒童與家庭多元服務，包括生活扶助、課後輔導與家庭支持。</p>
           <a href="https://www.ccf.org.tw/" target="_blank" class="org-link">前往捐款 →</a>
         </div>
         <div class="org-card fade-in">
-          <div class="org-logo-placeholder">勵馨基金會</div>
+          <img src="https://hedefoundation.org.tw/wp-content/uploads/2020/09/Social-Welfare-Group-LOGO.016.jpeg" alt="勵馨基金會" class="org-logo">
           <div class="org-name">勵馨基金會</div>
           <p class="org-desc">關注性別暴力與貧窮交織問題，提供女性及兒少保護服務，倡議終結結構性貧窮。</p>
           <a href="https://www.goh.org.tw/" target="_blank" class="org-link">前往捐款 →</a>
         </div>
       </div>
     </section>
-
-    <footer>
-      <span>POVERTY ERADICATION · 消除貧窮</span>
-    </footer>
   </div>
 
   <!-- =========================================
@@ -762,19 +743,19 @@
           <div class="policy-card fade-in">
             <h3>社會住宅與租屋補助</h3>
             <p>透過公辦社會住宅與租金補貼，協助低收入及弱勢家庭解決居住困境。目標至2025年提供20萬戶以上社會住宅。</p>
-              <a href="https://www.moi.gov.tw/cl.aspx?n=9606" 
+              <a href="https://www.moi.gov.tw/cl.aspx?n=9606https://pip.moi.gov.tw/Publicize/Info/B1020?y=115&n=%E5%95%8F%E8%88%87%E7%AD%94" 
    target="_blank" target="_blank" class="org-link">了解詳情 →</a>
           </div>
           <div class="policy-card fade-in">
             <h3>就業促進方案</h3>
             <p>針對長期失業、身心障礙、原住民族等弱勢族群，提供職業訓練、就業媒合與創業輔導，以促進經濟自立。</p>
-              <a href="https://cdj.sfaa.gov.tw/Journal/FileLoad?no=193437" 
+              <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0090025" 
    target="_blank" target="_blank" class="org-link">了解詳情 →</a>
           </div>
             <div class="policy-card fade-in">
-            <h3>近貧/相對貧窮因應措施</h3>
-            <p>台灣對「相對貧窮」尚無法定定義，近年學界與政策圈積極倡議擴大中低收入戶認定範圍，以涵蓋更多邊緣脆弱人口。</p>
-              <a href="https://www.ly.gov.tw/EngPages/Detail.aspx?nodeid=4933&pid=16178"  
+            <h3>老人福利法</h3>
+            <p>台灣對針對弱勢的中老年人，提供生活扶助、醫療補助與社會服務，以保障其基本生活需求與尊嚴。</p>
+              <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=D0050149"  
    target="_blank" target="_blank" class="org-link">了解詳情 →</a>  
           </div>
         </div>
@@ -795,10 +776,51 @@
       </div>
     </section>
 
-    <footer>
-      <span>POVERTY ERADICATION · 消除貧窮 </span>
-    </footer>
   </div>
+
+  <!-- =========================================
+       共用 Footer（遊戲與地圖頁除外）
+       ========================================= -->
+  <footer id="site-footer" style="background:#111;">
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:48px; padding:48px 48px 32px; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:24px;">
+
+      <div>
+        <p style="font-family:'Playfair Display',serif; font-size:0.9rem; color:rgba(255,255,255,0.8); margin-bottom:16px; letter-spacing:0.05em;">消除貧窮</p>
+        <p style="font-size:0.75rem; color:rgba(255,255,255,0.35); line-height:1.8;">聯合國永續發展目標 <br>SDG 01</p>
+      </div>
+
+      <div>
+        <p style="font-size:0.68rem; letter-spacing:0.15em; color:var(--olive-light); margin-bottom:14px; text-transform:uppercase;">首頁</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <a onclick="switchPage('home')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">貧窮定義介紹</a>
+          <a onclick="switchPage('home'); setTimeout(()=>document.querySelector('.sdgs-section').scrollIntoView({behavior:'smooth'}),100)" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">SDGs 七大目標</a>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:0.68rem; letter-spacing:0.15em; color:var(--olive-light); margin-bottom:14px; text-transform:uppercase;">分頁</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <a onclick="switchPage('game')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">互動小遊戲</a>
+          <a onclick="switchPage('map')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">世界地圖</a>
+          <a onclick="switchPage('orgs')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">捐款組織</a>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:0.68rem; letter-spacing:0.15em; color:var(--olive-light); margin-bottom:14px; text-transform:uppercase;">台灣的貧窮</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <a onclick="switchPage('taiwan'); scrollToId('taiwan-line')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">台灣的貧窮線</a>
+          <a onclick="switchPage('taiwan'); scrollToId('taiwan-policy')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">相關政策</a>
+          <a onclick="switchPage('taiwan'); scrollToId('taiwan-policy')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">社會救助法</a>
+          <a onclick="switchPage('taiwan'); scrollToId('taiwan-policy')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">就業促進方案</a>
+        </div>
+      </div>
+
+    </div>
+    <div style="padding:0 48px 32px; font-family:'DM Mono',monospace; font-size:0.68rem; color:rgba(255,255,255,0.2); letter-spacing:0.1em;">
+      POVERTY ERADICATION · 消除貧窮 · SDG 01
+    </div>
+  </footer>
 
   <!-- =========================================
        JavaScript
@@ -819,6 +841,10 @@
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
       const navBtn = document.getElementById('nav-' + pageId);
       if (navBtn) navBtn.classList.add('active');
+
+      // 遊戲與地圖頁不顯示 footer
+      const footer = document.getElementById('site-footer');
+      if (footer) footer.style.display = (pageId === 'game' || pageId === 'map' || pageId === 'taiwan') ? 'none' : 'block';
 
       // 每次切換頁面都滾回頂部
       window.scrollTo({ top: 0, behavior: 'smooth' });
