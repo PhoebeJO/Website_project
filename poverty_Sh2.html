@@ -127,9 +127,9 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 p-4 md:p-8 font-sans">
+<body class="font-sans" style="background:var(--cream); padding: 32px 48px;">
 
-    <div class="max-w-6xl mx-auto bg-customWhite rounded-2xl shadow-sm p-8 border border-customBorder">
+    <div class="max-w-6xl mx-auto p-8" style="background:var(--white); border:1px solid var(--border);">
         
         <!-- ========================================== -->
         <!-- 視圖 1：世界地圖主頁 (Main Map View) -->
@@ -140,9 +140,9 @@
             <a href="https://gfmag.com/data/economic-data/poorest-country-in-the-world/" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-brand hover:text-brand-dark mt-2 md:mt-0 flex items-center gap-1 transition-colors border-b border-brand pb-0.5">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i> 資料來源：Global Finance Magazine
             </a>
-            <div class="w-full aspect-[2/1] bg-sky-50 rounded-xl relative border border-gray-200 overflow-hidden shadow-inner">
+            <div class="w-full aspect-[2/1] relative border overflow-hidden" style="background:var(--cream); border-color:var(--border);">
                 <!-- 底圖 -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/BlankMap-World.png" alt="世界地圖" class="w-full h-full object-contain opacity-100">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/BlankMap-World.png" alt="世界地圖" class="w-full h-full object-contain" style="mix-blend-mode: multiply;">
 
                 <!-- 💡 修改點：傳入國家的代號(Key)，例如 'Taiwan', 'Madagascar' -->
                 <!-- 使用 onclick="showMapDetails(...)" 來觸發同頁面的切換邏輯 -->
@@ -272,13 +272,13 @@
             </div>
             
             <!-- 跟隨滑鼠的提示框 (Tooltip) -->
-            <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 rounded-lg shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
+            <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
                 <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-b-2 border-r-2 border-brand rotate-45"></div>
                 <p id="tooltip-title" class="font-bold text-brand-dark text-lg"></p>
                 <p id="tooltip-desc" class="text-gray-600 text-sm mt-1"></p>
             </div>
             <!-- 跟隨滑鼠的提示框新增「排名徽章預留區」 -->
-            <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 rounded-lg shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
+            <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
                 <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-b-2 border-r-2 border-brand rotate-45"></div>
                 <p id="tooltip-title" class="font-bold text-brand-dark text-lg"></p>
             <!-- 新增排名顯示區 (預設隱藏) -->
@@ -298,7 +298,7 @@
         <!-- ========================================== -->
         <div id="map-detail-view" class="hidden fade-in pt-4">
             
-            <button onclick="hideMapDetails()" class="mb-8 px-5 py-2.5 bg-cream text-charcoal border border-customBorder rounded-lg hover:bg-brand hover:text-customWhite transition flex items-center gap-2 font-bold shadow-sm">
+            <button onclick="hideMapDetails()" class="mb-8 px-5 py-2.5 bg-cream text-charcoal border border-customBorder hover:bg-brand hover:text-customWhite transition flex items-center gap-2 font-bold">
                 <i class="fa-solid fa-arrow-left"></i> 返回世界地圖
             </button>
             
@@ -326,7 +326,7 @@
                 </div>
 
                 <!-- 右側：資料表格區 (左側英文固定，右側數據動態更新) -->
-                <div class="bg-cream p-6 rounded-xl border border-customBorder shadow-sm">
+                <div class="bg-cream p-6 border border-customBorder">
                     <h4 class="text-lg font-serif font-bold text-charcoal mb-6">宏觀經濟與主權數據</h4>
                     <table class="w-full text-sm text-left">
                         <tbody>
@@ -390,7 +390,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-[40%_55%] gap-12">
                     
                     <!-- 左側：貿易表格 -->
-                    <div id="wrapper-trade-invest" class="hidden bg-customWhite p-6 rounded-xl border border-customBorder shadow-sm self-start">
+                    <div id="wrapper-trade-invest" class="hidden bg-customWhite p-6 border border-customBorder self-start">
                         <h4 class="text-xl font-serif font-bold text-charcoal mb-6">貿易與投資</h4>
                         <table class="w-full text-sm text-left">
                             <tbody id="trade-invest-tbody">
@@ -414,7 +414,7 @@
             <div id="section-tables" class="hidden pt-2 mb-12">
                 
                 <!-- 上方：Leading Companies (深色滿版表格) -->
-                <div id="wrapper-leading-companies" class="hidden bg-[#2b323c] text-white p-8 rounded-xl shadow-md mb-8">
+                <div id="wrapper-leading-companies" class="hidden text-white p-8 mb-8" style="background:var(--charcoal);">
                     <h3 id="leading-companies-title" class="text-2xl font-serif font-bold text-white mb-6">【國家】 主要企業</h3>
                     <table class="w-full text-sm text-left">
                         <tbody id="leading-companies-tbody" class="divide-y divide-gray-600">
@@ -426,7 +426,7 @@
                 <!-- 下方：Major Trade Partners (左右並排) -->
                 <div id="wrapper-trade-partners" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- Import 表格 -->
-                    <div class="bg-customWhite p-8 rounded-xl border border-customBorder shadow-sm">
+                    <div class="bg-customWhite p-8 border border-customBorder">
                         <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">主要貿易夥伴 — 進口</h4>
                         <table class="w-full text-sm text-left">
                             <tbody id="partners-import-tbody">
@@ -435,7 +435,7 @@
                         </table>
                     </div>
                     <!-- Export 表格 -->
-                    <div class="bg-customWhite p-8 rounded-xl border border-customBorder shadow-sm">
+                    <div class="bg-customWhite p-8 border border-customBorder">
                         <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">主要貿易夥伴 — 出口</h4>
                         <table class="w-full text-sm text-left">
                             <tbody id="partners-export-tbody">
