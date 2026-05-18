@@ -1561,4 +1561,234 @@ descParagraphs: [
             source: 'Source: World Integrated Trade Solution'
         }
     },
+    'United Kingdom': {
+        title: '英國 (United Kingdom)',
+        flagUrl: 'https://flagcdn.com/w160/gb.png',
+        subtitle: '包含英國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '完善的銀行體系',
+        descParagraphs: [
+            '英國作為繁榮的商業中心，提供了有利於貿易與投資的良好環境。該國擁有開放的經濟體、龐大且高消費能力的消費市場，以及豐富的技術專業人才；同時更具備完善的銀行與保險服務、穩健的基礎設施、透明的稅制，以及在航空、製藥與汽車領域的頂尖企業。',
+            '然而，英國也面臨著諸多挑戰。其中包括高昂的公共與家庭債務、通膨壓力、貿易中斷，以及英國脫歐所帶來的經濟不確定性。'
+        ],
+        table: {
+            gov: '議會制君主立憲制；大英國協王國',
+            capital: '倫敦',
+            ratings: 'S&P: AA<br>Moody\'s: Aa3<br>Fitch: AA–',
+            pop: '6,840 萬人',
+            age: '40.3 歲',
+            income: '49,463 美元',
+            gdp: '3.5 兆美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18499004/embed#?secret=ru3bEYYleW" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18471546/embed#?secret=qp6QbBuFdR" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '7,230 億美元 (2023)',
+            leadingExports: '汽車<br>黃金<br>燃氣渦輪機<br>原油<br>包裝藥品',
+            imports: '4,625 億美元 (2022)',
+            leadingImports: '黃金<br>汽車<br>天然氣<br>原油<br>包裝藥品',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18499950/embed#?secret=jtgiXcpDc0" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '13%' },
+                { country: '德國', percent: '11%' },
+                { country: '美國', percent: '9%' },
+                { country: '荷蘭', percent: '6%' },
+                { country: '挪威', percent: '5%' }
+            ],
+            export: [
+                { country: '美國', percent: '13%' },
+                { country: '德國', percent: '9%' },
+                { country: '瑞士', percent: '8%' },
+                { country: '荷蘭', percent: '8%' },
+                { country: '愛爾蘭', percent: '6%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
+        }
+    },
+    'Greece': {
+        title: '希臘 (Greece)',
+        flagUrl: 'https://flagcdn.com/w160/gr.png',
+        subtitle: '包含希臘的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '經濟復甦與結構性挑戰並存',
+        descParagraphs: [
+            '希臘位於歐洲東南部，地處歐洲、亞洲與非洲的交界，擁有豐富的歷史文化與壯麗的地中海風光。該國經濟主要由服務業驅動，其中旅遊業與航運業為最重要的支柱產業。身為歐洲聯盟與歐元區的成員，希臘受惠於區域經濟整合與自由貿易，並積極吸引外國直接投資（FDI）投入再生能源、基礎設施、物流與房地產等領域。',
+            '在經歷長達十年的嚴重主權債務危機後，希臘實施了多項艱難的經濟改革，成功恢復經濟成長，並於近期重新獲得部分信評機構的投資等級評等。然而，挑戰依然存在。該國的公共債務佔國內生產毛額（GDP）的比例雖然呈現下降趨勢，但依舊居高不下。此外，人口老化、相對較高的失業率、持續存在的逃漏稅問題，以及龐大且有時效率不彰的官僚體系，仍持續阻礙其長期的經濟發展潛能。'
+        ],
+        table: {
+            gov: '議會制共和國',
+            capital: '雅典',
+            ratings: 'S&P: BBB-<br>Moody\'s: Ba1<br>Fitch: BBB-',
+            pop: '1,040 萬人',
+            age: '42.7 歲',
+            income: '22,595 美元',
+            gdp: '2,382 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18497797/embed#?secret=xnZpLxfcpc" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18470713/embed#?secret=dTkXr2M5AD" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '550 億美元 (2022)',
+            leadingExports: '精煉石油<br>包裝藥品<br>鋁塊<br>橄欖油<br>電腦',
+            imports: '970 億美元 (2022)',
+            leadingImports: '原油<br>精煉石油<br>汽車<br>包裝藥品<br>客運與貨運船舶',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18499710/embed#?secret=1ZYe3ckjbh" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'National Bank of Greece', sector: '金融業' },
+            { name: 'Alpha Bank', sector: '金融業' },
+            { name: 'Hellenic Petroleum', sector: '能源、石油與天然氣' },
+            { name: 'OTE Group', sector: '電信服務' },
+            { name: 'Mytilineos Holdings', sector: '綜合企業、原物料、能源' },
+            { name: 'Public Power Corporation (PPC)', sector: '公用事業' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '德國', percent: '11%' },
+                { country: '義大利', percent: '8%' },
+                { country: '中國', percent: '7%' },
+                { country: '俄羅斯', percent: '7%' },
+                { country: '伊拉克', percent: '6%' }
+            ],
+            export: [
+                { country: '義大利', percent: '11%' },
+                { country: '德國', percent: '8%' },
+                { country: '保加利亞', percent: '6%' },
+                { country: '賽普勒斯', percent: '6%' },
+                { country: '土耳其', percent: '5%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
+        }
+    },
+    'Norway': {
+        title: '挪威 (Norway)',
+        flagUrl: 'https://flagcdn.com/w160/no.png',
+        subtitle: '包含挪威的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '奠基於石油與多元產業的經濟實力',
+        descParagraphs: [
+            '挪威是一個現代化且高度開發的國家，擁有蓬勃發展的私營部門、龐大的國家經濟參與以及廣泛的社會安全網。由於 1960 年代發現了近海石油與天然氣，這個人口不到 600 萬的國家在人均國內生產毛額 (GDP) 方面名列世界最富有的國家之一。如今，挪威的經濟高度多元化，涵蓋從海鮮、林業與礦業等多種產業，到包含金融與金融科技、資訊科技、醫療科技與生物科技，以及再生能源等先進的服務業。這種經濟活力更得益於挪威擁有全球最大的主權財富基金，加上高效率的法律框架、對全球商業的開放態度，以及進入歐盟市場的優惠待遇。',
+            '儘管具備這些優勢，劣勢依然存在，包括私人家庭債務水準偏高，以及嚴重的高昂勞動力成本所加劇的技術勞工短缺問題。此外，面臨氣候相關風險與相對較高的所得稅率也帶來了額外的挑戰。'
+        ],
+        table: {
+            gov: '議會制君主立憲制',
+            capital: '奧斯陸',
+            ratings: 'S&P: AAA<br>Moody\'s: Aaa<br>Fitch: AAA',
+            pop: '560 萬人',
+            age: '40.0 歲',
+            income: '99,923.05 美元',
+            gdp: '5,270 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18497904/embed#?secret=VPL1WQQBsn" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18471259/embed#?secret=DE1w6yiCYd" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '939 億美元 (2023)',
+            leadingExports: '天然氣<br>原油<br>鮭魚<br>精煉石油<br>鋁',
+            imports: '2,590 億美元 (2022)',
+            leadingImports: '汽車<br>精煉石油<br>廣播設備<br>電腦<br>船舶<br>鎳',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18499907/embed#?secret=t747CNsS5o" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        }
+    },
+    'Ukraine': {
+        title: '烏克蘭 (Ukraine)',
+        flagUrl: 'https://flagcdn.com/w160/ua.png',
+        subtitle: '包含烏克蘭的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '戰爭重創經濟，復甦之路漫長',
+        descParagraphs: [
+            '烏克蘭位於東歐，是歐洲面積第二大的國家，擁有肥沃的農業用地和豐富的自然資源，被譽為「歐洲糧倉」。在戰爭爆發前，烏克蘭是全球主要的穀物、葵花籽油和鐵礦石出口國之一。該國擁有發達的工業基礎和IT產業，並致力於深化與歐盟的經濟一體化。',
+            '然而，自2022年俄羅斯全面入侵以來，烏克蘭經濟遭受了毀滅性的打擊。關鍵基礎設施遭到嚴重破壞，數百萬人流離失所，外國投資大幅減少，並面臨著龐大的國防支出壓力。儘管在國際金融援助和黑海糧食走廊的恢復下，該國經濟在近年出現了初步復甦的跡象，但公共債務高企，國家主權信用評等多次被下調至違約或接近違約級別。烏克蘭的長期經濟前景高度依賴於戰爭的演變、國際社會的持續支持以及戰後的重建進程。'
+        ],
+        table: {
+            gov: '半總統制共和國',
+            capital: '基輔',
+            ratings: 'S&P: CCC+<br>Moody\'s: Ca<br>Fitch: RD',
+            pop: '約 3,700 萬人',
+            age: '41.2 歲',
+            income: '約 4,500 美元',
+            gdp: '約 1,700 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18381492/embed#?secret=Oj6MC42VWM" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18368769/embed#?secret=Eo9R6Zuk3k" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '417 億美元 (2024)',
+            leadingExports: '穀物 (小麥、玉米)<br>葵花籽油<br>鐵礦石<br>鋼鐵<br>機械',
+            imports: '707 億美元 (2024)',
+            leadingImports: '礦物燃料與精煉石油<br>機械<br>車輛<br>電機設備<br>藥品',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18370247/embed#?secret=ntQjmpqgUR" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'Naftogaz', sector: '能源' },
+            { name: 'PrivatBank', sector: '金融業' },
+            { name: 'Metinvest', sector: '原物料、金屬與採礦' },
+            { name: 'DTEK', sector: '能源、公用事業' },
+            { name: 'Oschadbank', sector: '金融業' },
+            { name: 'Kernel', sector: '民生必需品、農業' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '中國', percent: '20.0%' },
+                { country: '波蘭', percent: '9.9%' },
+                { country: '德國', percent: '7.6%' },
+                { country: '土耳其', percent: '6.0%' },
+                { country: '美國', percent: '4.9%' }
+            ],
+            export: [
+                { country: '波蘭', percent: '11.3%' },
+                { country: '西班牙', percent: '7.0%' },
+                { country: '德國', percent: '6.7%' }
+            ],
+            source: 'Source: State Customs Service of Ukraine'
+        }
+    },
 };
