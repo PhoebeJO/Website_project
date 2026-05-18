@@ -817,7 +817,7 @@ descParagraphs: [
         flagUrl: 'https://flagcdn.com/w160/in.png',
         subtitle: '包含印度的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '崛起中的經濟強權',
-descParagraphs: [
+    descParagraphs: [
             '預計在本年代末成為僅次於美國和中國的世界第三大經濟體，印度從龐大且日益熟練的勞動力、快速的工業化以及全球供應鏈動態的有利轉變中獲益。儘管其監管框架仍然繁瑣，但近期的改革透過減少外國投資限制與簡化稅收條款，改善了商業環境。',
             '雖然印度擁有高度多元化的經濟，出口產品涵蓋石油產品、農業及製藥，但其約 70% 的發電需求仍依賴煤炭，這對追求永續發展構成了重大挑戰。'
         ],
@@ -1088,6 +1088,162 @@ descParagraphs: [
             source: 'Source: World Integrated Trade Solution'
         }
     },
+    'Bolivia': {
+        title: '玻利維亞 (Bolivia)',
+        flagUrl: 'https://flagcdn.com/w160/bo.png',
+        subtitle: '包含玻利維亞的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '旅遊、餐旅與房地產驅動經濟',
+        descParagraphs: [
+            '玻利維亞擁有豐富的礦產與農業資源，包括天然氣、黃金、鋅、白銀與鋰礦蘊藏，以及大豆與藜麥等農作物。身為自由貿易集團安第斯共同體（Andean Community）的成員，並即將成為南方共同市場（Mercosur）的正式成員，玻利維亞將其貨幣與美元掛鉤，促進了貨幣穩定。此外，該國在旅遊業、製造業與再生能源領域也具備龐大潛力。',
+            '儘管具備這些優勢，玻利維亞仍面臨重大挑戰。該國經濟的多元化程度依然不足，且易受大宗商品價格波動的影響。高昂的公共債務，以及包含脆弱的司法體系與薄弱的法治在內的結構性與制度性挑戰，阻礙了經濟自由並讓外國直接投資（FDI）卻步。國家在經濟活動中日益擴張的角色、過時的勞工法規，以及童工問題，也帶來了額外的隱憂。'
+        ],
+        table: {
+            gov: '總統制共和國',
+            capital: '拉巴斯 (行政首都)；蘇克雷 (憲法首都)',
+            ratings: 'S&P: B–<br>Moody\'s: Caa2<br>Fitch: 未評級',
+            pop: '1,230 萬人',
+            age: '24.7 歲',
+            income: '15,146.02 美元',
+            gdp: '493 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18070363/embed#?secret=jsUiP7hb24" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17980067/embed#?secret=LfBoxT6gv5" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '78 億美元 (2023)',
+            leadingExports: '黃金<br>天然氣<br>鋅<br>白銀<br>大豆產品<br>錫',
+            imports: '141 億美元 (2022)',
+            leadingImports: '汽車<br>精煉石油<br>貨車<br>鐵<br>公車',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18039340/embed#?secret=BfSWyxiNGg" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        }
+    },
+    'Haiti': {
+        title: '海地 (Haiti)',
+        flagUrl: 'https://flagcdn.com/w160/ht.png',
+        subtitle: '包含海地的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '貪腐與暴力摧毀經濟發展潛能',
+        descParagraphs: [
+            '海地與多明尼加共和國共同位於伊斯帕尼奧拉島（Hispaniola）上，是拉丁美洲及加勒比海地區城市化程度最高的國家之一。海地經濟傳統上仰賴農業、商業與建築業，以及蓬勃發展的成衣加工業。然而，這個擁有約 1,200 萬人口的國家，如今卻面臨日益嚴重的政治動盪、貪腐與黑幫暴力問題。',
+            '因此，儘管海地憑藉著年輕的人口結構及鄰近美國的戰略位置，在旅遊業、再生能源與近岸外包活動方面具備龐大潛力，但當地與外國投資者面臨的挑戰依然嚴峻。這些挑戰包含高通膨、基礎設施匱乏、官僚體系不透明、普遍的不平等現象以及技術勞工外流。此外，海地也容易遭受自然災害的侵襲。'
+        ],
+        table: {
+            gov: '半總統制共和國',
+            capital: '太子港',
+            ratings: 'S&P: 未評級<br>Moody\'s: 未評級<br>Fitch: 未評級',
+            pop: '1,240 萬人',
+            age: '23.7 歲',
+            income: '5,788.87 美元',
+            gdp: '240 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18008968/embed#?secret=jfa8qpHyi2" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18008199/embed#?secret=1HW5KP3xwR" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '40 億美元 (2023)',
+            leadingExports: '服飾與成衣<br>精油<br>鰻魚<br>芒果<br>廢鐵',
+            imports: '13 億美元 (2022)',
+            leadingImports: '精煉石油<br>稻米<br>服飾與成衣<br>家禽<br>棕櫚油',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18044290/embed#?secret=hbP7Z1oUqr" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'Unibank', sector: '金融業' },
+            { name: 'Natcom', sector: '電信服務' },
+            { name: 'GB Group', sector: '綜合企業、原物料、民生必需品、能源' },
+            { name: 'La Compagnie d\'Assurance d\'Haïti', sector: '金融業、保險業' },
+            { name: 'Brasserie Nationale d\'Haïti', sector: '民生必需品、啤酒廠' },
+            { name: 'Compagnie des Tabacs Comme il Faut', sector: '民生必需品、菸草' }
+        ]
+    },
+    'Mexico': {
+        title: '墨西哥 (Mexico)',
+        flagUrl: 'https://flagcdn.com/w160/mx.png',
+        subtitle: '包含墨西哥的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: 'FDI的頂尖新興市場',
+        descParagraphs: [
+            '墨西哥為全球第 11 大經濟體，受惠於其戰略地理位置以及進入美國市場的優惠待遇，並擁有龐大的國內市場與日益熟練、低廉的勞動力。作為吸引外國投資者的目的地，墨西哥是新興市場中外國直接投資（FDI）的頂尖受惠國之一。政府審慎的財政政策以及作為《美墨加協定》（USMCA）的成員國身份，更提升了該國的吸引力。',
+            '然而，挑戰依然存在。高度不平等、法治薄弱與安全隱患等結構性問題，加上非正規經濟的普遍存在，都阻礙了經濟發展。墨西哥還面臨高度依賴美國經濟的隱憂，且交通、醫療與教育基礎設施不足；此外，稅基狹窄，稅收佔國內生產毛額（GDP）的比例不到 20%。'
+        ],
+        table: {
+            gov: '聯邦總統制共和國',
+            capital: '墨西哥城',
+            ratings: 'S&P: BBB<br>Moody\'s: Baa2<br>Fitch: BBB–',
+            pop: '1 億 3,230 萬人',
+            age: '30.2 歲',
+            income: '27,671.79 美元',
+            gdp: '2 兆美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18009626/embed#?secret=ALLj2I36ak" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/18008319/embed#?secret=78NZDgfeSl" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '5,556 億美元 (2023)',
+            leadingExports: '汽車與車輛零件<br>電腦<br>貨車<br>原油<br>影片顯示器<br>絕緣電線',
+            imports: '6,058 億美元 (2022)',
+            leadingImports: '積體電路<br>精煉石油<br>汽車與車輛零件<br>辦公室機械/零件<br>電話機',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/18051970/embed#?secret=gQSsRmWlcs" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'Grupo Financiero Banorte', sector: '金融業' },
+            { name: 'Banco Mercantil del Norte', sector: '金融業' },
+            { name: 'Banco Nacional de Obras y Servicios Públicos (Banobras)', sector: '金融業' },
+            { name: 'América Móvil', sector: '通訊服務' },
+            { name: 'Cemex', sector: '原物料、水泥' },
+            { name: 'Pemex', sector: '石油與天然氣探勘及生產' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '美國', percent: '44%' },
+                { country: '中國', percent: '20%' },
+                { country: '南韓', percent: '4%' },
+                { country: '德國', percent: '3%' },
+                { country: '日本', percent: '3%' }
+            ],
+            export: [
+                { country: '美國', percent: '78%' },
+                { country: '未指定', percent: '5%' },
+                { country: '加拿大', percent: '3%' },
+                { country: '中國', percent: '2%' },
+                { country: '其他亞洲地區 (未指定)', percent: '2%' }
+            ],
+            source: 'Source: World Integrated Trade Solution'
+        }
+    },
     //大洋洲
     'New Zealand': {
         title: '紐西蘭 (New Zealand)',
@@ -1223,6 +1379,74 @@ descParagraphs: [
                 { country: '日本', percent: '9.8%' },
                 { country: '南韓', percent: '5.66%' },
                 { country: '印度', percent: '4.38%' }
+            ],
+            source: 'Source: IMF, CIA The World Factbook'
+        }
+    },
+    'Solomon Islands': {
+        title: '索羅門群島 (Solomon Islands)',
+        flagUrl: 'https://flagcdn.com/w160/sb.png',
+        subtitle: '包含索羅門群島的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '農業、漁業與礦業驅動經濟',
+        descParagraphs: [
+            '索羅門群島曾是英國的保護國，現為大英國協王國的一員，實行議會民主制。該群島位於西南太平洋，地形涵蓋崎嶇的山峰與風景如畫的珊瑚環礁，使其成為日益受歡迎的旅遊勝地。人口約 80 萬，主要出口產品包括礦產、木材、魚類、棕櫚油與可可。政府提供優惠政策以吸引外國投資者，並聚焦於農業、礦業、漁業、旅遊業與服務業等關鍵領域。',
+            '然而，該國也面臨著官僚效率低落、法規不一致、勞動力市場發展不足以及信貸取得受限等問題，這些都扼殺了商業發展的動力。此外，雖然 2022 年簽署的《中索安全合作框架協定》可能帶來經濟利益，但也引發了美國及其盟友的批評。'
+        ],
+        table: {
+            gov: '議會民主制與君主立憲制 (大英國協王國)',
+            capital: '荷尼阿拉',
+            ratings: 'S&P: 未評級<br>Moody\'s: B3<br>Fitch: 未評級',
+            pop: '79.8 萬人',
+            age: '20.7 歲',
+            income: '4,889.31 美元',
+            gdp: '19 億美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17521146/embed#?secret=9gP8VaxQz6" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/17518957/embed#?secret=jP3QL6zZQX" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Banking & Finance
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '4.546 億美元 (2024)',
+            leadingExports: '木材<br>魚類<br>黃金<br>貴金屬礦石<br>棕櫚油',
+            imports: '6.695 億美元 (2024)',
+            leadingImports: '精煉石油<br>塑膠製品<br>魚類<br>廣播設備<br>鋼鐵結構',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/17502344/embed#?secret=9sg4fT7P06" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
+        },
+        //Leading Companies表格
+        leadingCompanies: [
+            { name: 'National Provident Fund (NPF)', sector: '金融業' },
+            { name: 'Solomon Islands Telekom Company', sector: '電信服務' },
+            { name: 'Solomon Islands Broadcasting Authority', sector: '通訊服務、媒體' },
+            { name: 'Solomon Breweries', sector: '非必需消費品' },
+            { name: 'Solomon Islands Tobacco Company', sector: '民生必需品、菸草' },
+            { name: 'Solomon Airlines Limited (SAL)', sector: '運輸業、航空業' }
+        ],
+        //Major Trade Partners表格 Import&Export
+        tradePartners: {
+            import: [
+                { country: '澳洲', percent: '18.2%' },
+                { country: '新加坡', percent: '16.3%' },
+                { country: '中國', percent: '14.9%' },
+                { country: '馬來西亞', percent: '12.9%' },
+                { country: '其他亞洲國家', percent: '7.2%' }
+            ],
+            export: [
+                { country: '中國', percent: '66.8%' },
+                { country: '義大利', percent: '7.2%' },
+                { country: '印度', percent: '5.1%' },
+                { country: '瑞士', percent: '2.4%' },
+                { country: '泰國', percent: '2.1%' }
             ],
             source: 'Source: IMF, CIA The World Factbook'
         }
