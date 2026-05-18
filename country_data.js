@@ -1199,7 +1199,7 @@ descParagraphs: [
         //GDP & Economic Overview圖表 折線圖
         charts: {
             left: {
-                html: `<iframe src="https://flo.uri.sh/visualisation/18009626/embed#?secret=ALLj2I36ak" class="w-full h-full border-none" scrolling="no"></iframe>`
+                html: `<iframe src="https://flo.uri.sh/visualisation/18009626/embed#?secret=ALLj2I36akk" class="w-full h-full border-none" scrolling="no"></iframe>`
             },
             right: {
                 html: `<iframe src="https://flo.uri.sh/visualisation/18008319/embed#?secret=78NZDgfeSl" class="w-full h-full border-none" scrolling="no"></iframe>`
@@ -1242,6 +1242,46 @@ descParagraphs: [
                 { country: '其他亞洲地區 (未指定)', percent: '2%' }
             ],
             source: 'Source: World Integrated Trade Solution'
+        }
+    },
+    'The United States': {
+        title: '美國 (The United States)',
+        flagUrl: 'https://flagcdn.com/w160/us.png',
+        subtitle: '包含美國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
+        descTitle: '全球最具活力、最多元化的經濟體',
+        descParagraphs: [
+            '美國多元化且充滿活力的經濟使其成為石油、天然氣與其他礦產資源的領先生產國，研究與創新的先驅，以及農業與工業的龐然大物，同時也是頂尖的旅遊勝地。',
+            '然而，該國也面臨著高昂的公共債務、兩極化的政治格局、人口老化與所得不平等等挑戰，以及在貿易、科技與全球政治影響力方面與中國的競爭。'
+        ],
+        table: {
+            gov: '聯邦民主共和國',
+            capital: '華盛頓哥倫比亞特區',
+            ratings: 'S&P: AA+<br>Moody\'s: Aa1<br>Fitch: AA+',
+            pop: '3 億 4,237 萬人',
+            age: '38.9 歲',
+            income: '89,110 美元',
+            gdp: '29.18 兆美元'
+        },
+        
+        //GDP & Economic Overview圖表 折線圖
+        charts: {
+            left: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/19237096/embed#?secret=h43FksQHPa" class="w-full h-full border-none" scrolling="no"></iframe>`
+            },
+            right: {
+                html: `<iframe src="https://flo.uri.sh/visualisation/19236680/embed#?secret=xzPrDtsMXq" class="w-full h-full border-none" scrolling="no"></iframe>`
+            }
+        },
+        //Trade & Investment表格
+        tradeAndInvestment: {
+            exports: '3.1 兆美元 (2023)',
+            leadingExports: '精煉石油<br>原油<br>天然氣<br>汽車<br>積體電路',
+            imports: '2.1 兆美元 (2022)',
+            leadingImports: '原油<br>汽車<br>廣播設備<br>服飾與成衣<br>電腦',
+        },
+        //Investments長條圖
+        fdiChart: {
+            html: `<iframe src="https://flo.uri.sh/visualisation/19236755/embed#?secret=aX91cdWxOq" class="w-full h-[400px] border-none" scrolling="no"></iframe>`
         }
     },
     //大洋洲
