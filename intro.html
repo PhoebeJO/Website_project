@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遊戲簡介</title>
+    <style>
+        /* 基礎全域設定 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #121324 0%, #1a1c3a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* 主容器卡片 */
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        /* 遊戲標題 */
+        .game-title {
+            font-size: 2.5rem;
+            color: #4facfe;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+        }
+
+        .game-subtitle {
+            font-size: 1.1rem;
+            color: #00f2fe;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        /* 遊戲簡介文字區 */
+        .game-description {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #ccd6f6;
+            text-align: left;
+            margin-bottom: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #4facfe;
+        }
+
+        /* 按鈕區塊容器 */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* 按鈕共同樣式 */
+        .btn {
+            display: inline-block;
+            flex: 1;
+            min-width: 200px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 按鈕一：網頁版 */
+        .btn-web {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            color: #121324;
+        }
+
+        .btn-web:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
+        }
+
+        /* 按鈕二：下載版/試玩版 */
+        .btn-download {
+            background: transparent;
+            color: #00f2fe;
+            border: 2px solid #00f2fe;
+        }
+
+        .btn-download:hover {
+            background: rgba(0, 242, 254, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.2);
+        }
+
+        /* 手機板調整 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px 15px;
+            }
+            .game-title {
+                font-size: 2rem;
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 遊戲標題 -->
+        <h1 class="game-title">互動遊戲說明</h1>
+        <div class="game-subtitle">INTRODUCTION</div>
+
+        <!-- 遊戲簡介 -->
+        <div class="game-description">
+            <p>
+                如果你只有當地人平均一天的生活費，你能順利度過一天嗎？這款互動遊戲將帶你跨越國界
+                ，以各國<strong>居民最終消費支出</strong>(Households and NPISHs Final Consumption Expenditure)
+                為核心指標，真實模擬世界各角落的日常縮影。從飽餐一頓
+                、搭車通勤到遮風避雨的居住成本，遊戲將一日的食衣住行育樂數據化。我們希望藉由這場體感實驗，
+                讓大眾看清在極端貧窮的國家裡，那些我們視為理所當然的
+                平常生活竟有多麼遙不可及，並進一步反思全球財富分配不均的深刻議題。
+
+            </p>
+            <br>
+            <!-- 換行的地方ui會空一格，記得改 -->
+            <p>
+                本遊戲之原始數據皆採用資料庫中最新的年度資料，並統一以 2015 年
+                為物價換算基準年。考量到原始資料庫係以美元計價，為提升台灣使用者的互
+                動體驗與體感直覺，本遊戲統一採用 1：32.0 的匯率將美元數據換算為新台幣
+                呈現。
+
+            </p>
+            <br>
+            <p> 資料來源:
+               國際數據: https://data.worldbank.org/indicator/NE.CON.PRVT.PC.KD
+               <br>台灣: https://www.stat.gov.tw/cp.aspx?n=3914
+            </p>
+        </div>
+
+        <!-- 進入遊戲按鈕區 -->
+        <div class="btn-group">
+            <!-- 替換 href 後面的網址即可導向不同分頁 -->
+            <a href="game1.html" class="btn btn-web">自行選擇出生地</a>
+            <a href="game2.html" class="btn btn-download">聽天由命</a>
+        </div>
+    </div>
+
+</body>
+</html>
