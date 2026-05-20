@@ -147,7 +147,7 @@
         }
 
         /* ========================================================
-           🎡 大轉盤樣式
+           大轉盤樣式
            ======================================================== */
         .wheel-wrapper {
             display: flex;
@@ -210,7 +210,7 @@
         }
 
         /* ========================================================
-           🎁 開獎確認彈窗樣式
+           開獎確認彈窗樣式
            ======================================================== */
         .result-popup {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -246,7 +246,7 @@
 <div class="main-wrapper">
     <!-- 左側遊戲核心區 -->
     <div class="game-container">
-        <!-- 🎡 抽籤關卡：大轉盤區塊 -->
+        <!-- 大轉盤區塊 -->
         <div id="wheel-card" class="wheel-wrapper">
             <h2 id="wheel-title" style="color: var(--white); margin-bottom: 15px; font-size: 1.3rem;">點擊按鈕，決定你的出生國家</h2>
             <div class="wheel-box">
@@ -256,13 +256,13 @@
             <button class="spin-btn" id="spinBtn">開始抽籤</button>
         </div>
 
-        <!-- 📝 答題關卡 -->
+        <!-- 答題關卡 -->
         <div id="quiz-card" class="hidden">
             <h2 id="question-text">載入中...</h2>
             <div id="options-container"></div>
         </div>
 
-        <!-- 🏁 結算關卡 -->
+        <!-- 結算關卡 -->
         <div id="result-card" class="hidden">
             <h2 style="color: var(--white); margin-bottom: 20px;">今日結算</h2>
             <div id="final-status" style="color: var(--white); font-size: 1.2rem; margin-bottom: 25px; line-height: 1.6;"></div>
@@ -284,7 +284,7 @@
     </div>
 </div>
 
-<!-- 🎁 中獎開獎確認彈窗 -->
+<!-- 開獎確認彈窗 -->
 <div class="result-popup" id="resultPopup">
     <div class="popup-content">
         <div class="popup-title">你的出生地點：</div>
@@ -435,7 +435,7 @@ const balanceDisplay = document.getElementById('balance');
 const historyList = document.getElementById('history-list');
 const countryDisplay = document.getElementById('current-country');
 
-// 彈窗相關 DOM 節點
+// 彈窗相關節點
 const resultPopup = document.getElementById('resultPopup');
 const popupContinent = document.getElementById('popupContinent');
 const popupCountry = document.getElementById('popupCountry');
@@ -534,7 +534,7 @@ document.getElementById('spinBtn').addEventListener('click', function() {
         const winningIndex = Math.floor(pointerRelativeAngle / arcSize);
         const luckyCountry = wheelItems[winningIndex];
 
-        // 🟢 調整點一：一停下來，就立刻更新右側看板與紀錄
+        // 一停下來，就立刻更新右側看板與紀錄
         balance = luckyCountry.budget;
         countryDisplay.innerText = luckyCountry.name;
         historyList.innerHTML = ''; 
@@ -544,7 +544,7 @@ document.getElementById('spinBtn').addEventListener('click', function() {
         addHistoryRecord(`初始旅行預算：$${luckyCountry.budget}`);
         updateUI();
 
-        // 🟢 調整點二：渲染並「跳出確認彈窗」，轉盤此時先不消失
+        // 跳出確認彈窗，轉盤先不消失
         popupContinent.textContent = luckyCountry.continent;
         popupContinent.style.backgroundColor = luckyCountry.color;
         popupContinent.style.color = (luckyCountry.continent === "美洲") ? "#111111" : "#ffffff";
@@ -556,7 +556,7 @@ document.getElementById('spinBtn').addEventListener('click', function() {
     }, 6500); 
 });
 
-// 🟢 調整點三：點選彈窗的「確定（開啟人生挑戰）」按鈕後，才切換畫面
+// 點選彈窗的按鈕後，才切換畫面
 popupConfirmBtn.addEventListener('click', function() {
     resultPopup.classList.remove('show'); // 關閉彈窗
     
@@ -568,7 +568,7 @@ popupConfirmBtn.addEventListener('click', function() {
 });
 
 // ========================================================
-// 📝 答題核心與原有邏輯
+// 答題核心與原有邏輯
 // ========================================================
 function startLevel() {
     optionsBox.innerHTML = ''; 
