@@ -6,6 +6,7 @@ const countryDatabase = {
     //非洲
     'Madagascar': {
         title: '馬達加斯加 (Madagascar)',
+        ranking: '10',
         flagUrl: 'https://flagcdn.com/w160/mg.png', //  (mg 是馬達加斯加代碼)
         subtitle: '包含馬達加斯加的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '管理失當損害經濟發展潛能',
@@ -74,6 +75,7 @@ const countryDatabase = {
     },
     'South Sudan': {
         title: '南蘇丹 (South Sudan)',
+        ranking: '1',
         flagUrl: 'https://flagcdn.com/w160/ss.png',
         subtitle: '包含南蘇丹的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '戰後動盪損害經濟發展潛能',
@@ -124,6 +126,7 @@ const countryDatabase = {
     },
     'Burundi': {
         title: '蒲隆地 (Burundi)',
+        ranking: '2',
         flagUrl: 'https://flagcdn.com/w160/bi.png',
         subtitle: '包含蒲隆地的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '政治動盪加劇經濟疲軟',
@@ -193,6 +196,7 @@ const countryDatabase = {
     },
     'Central African Republic': {
         title: '中非共和國 (Central African Republic)',
+        ranking: '3',
         flagUrl: 'https://flagcdn.com/w160/cf.png',
         subtitle: '包含中非共和國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門領導層的相關資訊。',
         descTitle: '戰略位置與政治穩定帶來經濟效益',
@@ -262,6 +266,7 @@ const countryDatabase = {
     },
     'Mozambique': {
         title: '莫三比克 (Mozambique)',
+        ranking: '5',
         flagUrl: 'https://flagcdn.com/w160/mz.png',
         subtitle: '包含莫三比克的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '經濟快速成長，但面臨結構性與環境挑戰',
@@ -330,6 +335,7 @@ const countryDatabase = {
     },
     'Malawi': {
         title: '馬拉威 (Malawi)',
+        ranking: '6',
         flagUrl: 'https://flagcdn.com/w160/mw.png',
         subtitle: '包含馬拉威的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '基礎設施落後損害經濟成長',
@@ -398,6 +404,7 @@ const countryDatabase = {
     },
     'Democratic Republic of the Congo': {
         title: '剛果民主共和國 (Democratic Republic of the Congo)',
+        ranking: '7',
         flagUrl: 'https://flagcdn.com/w160/cd.png',
         subtitle: '包含剛果民主共和國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '戰爭與政治動盪阻礙經濟潛力',
@@ -467,6 +474,7 @@ const countryDatabase = {
     },
     'Somalia': {
         title: '索馬利亞 (Somalia)',
+        ranking: '8',
         flagUrl: 'https://flagcdn.com/w160/so.png',
         subtitle: '包含索馬利亞的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '動盪損害經濟發展潛能',
@@ -514,6 +522,7 @@ const countryDatabase = {
     },
     'Liberia': {
         title: '賴比瑞亞 (Liberia)',
+        ranking: '9',
         flagUrl: 'https://flagcdn.com/w160/lr.png',
         subtitle: '包含賴比瑞亞的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '仰賴匯款與豐富自然資源驅動的經濟',
@@ -607,6 +616,7 @@ const countryDatabase = {
     },
     'China': {
         title: '中國 (China)',
+        ranking: '114',
         flagUrl: 'https://flagcdn.com/w160/cn.png',
         subtitle: '包含中國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '世界第二大經濟體',
@@ -676,6 +686,7 @@ const countryDatabase = {
     },
     'Yemen': {
         title: '葉門 (Yemen)',
+        ranking: '4',
         flagUrl: 'https://flagcdn.com/w160/ye.png',
         subtitle: '包含葉門的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門領導層的相關資訊。',
         descTitle: '戰爭摧毀經濟潛能',
@@ -745,6 +756,7 @@ const countryDatabase = {
     },
     'Bangladesh': {
         title: '孟加拉 (Bangladesh)',
+        ranking: '62',
         flagUrl: 'https://flagcdn.com/w160/bd.png',
         subtitle: '包含孟加拉的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '經濟繁榮但挑戰依然存在',
@@ -814,6 +826,7 @@ descParagraphs: [
     },
     'India': {
         title: '印度 (India)',
+        ranking: '67',
         flagUrl: 'https://flagcdn.com/w160/in.png',
         subtitle: '包含印度的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '崛起中的經濟強權',
@@ -883,6 +896,7 @@ descParagraphs: [
     },
     'Japan': {
         title: '日本 (Japan)',
+        ranking: '150',
         flagUrl: 'https://flagcdn.com/w160/jp.png',
         subtitle: '包含日本的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '應對人口老化的先進經濟體',
@@ -952,6 +966,7 @@ descParagraphs: [
     },
     'Saudi Arabia': {
         title: '沙烏地阿拉伯 (Saudi Arabia)',
+        ranking: '158',
         flagUrl: 'https://flagcdn.com/w160/sa.png',
         subtitle: '包含沙烏地阿拉伯的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '目前經濟仍由碳氫化合物驅動',
@@ -1022,10 +1037,11 @@ descParagraphs: [
     //美洲
     'Brazil': {
         title: '巴西 (Brazil)',
+        ranking: '104',
         flagUrl: 'https://flagcdn.com/w160/br.png',
         subtitle: '包含巴西的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '以大宗商品出口為導向的經濟',
-descParagraphs: [
+        descParagraphs: [
             '巴西是拉丁美洲的經濟強國，也是全球依國內生產毛額排名的前十大經濟體之一。其經濟實力主要建立在大豆、甘蔗、咖啡、鐵與原油等原物料商品的出口上。',
             '除了金融、房地產與服務業之外，其他關鍵產業還包含汽車製造、再生能源以及建築業。在多數經濟領域中，外國投資者享有與國內投資者同等的法律權利。因此，近年來該國吸收了拉丁美洲超過一半的外國直接投資總額。然而，其經濟弱點包含國家對許多經濟領域的干預、高水準的公共債務以及繁雜的行政程序。'
         ],
@@ -1090,6 +1106,7 @@ descParagraphs: [
     },
     'Bolivia': {
         title: '玻利維亞 (Bolivia)',
+        ranking: '66',
         flagUrl: 'https://flagcdn.com/w160/bo.png',
         subtitle: '包含玻利維亞的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '旅遊、餐旅與房地產驅動經濟',
@@ -1130,6 +1147,7 @@ descParagraphs: [
     },
     'Haiti': {
         title: '海地 (Haiti)',
+        ranking: '18',
         flagUrl: 'https://flagcdn.com/w160/ht.png',
         subtitle: '包含海地的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '貪腐與暴力摧毀經濟發展潛能',
@@ -1179,6 +1197,7 @@ descParagraphs: [
     },
     'Mexico': {
         title: '墨西哥 (Mexico)',
+        ranking: '109',
         flagUrl: 'https://flagcdn.com/w160/mx.png',
         subtitle: '包含墨西哥的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: 'FDI的頂尖新興市場',
@@ -1246,6 +1265,7 @@ descParagraphs: [
     },
     'The United States': {
         title: '美國 (The United States)',
+        ranking: '181',
         flagUrl: 'https://flagcdn.com/w160/us.png',
         subtitle: '包含美國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '全球最具活力、最多元化的經濟體',
@@ -1287,6 +1307,7 @@ descParagraphs: [
     //大洋洲
     'New Zealand': {
         title: '紐西蘭 (New Zealand)',
+        ranking: '152',
         flagUrl: 'https://flagcdn.com/w160/nz.png',
         subtitle: '包含紐西蘭的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '從農業邁向現代化、科技驅動的經濟',
@@ -1356,6 +1377,7 @@ descParagraphs: [
     },
     'Australia': {
         title: '澳洲 (Australia)',
+        ranking: '168',
         flagUrl: 'https://flagcdn.com/w160/au.png',
         subtitle: '包含澳洲的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '繁榮源於鄰近亞洲經濟體',
@@ -1425,6 +1447,7 @@ descParagraphs: [
     },
     'Solomon Islands': {
         title: '索羅門群島 (Solomon Islands)',
+        ranking: '13',
         flagUrl: 'https://flagcdn.com/w160/sb.png',
         subtitle: '包含索羅門群島的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '農業、漁業與礦業驅動經濟',
@@ -1494,6 +1517,7 @@ descParagraphs: [
     //歐洲
     'Germany': {
         title: '德國 (Germany)',
+        ranking: '169',
         flagUrl: 'https://flagcdn.com/w160/de.png',
         subtitle: '包含德國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '歐洲的工業強國',
@@ -1563,6 +1587,7 @@ descParagraphs: [
     },
     'United Kingdom': {
         title: '英國 (United Kingdom)',
+        ranking: '160',
         flagUrl: 'https://flagcdn.com/w160/gb.png',
         subtitle: '包含英國的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '完善的銀行體系',
@@ -1621,6 +1646,7 @@ descParagraphs: [
     },
     'Greece': {
         title: '希臘 (Greece)',
+        ranking: '139',
         flagUrl: 'https://flagcdn.com/w160/gr.png',
         subtitle: '包含希臘的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '經濟復甦與結構性挑戰並存',
@@ -1688,6 +1714,7 @@ descParagraphs: [
     },
     'Norway': {
         title: '挪威 (Norway)',
+        ranking: '185',
         flagUrl: 'https://flagcdn.com/w160/no.png',
         subtitle: '包含挪威的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '奠基於石油與多元產業的經濟實力',
@@ -1728,6 +1755,7 @@ descParagraphs: [
     },
     'Ukraine': {
         title: '烏克蘭 (Ukraine)',
+        ranking: '97',
         flagUrl: 'https://flagcdn.com/w160/ua.png',
         subtitle: '包含烏克蘭的國內生產毛額成長、債務佔GDP比率等歷史數據，以及貿易、銀行和金融部門的相關資訊。',
         descTitle: '戰爭重創經濟，復甦之路漫長',
