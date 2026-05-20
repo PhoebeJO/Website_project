@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26選區幸運大轉盤</title>
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --primary-color: #4a90e2;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        /* 轉盤外殼容器 */
+        .wheel-container {
+            position: relative;
+            width: 450px;
+            height: 450px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 50%;
+            background: #fff;
+            padding: 10px;
+        }
+
+        /* 上方定位指針 */
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #ff3b30; /* 紅色指針 */
+            z-index: 10;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
+        }
+
+        canvas {
+            display: block;
+            border-radius: 50%;
+            transition: transform 6s cubic-bezier(0.1, 0.8, 0.25, 1); /* 由快到慢的物理平滑感 */
+        }
+
+        /* 抽籤按鈕 */
+        .spin-btn {
+            background: linear-gradient(135deg, #ff9500, #ff5e3a);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 94, 58, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .spin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 94, 58, 0.6);
+        }
+
+        .spin-btn:disabled {
+            background: #ccc;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 中獎結果彈窗 */
+        .result-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .result-popup.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 40px 60px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: scale(0.7);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .result-popup.show .popup-content {
+            transform: scale(1);
+        }
+
+        .popup-content h2 {
+            margin: 0 0 10px 0;
+            color: #666;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .winner-text {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ff3b30;
+            margin: 20px 0;
+            word-break: break-all;
+        }
+
+        .close-btn {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 16px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>幸運大轉盤</h1>
+    <p class="subtitle">共有 26 個選項，依 7-6-3-5-5 分色塊</p>
+
+    <!-- 轉盤區塊 -->
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <canvas id="wheelCanvas" width="450" height="450"></canvas>
+    </div>
+
+    <!-- 按鈕 -->
+    <button class="spin-btn" id="spinBtn">開始抽籤</button>
+
+    <!-- 中獎彈窗 -->
+    <div class="result-popup" id="resultPopup">
+        <div class="popup-content">
+            <h2>恭喜抽中</h2>
+            <div class="winner-text" id="winnerText">選項 X</div>
+            <button class="close-btn" id="closeBtn">確定</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('wheelCanvas');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        const resultPopup = document.getElementById('resultPopup');
+        const winnerText = document.getElementById('winnerText');
+        const closeBtn = document.getElementById('closeBtn');
+
+        // 1. 生成 26 個選項（A 到 Z）
+        const options = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i) + " 號選項");
+
+        // 2. 嚴格根據你的要求：7個、6個、3個、5個、5個 分顏色
+        // 設計一組和諧耐看的亮色系
+        const colorPalette = {
+            group1: '#FF6B6B', // 珊瑚紅 (7個)
+            group2: '#4D96FF', // 天空藍 (6個)
+            group3: '#6BCB77', // 薄荷綠 (3個)
+            group4: '#FFD93D', // 活力黃 (5個)
+            group5: '#B983FF'  // 薰衣草紫 (5個)
+        };
+
+        const colors = [];
+        for(let i=0; i<7; i++) colors.push(colorPalette.group1);
+        for(let i=0; i<6; i++) colors.push(colorPalette.group2);
+        for(let i=0; i<3; i++) colors.push(colorPalette.group3);
+        for(let i=0; i<5; i++) colors.push(colorPalette.group4);
+        for(let i=0; i<5; i++) colors.push(colorPalette.group5);
+
+        const numSegments = options.length;
+        const arcSize = (2 * Math.PI) / numSegments; // 每個選項佔用的弧度
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = centerX - 10;
+
+        let currentRotation = 0; // 當前旋轉總角度 (弧度)
+        let isSpinning = false;
+
+        // 3. 繪製轉盤
+        function drawWheel() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < numSegments; i++) {
+                const angle = i * arcSize;
+                
+                // 畫扇形
+                ctx.fillStyle = colors[i];
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
+                ctx.lineTo(centerX, centerY);
+                ctx.fill();
+                
+                // 畫外框白線（讓文字與區塊更清晰）
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                // 繪製文字
+                ctx.save();
+                ctx.fillStyle = '#ffffff';
+                // 判斷太淺的顏色（如黃色），字體改用深色
+                if(colors[i] === colorPalette.group4) ctx.fillStyle = '#333333';
+                
+                ctx.font = 'bold 12px sans-serif';
+                
+                // 將坐標軸移到該扇形的中心角度上
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle + arcSize / 2);
+                
+                // 往外推到適合寫字的位置，26個選項很擠，我們靠外側放
+                ctx.fillText(options[i], radius * 0.45, 4);
+                ctx.restore();
+            }
+        }
+
+        // 初始化繪製
+        drawWheel();
+
+        // 4. 點擊抽籤邏輯
+        spinBtn.addEventListener('click', () => {
+            if (isSpinning) return;
+            isSpinning = true;
+            spinBtn.disabled = true;
+
+            // 隨機旋轉 5 到 8 圈，再加上隨機剩餘角度
+            const randomRounds = 5 + Math.floor(Math.random() * 4);
+            const randomAngle = Math.random() * 2 * Math.PI;
+            
+            // 目標總旋轉弧度
+            const targetRotation = currentRotation + (randomRounds * 2 * Math.PI) + randomAngle;
+            currentRotation = targetRotation;
+
+            // 轉盤實體旋轉（轉成角度度數）
+            const degrees = (targetRotation * 180) / Math.PI;
+            canvas.style.transform = `rotate(${degrees}deg)`;
+
+            // 等待動畫結束 (CSS 設定 6 秒)
+            setTimeout(() => {
+                isSpinning = false;
+                spinBtn.disabled = false;
+
+                // 計算指針到底指到哪一個（指針在正上方，即 -90度 或 1.5 * Math.PI 的位置）
+                // 扣除圈數後，看最終落在哪個弧度
+                const actualAngle = (targetRotation) % (2 * Math.PI);
+                
+                // 指針在上方(1.5 * PI)，轉盤是順時針轉，所以算相對位置要用 2 * PI - 實際弧度
+                let pointerRelativeAngle = (1.5 * Math.PI - actualAngle) % (2 * Math.PI);
+                if (pointerRelativeAngle < 0) pointerRelativeAngle += 2 * Math.PI;
+
+                const winningIndex = Math.floor(pointerRelativeAngle / arcSize);
+                
+                // 跳出結果
+                showResult(options[winningIndex]);
+            }, 6000); // 需與 CSS transition 的 6s 一致
+        });
+
+        // 5. 彈窗控制
+        function showResult(winner) {
+            winnerText.textContent = winner;
+            resultPopup.classList.add('show');
+        }
+
+        closeBtn.addEventListener('click', () => {
+            resultPopup.classList.remove('show');
+        });
+    </script>
+</body>
+</html>
