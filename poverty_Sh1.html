@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消除貧窮 No Poverty - 專題網站</title>
+    <!-- 引入 Tailwind CSS 框架以快速構建漂亮的 UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 FontAwesome 圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        // 自定義主色調
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#8a9a5b',
+                            DEFAULT: '#6b705c',
+                            dark: '#4a4e40',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 隱藏捲軸但保留捲動功能 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #8a9a5b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b705c; }
+        
+        /* 簡單的過渡動畫 */
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 地圖熱點的脈衝動畫 */
+        .hotspot-pulse {
+            box-shadow: 0 0 0 0 rgba(138, 154, 91, 0.7);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 154, 91, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(138, 154, 91, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 154, 91, 0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+
+    <!-- 頂部導覽列 -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-brand-dark flex items-center gap-2">
+                <i class="fa-solid fa-earth-americas"></i> 消除貧窮
+            </h1>
+            <!-- 導覽列：作為分頁切換按鈕 -->
+            <nav class="hidden md:flex space-x-6 font-medium text-gray-600">
+                <button onclick="switchPage('home')" id="nav-home" class="nav-btn text-brand font-bold transition">首頁</button>
+                <button onclick="switchPage('map')" id="nav-map" class="nav-btn hover:text-brand transition">世界地圖</button>
+                <button onclick="switchPage('donate')" id="nav-donate" class="nav-btn hover:text-brand transition">捐款組織</button>
+                <button onclick="switchPage('taiwan')" id="nav-taiwan" class="nav-btn hover:text-brand transition">台灣的貧窮</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 min-h-[75vh]">
+
+        <!-- ================= 頁面一：首頁 ================= -->
+        <div id="page-home" class="page-content block space-y-20 fade-in">
+            <!-- 區塊一：主頁介面 (介紹貧窮定義) -->
+            <section id="intro" class="flex flex-col md:flex-row gap-8 items-center bg-white rounded-2xl shadow-sm p-8">
+                <div class="w-full md:w-1/2 h-80 bg-gray-200 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-400">
+                    <div class="text-center text-gray-500">
+                        <i class="fa-regular fa-image text-4xl mb-2"></i>
+                        <p>【圖片預留區】<br>這裡可以放貧窮相關的意象圖片</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 space-y-4">
+                    <h2 class="text-3xl font-bold text-brand-dark border-b-2 border-brand inline-block pb-2">什麼是貧窮？</h2>
+                    <p class="text-lg text-gray-600">
+                        【文字預留區】<br>
+                        這裡請填寫關於貧窮的定義。例如：聯合國如何定義極端貧窮？貧窮線的標準是什麼？這個區塊主要用於引導使用者進入主題。
+                    </p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2 mt-4">
+                        <li>介紹貧窮定義細節 1</li>
+                        <li>介紹貧窮定義細節 2</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 區塊二：互動小遊戲 -->
+            <section id="game" class="bg-brand-light bg-opacity-10 rounded-2xl p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-brand-dark mb-4">互動小遊戲：一日生活費挑戰</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        可選擇當不同地區的貧困居民，依當地貧窮線給予不同金額，測試看看你可以用這些錢買到什麼！
+                    </p>
+                </div>
+                <div class="w-full max-w-4xl mx-auto aspect-video bg-white rounded-xl shadow-inner border-2 border-dashed border-brand flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center z-0 text-gray-400 text-center pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-gamepad text-5xl mb-3"></i>
+                            <p class="text-xl">【遊戲嵌入預留區】<br>未來只需將您的遊戲代碼或 iframe 貼在此處即可</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= 頁面二：世界地圖 ================= -->
+        <div id="page-map" class="page-content hidden fade-in bg-white rounded-2xl shadow-sm p-8">
+            <h2 class="text-3xl font-bold text-brand-dark text-center mb-8 border-b border-gray-100 pb-4">世界地圖</h2>
+            
+            <div id="map-main-view">
+                <h3 class="text-2xl font-bold mb-4 text-brand-dark border-l-4 border-brand pl-3">分地區顯示貧窮率</h3>
+                <p class="text-gray-600 mb-6">【操作說明】請將滑鼠移至地圖上的發光圓點，點擊該國家/地區即可查看詳細貧窮數據與現況。</p>
+                
+                <!-- 互動地圖區塊 -->
+                <div class="w-full aspect-[2/1] bg-sky-50 rounded-xl relative border border-gray-200 overflow-hidden shadow-inner">
+                    <!-- 使用一張無版權的簡化世界地圖作為底圖 -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" alt="世界地圖" class="w-full h-full object-cover opacity-60">
+                    
+                    <!-- ================= 互動熱點設定區 ================= -->
+                    <!-- 熱點 1：非洲地區 (例如：剛果) -->
+                    <!-- 透過改變 top 和 left 的百分比，就可以隨意把點放在地圖的任何地方 -->
+                    <div class="absolute top-[58%] left-[52%] w-6 h-6 bg-brand rounded-full cursor-pointer hotspot-pulse border-2 border-white z-10"
+                         onmouseenter="showMapTooltip(event, '非洲地區', '當地極端貧窮率高達...')" 
+                         onmousemove="moveMapTooltip(event)"
+                         onmouseleave="hideMapTooltip()" 
+                         onclick="showMapDetails('非洲地區')">
+                    </div>
+
+                    <!-- 熱點 2：南美洲 (例如：巴西) -->
+                    <div class="absolute top-[65%] left-[32%] w-5 h-5 bg-brand rounded-full cursor-pointer hotspot-pulse border-2 border-white z-10"
+                         onmouseenter="showMapTooltip(event, '南美洲', '面臨嚴重的貧富差距問題')" 
+                         onmousemove="moveMapTooltip(event)"
+                         onmouseleave="hideMapTooltip()" 
+                         onclick="showMapDetails('南美洲')">
+                    </div>
+
+                    <!-- 熱點 3：亞洲 (例如：印度) -->
+                    <div class="absolute top-[45%] left-[70%] w-6 h-6 bg-brand rounded-full cursor-pointer hotspot-pulse border-2 border-white z-10"
+                         onmouseenter="showMapTooltip(event, '印度', '人口基數大，城鄉發展不均')" 
+                         onmousemove="moveMapTooltip(event)"
+                         onmouseleave="hideMapTooltip()" 
+                         onclick="showMapDetails('印度')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 跟隨滑鼠的對話框 (Tooltip) -->
+            <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 rounded-lg shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
+                <!-- 做出對話框的小尾巴 -->
+                <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-b-2 border-r-2 border-brand rotate-45"></div>
+                <p id="tooltip-title" class="font-bold text-brand-dark text-lg"></p>
+                <p id="tooltip-desc" class="text-gray-600 text-sm mt-1"></p>
+                <div class="text-xs text-brand mt-2 text-right font-bold"><i class="fa-solid fa-hand-pointer"></i> 點擊查看...更多</div>
+            </div>
+
+            <!-- 地圖點進去後的分頁 (預設隱藏) -->
+            <div id="map-detail-view" class="hidden fade-in mt-8 border-t border-gray-200 pt-8">
+                <button onclick="hideMapDetails()" class="mb-6 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-brand hover:text-white transition flex items-center gap-2 font-bold shadow-sm">
+                    <i class="fa-solid fa-arrow-left"></i> 返回地圖
+                </button>
+                
+                <h3 id="detail-region-title" class="text-3xl font-bold mb-6 text-brand-dark text-center">【某地區】貧窮現況詳細資訊</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 圖表與圖片區 -->
+                    <div class="space-y-6">
+                        <div class="h-64 bg-gray-100 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <p class="text-gray-500"><i class="fa-solid fa-chart-pie text-3xl mb-2 block text-center"></i>【圖表預留區】各州貧窮率的統計圖表</p>
+                        </div>
+                        <div class="h-48 bg-gray-100 rounded-xl flex items-center justify-center border-2 border-dashed border-gray-300">
+                            <p class="text-gray-500"><i class="fa-solid fa-images text-3xl mb-2 block text-center"></i>【圖片預留區】各地貧窮問題的相關圖片</p>
+                        </div>
+                    </div>
+                    <!-- 文字敘述區 -->
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm">
+                        <h4 class="text-xl font-bold mb-4 text-brand-dark border-b pb-2">現況描述及相關政策</h4>
+                        <div class="space-y-4 text-gray-600">
+                            <p>【文字預留區】這裡可以填寫該地區為什麼會有嚴重的貧窮問題，歷史背景或氣候因素等。</p>
+                            <p>【政策預留區】這裡填寫國際組織或是當地政府目前實施了哪些消除貧窮的政策與措施。</p>
+                            <div class="bg-white p-4 rounded border border-gray-200 mt-4">
+                                <p class="font-bold mb-2">相關數據整理：</p>
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>每日生活費低於極端貧窮線人口比例</li>
+                                    <li>當地受教育率與就業率</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 頁面三：捐款組織 ================= -->
+        <div id="page-donate" class="page-content hidden fade-in bg-white rounded-2xl shadow-sm p-8">
+            <h2 class="text-3xl font-bold text-brand-dark text-center mb-8 border-b border-gray-100 pb-4">捐款組織</h2>
+            
+            <h3 class="text-2xl font-bold mb-6 text-brand-dark border-l-4 border-brand pl-3">相關捐款組織介紹</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 組織卡片預留區 * 3 -->
+                <div class="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition bg-gray-50">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full mb-4 flex items-center justify-center mx-auto text-gray-500">LOGO</div>
+                    <h4 class="text-xl font-bold text-center mb-2">【組織名稱預留】</h4>
+                    <p class="text-gray-600 text-sm mb-4 text-center">【簡介預留】介紹這個組織在幫助消除貧窮上的主要工作內容。</p>
+                    <button class="w-full py-2 bg-brand-light text-white rounded hover:bg-brand transition">前往官方網站</button>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition bg-gray-50">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full mb-4 flex items-center justify-center mx-auto text-gray-500">LOGO</div>
+                    <h4 class="text-xl font-bold text-center mb-2">【組織名稱預留】</h4>
+                    <p class="text-gray-600 text-sm mb-4 text-center">【簡介預留】介紹這個組織在幫助消除貧窮上的主要工作內容。</p>
+                    <button class="w-full py-2 bg-brand-light text-white rounded hover:bg-brand transition">前往官方網站</button>
+                </div>
+                <div class="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition bg-gray-50">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full mb-4 flex items-center justify-center mx-auto text-gray-500">LOGO</div>
+                    <h4 class="text-xl font-bold text-center mb-2">【組織名稱預留】</h4>
+                    <p class="text-gray-600 text-sm mb-4 text-center">【簡介預留】介紹這個組織在幫助消除貧窮上的主要工作內容。</p>
+                    <button class="w-full py-2 bg-brand-light text-white rounded hover:bg-brand transition">前往官方網站</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 頁面四：台灣的貧窮 ================= -->
+        <div id="page-taiwan" class="page-content hidden fade-in bg-white rounded-2xl shadow-sm p-8">
+            <h2 class="text-3xl font-bold text-brand-dark text-center mb-8 border-b border-gray-100 pb-4">台灣的貧窮</h2>
+            
+            <h3 class="text-2xl font-bold mb-4 text-brand-dark border-l-4 border-brand pl-3">台灣的貧窮現況與政策</h3>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                <ul class="space-y-6">
+                    <li class="flex gap-4">
+                        <div class="mt-1 text-brand"><i class="fa-solid fa-check-circle text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">消除貧窮的細項在台灣的實行狀況</h4>
+                            <p class="text-gray-600">【文字預留區】例如台灣中低收入戶的比例、偏鄉資源分配狀況、或是SDG 1（消除貧窮）在台灣本土化的實踐成果。</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="mt-1 text-brand"><i class="fa-solid fa-scale-balanced text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">關於貧窮的政策</h4>
+                            <p class="text-gray-600">【文字預留區】台灣現行的社會福利制度、補助津貼、就業輔導政策等介紹。</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-4">
+                        <div class="mt-1 text-brand"><i class="fa-solid fa-magnifying-glass-chart text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">台灣貧窮狀況的詳細資訊</h4>
+                            <p class="text-gray-600">【文字預留區】可置入台灣特定的數據圖表，如各縣市收入中位數比較、城鄉差距數據等。</p>
+                            <div class="mt-4 h-40 bg-gray-200 border-2 border-dashed border-gray-400 rounded flex items-center justify-center">
+                                <span class="text-gray-500">【台灣專屬圖表預留區】</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="bg-brand-dark text-white py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="mb-2">讓世界變得更好，從了解開始。</p>
+            <p class="text-sm text-gray-400">© 2026 消除貧窮專題網站框架. 僅供展示與開發使用.</p>
+        </div>
+    </footer>
+
+    <!-- 互動邏輯腳本 -->
+    <script>
+        // --- 頂部導覽列：頁面切換邏輯 ---
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+            });
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('text-brand', 'font-bold');
+                el.classList.add('hover:text-brand');
+            });
+
+            document.getElementById('page-' + pageId).classList.remove('hidden');
+            document.getElementById('page-' + pageId).classList.add('block');
+            
+            let activeBtn = document.getElementById('nav-' + pageId);
+            activeBtn.classList.remove('hover:text-brand');
+            activeBtn.classList.add('text-brand', 'font-bold');
+
+            if(pageId === 'map') {
+                hideMapDetails();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 地圖互動邏輯 ---
+        const tooltip = document.getElementById('map-tooltip');
+
+        // 顯示 Tooltip 並更新內容
+        function showMapTooltip(event, title, desc) {
+            document.getElementById('tooltip-title').innerText = title;
+            document.getElementById('tooltip-desc').innerText = desc;
+            tooltip.classList.remove('hidden');
+            moveMapTooltip(event); // 立即更新一次位置
+        }
+
+        // 讓 Tooltip 跟隨滑鼠移動
+        function moveMapTooltip(event) {
+            // 加上一些偏移量，讓框框不會剛好擋住滑鼠游標
+            tooltip.style.left = event.clientX + 'px';
+            tooltip.style.top = (event.clientY - 15) + 'px'; 
+        }
+
+        // 隱藏 Tooltip
+        function hideMapTooltip() {
+            tooltip.classList.add('hidden');
+        }
+
+        // 點擊熱點後：隱藏主地圖，顯示詳細資訊頁面
+        function showMapDetails(regionName) {
+            hideMapTooltip(); // 點擊後隱藏浮動框
+            document.getElementById('map-main-view').classList.add('hidden');
+            document.getElementById('map-detail-view').classList.remove('hidden');
+            
+            // 動態更新詳細資訊的標題
+            if(regionName) {
+                document.getElementById('detail-region-title').innerText = `【${regionName}】貧窮現況詳細資訊`;
+            }
+        }
+
+        // 從詳細資訊頁面返回地圖
+        function hideMapDetails() {
+            document.getElementById('map-main-view').classList.remove('hidden');
+            document.getElementById('map-detail-view').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
