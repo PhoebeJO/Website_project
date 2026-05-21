@@ -157,6 +157,7 @@
         }
 
         .hidden { display: none; }
+        
     </style>
 
 <!-- //html -->
@@ -434,7 +435,7 @@ function updateUI() {
 
 function finishGame() {
     questionText.innerText = "遊戲結束！";
-    optionsBox.innerHTML = `<h3>你的今日餘額為：${balance}</h3><button onclick="location.reload()">重新玩</button>`;
+    optionsBox.innerHTML = `<h3 style="color:#f5f3ee ; margin-bottom: 15px;">你的今日餘額為：${balance}</h3><button onclick="location.reload()">重新玩</button>`;
 }
 
 // 啟動遊戲
