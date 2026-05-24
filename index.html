@@ -1008,6 +1008,9 @@
       // 顯示目標頁面
       document.getElementById('page-' + pageId).classList.add('active');
 
+      // 記錄到 URL hash，重新整理時可以恢復
+      location.hash = pageId;
+
       // 更新導覽列 active 樣式
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
       const navBtn = document.getElementById('nav-' + pageId);
@@ -1226,7 +1229,7 @@
       new Chart(document.getElementById('chart-spending'), {
         type: 'bar',
         data: { labels: ['2018','2019','2020','2021','2022','2023'],
-          datasets: [{ label: '社會救助支出（億元）', data: [420,438,462,485,510,545],
+          datasets: [{ label: '社會救助支出（億元）', data: [3095,3210,4960,5229,5940,5935,5506],
             backgroundColor: brandColors.olive, borderWidth: 0
           }]
         },
@@ -1297,6 +1300,24 @@
       origSwitchPage(pageId);
       if (pageId === 'taiwan') setTimeout(initTaiwanCharts, 150);
     };
+
+    // 頁面載入時，從 URL hash 恢復上次所在頁面
+    (function restorePageFromHash() {
+      const hash = location.hash.replace('#', '');
+      const validPages = ['home','game','map','orgs','taiwan'];
+      if (hash && validPages.includes(hash)) {
+        switchPage(hash);
+      }
+    })();
+
+    // 瀏覽器上一頁/下一頁時也切換
+    window.addEventListener('hashchange', function() {
+      const hash = location.hash.replace('#', '');
+      const validPages = ['home','game','map','orgs','taiwan'];
+      if (hash && validPages.includes(hash)) {
+        switchPage(hash);
+      }
+    });
   </script>
 </body>
 </html>
