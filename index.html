@@ -572,26 +572,26 @@
 
     /* 縣市比較互動 */
     .compare-section { border-top: 1px solid var(--border); padding-top: 64px; }
-    .compare-grid { display: grid; grid-template-columns: 280px 1fr; gap: 32px; align-items: start; }
-    .city-list { list-style: none; border: 1px solid var(--border); max-height: 420px; overflow-y: auto; }
-    .city-item { padding: 14px 20px; font-size: 0.85rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: all 0.15s; display: flex; justify-content: space-between; align-items: center; }
+    .compare-grid { display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: start; }
+    .city-list { list-style: none; border: 1px solid var(--border); max-height: 360px; overflow-y: auto; }
+    .city-item { padding: 10px 14px; font-size: 0.8rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: all 0.15s; display: flex; justify-content: space-between; align-items: center; }
     .city-item:last-child { border-bottom: none; }
     .city-item:hover { background: var(--cream); }
     .city-item.active { background: var(--olive-dark); color: var(--white); }
     .city-item .city-pct { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--olive-light); }
     .city-item.active .city-pct { color: var(--olive-light); }
-    .city-detail { background: var(--white); border: 1px solid var(--border); padding: 36px; }
-    .city-detail h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 8px; }
-    .city-detail .city-subtitle { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--olive-light); letter-spacing: 0.1em; margin-bottom: 24px; }
+    .city-detail { background: var(--white); border: 1px solid var(--border); padding: 24px; }
+    .city-detail h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 4px; }
+    .city-detail .city-subtitle { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--olive-light); letter-spacing: 0.1em; margin-bottom: 16px; }
 
     /* 點擊資訊面板 */
-    .click-info { display: none; margin-top: 16px; background: var(--charcoal); color: var(--white); padding: 20px 24px; }
+    .click-info { display: none; margin-top: 12px; background: var(--charcoal); color: var(--white); padding: 14px 20px; }
     .click-info.show { display: block; }
-    .click-info .ci-year { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--olive-light); letter-spacing: 0.15em; margin-bottom: 12px; }
-    .click-info .ci-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .click-info .ci-year { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--olive-light); letter-spacing: 0.15em; margin-bottom: 8px; }
+    .click-info .ci-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
     .click-info .ci-item { text-align: center; }
-    .click-info .ci-val { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--olive-light); margin-bottom: 4px; }
-    .click-info .ci-label { font-size: 0.72rem; color: rgba(255,255,255,0.6); }
+    .click-info .ci-val { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--olive-light); margin-bottom: 2px; }
+    .click-info .ci-label { font-size: 0.68rem; color: rgba(255,255,255,0.6); }
 
     /* 政策時間軸 */
     .policy-timeline { position: relative; padding-left: 40px; margin-bottom: 64px; }
@@ -786,12 +786,6 @@
        ========================================= -->
   <div id="page-taiwan" class="page">
 
-    <!-- 子頁 Tab 導覽 -->
-    <div class="tw-tab-nav">
-      <button class="tw-tab-btn active" onclick="switchTwTab('poverty')">台灣的貧窮</button>
-      <button class="tw-tab-btn" onclick="switchTwTab('policy')">相關政策</button>
-    </div>
-
     <!-- 子頁 1：台灣的貧窮 -->
     <div id="tw-tab-poverty" class="tw-tab-page active">
       <section class="taiwan-section">
@@ -801,19 +795,19 @@
         <!-- 統計卡片 -->
         <div id="taiwan-line" class="taiwan-stats fade-in">
           <div class="stat-card">
-            <div class="stat-num">14,230</div>
-            <span class="stat-unit">TWD / 月</span>
-            <p class="stat-label">台北市最低生活費標準<br>（貧窮線基準）</p>
+            <div class="stat-num">97,855</div>
+            <span class="stat-unit">戶</span>
+            <p class="stat-label">全國中低收入戶數<br>（113年 / 2024）</p>
           </div>
           <div class="stat-card">
-            <div class="stat-num">1.2%</div>
-            <span class="stat-unit">低收入戶比率</span>
-            <p class="stat-label">台灣全國低收入戶占<br>總人口比率（2023）</p>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">55萬</div>
+            <div class="stat-num">259,185</div>
             <span class="stat-unit">人</span>
-            <p class="stat-label">目前接受社會救助<br>的低收入戶人口數</p>
+            <p class="stat-label">全國中低收入戶<br>人口數（113年）</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">-17.2%</div>
+            <span class="stat-unit">↓</span>
+            <p class="stat-label">相較107年人數<br>減少幅度</p>
           </div>
         </div>
 
@@ -825,8 +819,7 @@
           <div class="map-info">
             <p class="section-label">Choropleth Map · 熱力圖</p>
             <h3>台灣各鄉鎮低收入戶<br>人口比例分佈</h3>
-            <p>資料來源：113年第4季行政區低收入戶戶數及人數統計。深色區域代表低收入戶比例較高的鄉鎮，集中於中央山脈沿線及偏鄉地區。</p>
-            <img src="https://static.wealth.com.tw/dbd595f8343511ec5637b0100df94fc50cb75b47.jpg" alt="低收入戶統計圖表" style="width:100%; height:auto; margin-top:20px; mix-blend-mode:multiply; filter:contrast(1.1) brightness(1.05); background:transparent;">
+            <p>資料來源：衛生福利部行政區低收入戶戶數及人數統計。深色區域代表低收入戶比例較高的鄉鎮，集中於中央山脈沿線及偏鄉地區。</p>
           </div>
         </div>
 
@@ -836,13 +829,13 @@
           <h2 class="section-title">歷年趨勢與分析</h2>
           <div class="charts-grid">
             <div class="chart-card">
-              <h4>低收入戶人數趨勢</h4>
-              <p class="chart-sub">2018 – 2023 · 單位：萬人</p>
+              <h4>中低收入戶人數趨勢</h4>
+              <p class="chart-sub">2018 – 2024（107–113年）· 單位：萬人</p>
               <canvas id="chart-trend"></canvas>
             </div>
             <div class="chart-card">
               <h4>各縣市低收入戶比率</h4>
-              <p class="chart-sub">2023 · 前十名縣市</p>
+              <p class="chart-sub">2023（112年）· 前十名縣市</p>
               <canvas id="chart-city"></canvas>
             </div>
           </div>
@@ -853,24 +846,25 @@
           <p class="section-label">Comparison · 各年查詢</p>
           <h2 class="section-title">各縣市貧窮數據比較</h2>
           <p style="font-size:0.88rem; color:var(--gray); line-height:1.8; margin-bottom:32px;">
-            點擊左側縣市，即可查看該地區的低收入戶詳細統計。
+            點擊左側縣市，再點擊折線圖上的資料點，即可查看該年度的詳細統計。<br>
+            <span style="font-size:0.78rem; opacity:0.7;">資料來源：107–113年行政區中低收入戶戶數及人數統計（衛生福利部）</span>
           </p>
           <div class="compare-grid">
             <ul class="city-list" id="city-list"></ul>
             <div class="city-detail" id="city-detail">
               <h3 id="cd-name">台北市</h3>
               <p class="city-subtitle" id="cd-subtitle">TAIPEI CITY</p>
-              <canvas id="chart-city-detail" height="200" style="cursor:pointer;"></canvas>
+              <canvas id="chart-city-detail" height="160" style="cursor:pointer;"></canvas>
               <div class="click-info" id="click-info">
                 <p class="ci-year" id="ci-year"></p>
                 <div class="ci-grid">
                   <div class="ci-item">
                     <div class="ci-val" id="ci-households"></div>
-                    <div class="ci-label">低收入戶數</div>
+                    <div class="ci-label">戶數</div>
                   </div>
                   <div class="ci-item">
                     <div class="ci-val" id="ci-population"></div>
-                    <div class="ci-label">低收入人口</div>
+                    <div class="ci-label">人口數</div>
                   </div>
                   <div class="ci-item">
                     <div class="ci-val" id="ci-rate"></div>
@@ -1094,75 +1088,85 @@
     };
 
     const cityData = [
-      { name: '台北市', en: 'TAIPEI CITY', h: '26,835', p: '42,571', r: '1.67%',
-        trend: [1.8, 1.75, 1.72, 1.70, 1.68, 1.67],
+      { name: '臺北市', en: 'TAIPEI CITY', h: '6,643', p: '14,861',
+        trend: [15225,16139,15984,16020,15264,15549,14861],
         yearly: [
-          { h: '28,100', p: '45,200', r: '1.80%' }, { h: '27,800', p: '44,500', r: '1.75%' },
-          { h: '27,500', p: '43,800', r: '1.72%' }, { h: '27,200', p: '43,200', r: '1.70%' },
-          { h: '27,000', p: '42,900', r: '1.68%' }, { h: '26,835', p: '42,571', r: '1.67%' }
+          { h: '5,950', p: '15,225' }, { h: '6,412', p: '16,139' },
+          { h: '6,598', p: '15,984' }, { h: '6,763', p: '16,020' },
+          { h: '6,552', p: '15,264' }, { h: '6,819', p: '15,549' },
+          { h: '6,643', p: '14,861' }
         ]},
-      { name: '新北市', en: 'NEW TAIPEI CITY', h: '22,140', p: '48,230', r: '1.21%',
-        trend: [1.3, 1.28, 1.25, 1.23, 1.22, 1.21],
+      { name: '新北市', en: 'NEW TAIPEI CITY', h: '8,486', p: '20,823',
+        trend: [25165,24723,24143,24073,24892,24051,20823],
         yearly: [
-          { h: '23,500', p: '51,000', r: '1.30%' }, { h: '23,100', p: '50,200', r: '1.28%' },
-          { h: '22,800', p: '49,500', r: '1.25%' }, { h: '22,500', p: '49,000', r: '1.23%' },
-          { h: '22,300', p: '48,600', r: '1.22%' }, { h: '22,140', p: '48,230', r: '1.21%' }
+          { h: '8,898', p: '25,165' }, { h: '8,941', p: '24,723' },
+          { h: '8,903', p: '24,143' }, { h: '9,046', p: '24,073' },
+          { h: '9,594', p: '24,892' }, { h: '9,638', p: '24,051' },
+          { h: '8,486', p: '20,823' }
         ]},
-      { name: '桃園市', en: 'TAOYUAN CITY', h: '8,520', p: '18,900', r: '0.84%',
-        trend: [0.9, 0.88, 0.87, 0.86, 0.85, 0.84],
+      { name: '桃園市', en: 'TAOYUAN CITY', h: '5,500', p: '14,900',
+        trend: [9201,10146,11047,12535,13737,14352,14900],
         yearly: [
-          { h: '9,100', p: '20,200', r: '0.90%' }, { h: '8,950', p: '19,800', r: '0.88%' },
-          { h: '8,800', p: '19,500', r: '0.87%' }, { h: '8,700', p: '19,300', r: '0.86%' },
-          { h: '8,600', p: '19,100', r: '0.85%' }, { h: '8,520', p: '18,900', r: '0.84%' }
+          { h: '3,074', p: '9,201' }, { h: '3,430', p: '10,146' },
+          { h: '3,820', p: '11,047' }, { h: '4,426', p: '12,535' },
+          { h: '4,979', p: '13,737' }, { h: '5,258', p: '14,352' },
+          { h: '5,500', p: '14,900' }
         ]},
-      { name: '台中市', en: 'TAICHUNG CITY', h: '12,350', p: '26,400', r: '0.94%',
-        trend: [1.0, 0.98, 0.97, 0.96, 0.95, 0.94],
+      { name: '臺中市', en: 'TAICHUNG CITY', h: '13,218', p: '33,855',
+        trend: [32964,33820,33104,33271,34109,34518,33855],
         yearly: [
-          { h: '13,200', p: '28,500', r: '1.00%' }, { h: '12,900', p: '27,800', r: '0.98%' },
-          { h: '12,750', p: '27,300', r: '0.97%' }, { h: '12,600', p: '27,000', r: '0.96%' },
-          { h: '12,450', p: '26,700', r: '0.95%' }, { h: '12,350', p: '26,400', r: '0.94%' }
+          { h: '11,564', p: '32,964' }, { h: '12,097', p: '33,820' },
+          { h: '12,040', p: '33,104' }, { h: '12,340', p: '33,271' },
+          { h: '12,890', p: '34,109' }, { h: '13,291', p: '34,518' },
+          { h: '13,218', p: '33,855' }
         ]},
-      { name: '台南市', en: 'TAINAN CITY', h: '11,280', p: '24,100', r: '1.28%',
-        trend: [1.4, 1.36, 1.34, 1.32, 1.30, 1.28],
+      { name: '臺南市', en: 'TAINAN CITY', h: '6,764', p: '20,508',
+        trend: [27951,27372,26240,25419,24134,22813,20508],
         yearly: [
-          { h: '12,500', p: '26,800', r: '1.40%' }, { h: '12,100', p: '26,000', r: '1.36%' },
-          { h: '11,900', p: '25,500', r: '1.34%' }, { h: '11,700', p: '25,000', r: '1.32%' },
-          { h: '11,500', p: '24,500', r: '1.30%' }, { h: '11,280', p: '24,100', r: '1.28%' }
+          { h: '8,571', p: '27,951' }, { h: '8,478', p: '27,372' },
+          { h: '8,182', p: '26,240' }, { h: '7,955', p: '25,419' },
+          { h: '7,631', p: '24,134' }, { h: '7,298', p: '22,813' },
+          { h: '6,764', p: '20,508' }
         ]},
-      { name: '高雄市', en: 'KAOHSIUNG CITY', h: '16,920', p: '35,600', r: '1.29%',
-        trend: [1.4, 1.38, 1.35, 1.32, 1.30, 1.29],
+      { name: '高雄市', en: 'KAOHSIUNG CITY', h: '11,712', p: '37,399',
+        trend: [60490,56628,51773,47898,44883,41825,37399],
         yearly: [
-          { h: '18,500', p: '38,800', r: '1.40%' }, { h: '18,100', p: '38,000', r: '1.38%' },
-          { h: '17,600', p: '37,200', r: '1.35%' }, { h: '17,200', p: '36,500', r: '1.32%' },
-          { h: '17,000', p: '36,000', r: '1.30%' }, { h: '16,920', p: '35,600', r: '1.29%' }
+          { h: '18,479', p: '60,490' }, { h: '17,219', p: '56,628' },
+          { h: '15,764', p: '51,773' }, { h: '14,541', p: '47,898' },
+          { h: '13,755', p: '44,883' }, { h: '12,766', p: '41,825' },
+          { h: '11,712', p: '37,399' }
         ]},
-      { name: '台東縣', en: 'TAITUNG COUNTY', h: '3,850', p: '8,200', r: '3.80%',
-        trend: [4.1, 4.0, 3.95, 3.90, 3.85, 3.80],
+      { name: '臺東縣', en: 'TAITUNG COUNTY', h: '2,088', p: '4,603',
+        trend: [5499,5814,5508,4917,4685,4615,4603],
         yearly: [
-          { h: '4,200', p: '9,100', r: '4.10%' }, { h: '4,100', p: '8,900', r: '4.00%' },
-          { h: '4,020', p: '8,700', r: '3.95%' }, { h: '3,950', p: '8,500', r: '3.90%' },
-          { h: '3,900', p: '8,350', r: '3.85%' }, { h: '3,850', p: '8,200', r: '3.80%' }
+          { h: '2,041', p: '5,499' }, { h: '2,296', p: '5,814' },
+          { h: '2,208', p: '5,508' }, { h: '2,056', p: '4,917' },
+          { h: '2,013', p: '4,685' }, { h: '2,074', p: '4,615' },
+          { h: '2,088', p: '4,603' }
         ]},
-      { name: '花蓮縣', en: 'HUALIEN COUNTY', h: '4,120', p: '9,500', r: '3.20%',
-        trend: [3.5, 3.45, 3.38, 3.30, 3.25, 3.20],
+      { name: '花蓮縣', en: 'HUALIEN COUNTY', h: '2,378', p: '4,921',
+        trend: [3667,4089,4467,4257,4060,4679,4921],
         yearly: [
-          { h: '4,600', p: '10,500', r: '3.50%' }, { h: '4,500', p: '10,300', r: '3.45%' },
-          { h: '4,400', p: '10,100', r: '3.38%' }, { h: '4,300', p: '9,900', r: '3.30%' },
-          { h: '4,200', p: '9,700', r: '3.25%' }, { h: '4,120', p: '9,500', r: '3.20%' }
+          { h: '1,558', p: '3,667' }, { h: '1,748', p: '4,089' },
+          { h: '1,914', p: '4,467' }, { h: '1,887', p: '4,257' },
+          { h: '1,915', p: '4,060' }, { h: '2,214', p: '4,679' },
+          { h: '2,378', p: '4,921' }
         ]},
-      { name: '屏東縣', en: 'PINGTUNG COUNTY', h: '6,800', p: '15,200', r: '2.60%',
-        trend: [2.9, 2.82, 2.75, 2.70, 2.65, 2.60],
+      { name: '屏東縣', en: 'PINGTUNG COUNTY', h: '11,093', p: '26,712',
+        trend: [34029,33473,31766,31548,30236,28594,26712],
         yearly: [
-          { h: '7,500', p: '16,800', r: '2.90%' }, { h: '7,300', p: '16,400', r: '2.82%' },
-          { h: '7,100', p: '16,000', r: '2.75%' }, { h: '7,000', p: '15,700', r: '2.70%' },
-          { h: '6,900', p: '15,400', r: '2.65%' }, { h: '6,800', p: '15,200', r: '2.60%' }
+          { h: '12,848', p: '34,029' }, { h: '12,832', p: '33,473' },
+          { h: '12,312', p: '31,766' }, { h: '12,328', p: '31,548' },
+          { h: '11,978', p: '30,236' }, { h: '11,644', p: '28,594' },
+          { h: '11,093', p: '26,712' }
         ]},
-      { name: '嘉義縣', en: 'CHIAYI COUNTY', h: '3,200', p: '7,100', r: '2.30%',
-        trend: [2.5, 2.45, 2.40, 2.38, 2.35, 2.30],
+      { name: '嘉義縣', en: 'CHIAYI COUNTY', h: '1,833', p: '5,067',
+        trend: [9168,8643,7852,7377,6602,5733,5067],
         yearly: [
-          { h: '3,600', p: '8,000', r: '2.50%' }, { h: '3,500', p: '7,800', r: '2.45%' },
-          { h: '3,400', p: '7,600', r: '2.40%' }, { h: '3,350', p: '7,400', r: '2.38%' },
-          { h: '3,280', p: '7,250', r: '2.35%' }, { h: '3,200', p: '7,100', r: '2.30%' }
+          { h: '2,941', p: '9,168' }, { h: '2,837', p: '8,643' },
+          { h: '2,624', p: '7,852' }, { h: '2,501', p: '7,377' },
+          { h: '2,272', p: '6,602' }, { h: '2,002', p: '5,733' },
+          { h: '1,833', p: '5,067' }
         ]},
     ];
 
@@ -1176,28 +1180,28 @@
       Chart.defaults.font.size = 12;
       Chart.defaults.color = '#888';
 
-      // 圖表 1：低收入戶人數趨勢
+      // 圖表 1：中低收入戶人數趨勢（107-113年）
       new Chart(trendCanvas, {
         type: 'line',
         data: {
-          labels: ['2018','2019','2020','2021','2022','2023'],
-          datasets: [{ label: '低收入戶人數（萬人）', data: [30.8,30.2,30.5,30.1,29.8,30.3],
+          labels: ['2018','2019','2020','2021','2022','2023','2024'],
+          datasets: [{ label: '中低收入戶人數（萬人）', data: [31.35,31.10,29.97,29.42,28.64,27.79,25.92],
             borderColor: brandColors.olive, backgroundColor: 'rgba(107,107,42,0.1)',
             borderWidth: 2, fill: true, tension: 0.3,
             pointBackgroundColor: brandColors.olive, pointRadius: 4, pointHoverRadius: 6
           }]
         },
         options: { plugins: { legend: { display: false } },
-          scales: { y: { grid: { color: brandColors.border }, beginAtZero: false }, x: { grid: { display: false } } }
+          scales: { y: { beginAtZero: true, grid: { color: brandColors.border } }, x: { grid: { display: false } } }
         }
       });
 
-      // 圖表 2：縣市低收入戶比率
+      // 圖表 2：縣市低收入戶比率（112年）
       new Chart(document.getElementById('chart-city'), {
         type: 'bar',
         data: {
-          labels: ['台東縣','花蓮縣','屏東縣','嘉義縣','雲林縣','澎湖縣','台北市','南投縣','苗栗縣','宜蘭縣'],
-          datasets: [{ label: '低收入戶比率 (%)', data: [3.8,3.2,2.6,2.3,2.1,2.0,1.67,1.6,1.5,1.4],
+          labels: ['臺東縣','花蓮縣','屏東縣','臺北市','雲林縣','臺中市','基隆市','桃園市','澎湖縣','苗栗縣'],
+          datasets: [{ label: '低收入戶比率 (%)', data: [3.03,2.81,1.88,1.69,1.65,1.50,1.31,1.24,1.08,1.05],
             backgroundColor: ['#4a4a1a','#5a5a2a','#6b6b2a','#7b7b3a','#8b8b4a','#9b9b5a','#a0a060','#b0b070','#c0c080','#d0d090'],
             borderWidth: 0
           }]
@@ -1212,7 +1216,7 @@
       cityData.forEach((city, i) => {
         const li = document.createElement('li');
         li.className = 'city-item' + (i === 0 ? ' active' : '');
-        li.innerHTML = '<span>' + city.name + '</span><span class="city-pct">' + city.r + '</span>';
+        li.innerHTML = '<span>' + city.name + '</span>';
         li.onclick = () => selectCity(i);
         listEl.appendChild(li);
       });
@@ -1254,11 +1258,11 @@
       document.getElementById('click-info').classList.remove('show');
 
       if (cityChart) cityChart.destroy();
-      const years = ['2018','2019','2020','2021','2022','2023'];
+      const years = ['2018','2019','2020','2021','2022','2023','2024'];
       cityChart = new Chart(document.getElementById('chart-city-detail'), {
         type: 'line',
         data: { labels: years,
-          datasets: [{ label: '低收入戶比率 (%)', data: city.trend,
+          datasets: [{ label: '中低收入戶人數', data: city.trend,
             borderColor: brandColors.olive, backgroundColor: 'rgba(107,107,42,0.08)',
             borderWidth: 2, fill: true, tension: 0.3,
             pointBackgroundColor: brandColors.olive, pointRadius: 6, pointHoverRadius: 9,
@@ -1267,17 +1271,19 @@
         },
         options: {
           plugins: { legend: { display: false },
-            tooltip: { callbacks: { label: function() { return '點擊查看詳細資料'; } } }
+            tooltip: { callbacks: { label: function(ctx) { return ctx.parsed.y.toLocaleString() + ' 人'; } } }
           },
-          scales: { y: { grid: { color: brandColors.border } }, x: { grid: { display: false } } },
+          scales: { y: { grid: { color: brandColors.border }, beginAtZero: true, max: 65000, ticks: { callback: function(v) { return (v/10000).toFixed(1) + '萬'; } } }, x: { grid: { display: false } } },
           onClick: function(e, elements) {
             if (elements.length > 0) {
               const i = elements[0].index;
               const yd = city.yearly[i];
-              document.getElementById('ci-year').textContent = years[i] + ' 年度資料';
+              var pop = parseInt(yd.p.replace(/,/g, ''));
+              var rate = (pop / 23000000 * 100).toFixed(3) + '%';
+              document.getElementById('ci-year').textContent = years[i] + '（' + (107+i) + '年）中低收入戶資料';
               document.getElementById('ci-households').textContent = yd.h;
               document.getElementById('ci-population').textContent = yd.p;
-              document.getElementById('ci-rate').textContent = yd.r;
+              document.getElementById('ci-rate').textContent = rate;
               document.getElementById('click-info').classList.add('show');
             }
           }
