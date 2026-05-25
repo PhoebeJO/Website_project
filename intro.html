@@ -12,10 +12,23 @@
             box-sizing: border-box;
             font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
         }
+        :root {
+            --olive:       #6b6b2a;
+            --olive-dark:  #4a4a1a;
+            --olive-light: #a0a060;
+            --cream:       #f5f3ee;
+            --charcoal:    #1c1c1c;
+            --gray:        #888;
+            --border:      #d4d0c4;
+            --white:       #ffffff;
+        }
 
         body {
-            background: linear-gradient(135deg, #121324 0%, #1a1c3a 100%);
-            color: #ffffff;
+            font-family: 'Noto Serif TC', serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -27,26 +40,29 @@
         .container {
             max-width: 800px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--olive-dark);
+            color:var(--white);
+            box-shadow: 0 ;
             padding: 40px;
             border-radius: 16px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
 
         /* 遊戲標題 */
         .game-title {
+            font-family: 'Noto Serif TC', serif;
             font-size: 2.5rem;
-            color: #4facfe;
+            color: var(--white);
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+            
         }
 
         .game-subtitle {
             font-size: 1.1rem;
-            color: #00f2fe;
+            color: var(--white);
             margin-bottom: 30px;
             letter-spacing: 2px;
         }
@@ -55,13 +71,12 @@
         .game-description {
             font-size: 1.05rem;
             line-height: 1.8;
-            color: #ccd6f6;
+            color: rgba(255, 255, 255, 0.85);
             text-align: left;
             margin-bottom: 40px;
-            background: rgba(0, 0, 0, 0.2);
+            background: var(--charcoal);
             padding: 25px;
             border-radius: 8px;
-            border-left: 4px solid #4facfe;
         }
 
         /* 按鈕區塊容器 */
@@ -74,6 +89,7 @@
 
         /* 按鈕共同樣式 */
         .btn {
+            font-family: 'Noto Serif TC', serif;
             display: inline-block;
             flex: 1;
             min-width: 200px;
@@ -81,33 +97,36 @@
             font-size: 1.1rem;
             font-weight: bold;
             text-decoration: none;
-            border-radius: 30px;
+            border-radius: 6px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         /* 按鈕一：網頁版 */
         .btn-web {
-            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-            color: #121324;
+            background: var(--olive);
+            border: 2px solid var(--olive);
+            color: var(--white);
         }
 
         .btn-web:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
+            background: var(--olive-light);
+            border-color: var(--olive-light);
         }
 
         /* 按鈕二：下載版/試玩版 */
         .btn-download {
-            background: transparent;
-            color: #00f2fe;
-            border: 2px solid #00f2fe;
+            background: var(--olive);
+            border: 2px solid var(--olive);
+            color: var(--white);
         }
 
         .btn-download:hover {
-            background: rgba(0, 242, 254, 0.1);
+            background: var(--olive-light);
+            border-color: var(--olive-light);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.2);
+           
         }
 
         /* 手機板調整 */
