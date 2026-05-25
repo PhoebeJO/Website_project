@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消費挑戰賽 - 轉盤抽籤版</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Noto+Serif+TC:wght@300;400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --olive:       #6b6b2a;
+            --olive-dark:  #4a4a1a;
+            --olive-light: #a0a060;
+            --cream:       #f5f3ee;
+            --charcoal:    #1c1c1c;
+            --gray:        #888;
+            --border:      #d4d0c4;
+            --white:       #ffffff;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #balance-container {
+            background: var(--olive);
+            color: var(--white);
+            padding: 12px 24px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            border-radius: 50px;
+            z-index: 90;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .info-item { margin-bottom: 4px; }
+        .info-item:last-child { margin-bottom: 0; }
+
+        .main-wrapper {
+            display: flex;
+            gap: 30px;
+            width: 100%;
+            max-width: 980px;
+            height: 620px;
+            align-items: stretch;
+        }
+
+        .game-container {
+            background: #3d3b2a;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 35px;
+            max-width: 550px;
+            text-align: center;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            overflow-y: auto;
+            flex: 1.3;
+        }
+
+        #question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+
+        .history-container {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            padding: 30px;
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .history-container h3 {
+            font-size: 1.1rem;
+            color: var(--olive-dark);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        #history-list {
+            list-style: none;
+            padding: 0; margin: 0;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .history-item {
+            padding: 12px 8px;
+            border-bottom: 1px dashed var(--border);
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.88rem;
+            letter-spacing: 0.04em;
+            text-align: left;
+        }
+
+        button:hover {
+            background: var(--olive);
+            border-color: var(--olive);
+            color: var(--white);
+        }
+
+        button:disabled {
+            opacity: 0.2 !important;
+            background: rgba(0, 0, 0, 0.2) !important;
+            color: rgba(255, 255, 255, 0.3) !important;
+            border-color: rgba(255, 255, 255, 0.05) !important;
+            cursor: not-allowed !important;
+        }
+
+        /* ========================================================
+           大轉盤樣式
+           ======================================================== */
+        .wheel-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .wheel-box {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin-bottom: 25px;
+            border: 6px solid #2d2b1f;
+            border-radius: 50%;
+            background: #fff;
+            padding: 3px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 35px solid #ff3b30;
+            z-index: 10;
+            filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));
+        }
+
+        canvas {
+            display: block;
+            border-radius: 50%;
+            transition: transform 6.5s cubic-bezier(0.1, 0.8, 0.2, 1);
+            width: 100%;
+            height: 100%;
+        }
+
+        .spin-btn {
+            background: linear-gradient(135deg, #FF9500 0%, #FF5E3A 100%);
+            color: white !important;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(255, 94, 58, 0.4);
+            width: auto;
+            display: inline-block;
+        }
+        .spin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 94, 58, 0.6);
+        }
+
+        /* ========================================================
+           開獎確認彈窗樣式
+           ======================================================== */
+        .result-popup {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;
+            z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            backdrop-filter: blur(4px);
+        }
+        .result-popup.show { opacity: 1; pointer-events: auto; }
+        .popup-content {
+            background: var(--cream); padding: 35px 50px; border-radius: 20px;
+            text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            max-width: 450px; width: 85%; color: var(--charcoal);
+            border: 3px solid var(--olive);
+        }
+        .popup-title { font-size: 1.1rem; color: var(--gray); letter-spacing: 2px; margin-bottom: 10px;}
+        .popup-continent {
+            display: inline-block; padding: 4px 14px; border-radius: 50px;
+            font-size: 0.85rem; font-weight: bold; color: white; margin-bottom: 15px;
+        }
+        .popup-country { font-size: 2.2rem; font-weight: 900; color: var(--olive-dark); margin-bottom: 5px; }
+        .popup-budget { font-size: 1.5rem; font-weight: bold; color: #ff5e3a; margin-bottom: 25px; }
+        .popup-confirm-btn {
+            background: var(--olive); color: white !important; border: none; padding: 12px 40px;
+            font-size: 1rem; border-radius: 25px; cursor: pointer; font-weight: bold; text-align: center;
+        }
+        .popup-confirm-btn:hover { background: var(--olive-dark); }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    
+<div class="main-wrapper">
+    <!-- 左側遊戲核心區 -->
+    <div class="game-container">
+        <!-- 大轉盤區塊 -->
+        <div id="wheel-card" class="wheel-wrapper">
+            <h2 id="wheel-title" style="color: var(--white); margin-bottom: 15px; font-size: 1.3rem;">點擊按鈕，決定你的出生國家</h2>
+            <div class="wheel-box">
+                <div class="pointer"></div>
+                <canvas id="wheelCanvas" width="310" height="310"></canvas>
+            </div>
+            <button class="spin-btn" id="spinBtn">開始抽籤</button>
+        </div>
+
+        <!-- 答題關卡 -->
+        <div id="quiz-card" class="hidden">
+            <h2 id="question-text">載入中...</h2>
+            <div id="options-container"></div>
+        </div>
+
+        <!-- 結算關卡 -->
+        <div id="result-card" class="hidden">
+            <h2 style="color: var(--white); margin-bottom: 20px;">今日結算</h2>
+            <div id="final-status" style="color: var(--white); font-size: 1.2rem; margin-bottom: 25px; line-height: 1.6;"></div>
+            <button onclick="location.reload()" style="text-align: center; background: var(--olive); color: white;">再玩一次</button>
+        </div>
+    </div>
+
+    <!-- 右側資產與紀錄看板 -->
+    <div class="history-container">
+        <div id="balance-container">
+            <div class="info-item">出生國家：<span id="current-country">尚未選擇</span></div>
+            <div class="info-item">今日餘額：$<span id="balance">0</span></div>
+        </div>
+        
+        <h3>消費足跡</h3>
+        <ul id="history-list">
+            <li class="history-item" style="color: #999; text-align: center; border: none; margin-top: 20px;">尚未開始旅行...</li>
+        </ul>
+    </div>
+</div>
+
+<!-- 開獎確認彈窗 -->
+<div class="result-popup" id="resultPopup">
+    <div class="popup-content">
+        <div class="popup-title">你的出生地點：</div>
+        <div class="popup-continent" id="popupContinent">區域</div>
+        <div class="popup-country" id="popupCountry">國家</div>
+        <div class="popup-budget" id="popupBudget">預算</div>
+        <button class="popup-confirm-btn" id="popupConfirmBtn">開啟生活挑戰</button>
+    </div>
+</div>
+
+<script>
+// 資料庫
+const geoData = {
+    "亞洲": [
+        { name: "Bangladesh", budget: 116 },
+        { name: "China", budget: 470 },
+        { name: "India", budget: 125 },
+        { name: "Japan", budget: 1713 },
+        { name: "Saudi Arabia", budget: 1040 },
+        { name: "Taiwan", budget: 2660 },
+        { name: "Yemen, Rep.", budget: 109 }
+    ],
+    "歐洲": [
+        { name: "Germany", budget: 1977 },
+        { name: "United Kingdom", budget: 2566 },
+        { name: "Greece", budget: 1272 },
+        { name: "Norway", budget: 2937 },
+        { name: "Ukraine", budget: 182 },
+    ],
+    "美洲": [
+        { name: "Bolivia", budget: 192 },
+        { name: "Brazil", budget: 545 },
+        { name: "Haiti", budget: 111 },
+        { name: "Mexico", budget: 655 },
+        { name: "United States", budget: 3854 }
+    ],
+    "大洋洲": [
+        { name: "Australia", budget: 2961 },
+        { name: "New Zealand", budget: 2294 },
+        { name: "Solomon Islands", budget: 127 }
+    ],
+    "非洲": [
+        { name: "Burundi", budget: 17 },
+        { name: "Central African Republic", budget: 40 },
+        { name: "Congo, Dem. Rep.", budget: 27 },
+        { name: "Madagascar", budget: 29 },
+        { name: "Mozambique", budget: 39 },
+        { name: "Somalia, Fed. Rep.", budget: 55 }
+    ]
+};
+
+// 題目清單
+const expenseQuestions = [
+    { q: "早安，早餐吃什麼？",
+         opts: [
+            { t: "奢華全套早午餐 花費:NT$650", c: 650 }, 
+            { t: "連鎖咖啡廳早餐 花費:NT$220", c: 220 },
+            { t: "美而美早餐店 花費:NT$70", c: 70 },
+            { t: "超商肉鬆飯糰 花費:NT$25", c:25},
+            { t: "茶葉蛋 花費:NT$10", c:10},
+            { t: "過期吐司 花費:NT$5", c:5},
+            { t: "不吃 花費:NT$0", c:0}
+        ] 
+    },
+    { q: "去上班，交通方式?", 
+        opts: [
+            { t: "Uber 花費:NT$300", c: 300 },
+            { t: "捷運 花費:NT$40", c: 40 },
+            { t: "公車 花費:NT$25", c:25},
+            { t: "走路 花費:NT$0", c:0}
+        ] 
+    },
+    { q: "中午了，午餐吃什麼？", 
+        opts: [
+            { t: "米其林名店 花費:NT$1200", c: 1200 },
+            { t: "主題餐廳 花費:NT$800", c: 800 },
+            { t: "美食街 花費:NT$280", c:280 },
+            { t: "雞腿便當 花費:NT$90", c:90 },
+            { t: "滷肉飯 花費:NT$50", c:50},
+            { t: "白米飯 花費:NT$10", c:10},
+            { t: "不吃 花費:NT$0", c:0}
+        ] 
+    },
+    { q: "下午茶時間到", 
+        opts: [
+            { t: "精緻千層蛋糕配咖啡 花費:NT$450", c: 450 }, 
+            { t: "手搖飲 花費:NT$65", c: 65 },
+            { t: "小零食 花費:NT$10", c:10},
+            { t: "不吃 花費:NT$0", c:0}
+        ] 
+    },
+    { q: "下班逛街，買衣服嗎？", 
+        opts: [
+            { t: "買 花費:NT$1000", c: 1000 }, 
+            { t: "不買 花費:NT$0", c: 0 }
+        ] 
+    },
+    { q: "不小心感冒了，看醫生嗎", 
+        opts: [
+            { t: "看 花費:NT$200", c: 200 }, 
+            { t: "不看 花費:NT$0", c: 0 }
+        ] 
+    },
+    { q: "晚餐吃什麼？", 
+        opts: [
+            { t: "吃到飽餐廳 花費:NT$1500", c: 1500 },
+            { t: "居酒屋 花費:NT$800", c: 800 },
+            { t: "小火鍋 花費:NT$500", c:500},
+            { t: "拉麵 花費:NT$300", c:300 },
+            { t: "便當 花費:NT$90", c:90 },
+            { t: "i珍食 花費:NT$50", c:50},
+            { t: "不吃 花費:NT$0", c:0}
+        ] 
+    },
+    { q: "有一場想看的電影，看不看?", 
+        opts: [
+            { t: "看 花費:NT$200", c: 200 },
+            { t: "不看 花費:NT$0", c: 0 }
+        ] 
+    },
+    { q: "怎麼回家?", 
+        opts: [
+            { t: "Uber 花費:NT$100", c: 100 },
+            { t: "公車 花費:NT$20", c:20},
+            { t: "走路 花費:NT$0", c:0}
+        ] 
+    },    
+    { q: "住哪(租屋處)？", 
+        opts: [
+            { t: "豪華大別墅 花費:NT$4000", c: 4000 },
+            { t: "普通公寓 花費:NT$900", c: 900 },
+            { t: "合租套房 花費:NT$500", c: 500 },
+            { t: "破舊雅房 花費:NT$300", c: 300 },
+            { t: "睡路邊 花費:NT$0", c:0 }
+        ] 
+    }
+];
+
+let balance = 0;
+let currentStep = 0; 
+
+const quizCard = document.getElementById('quiz-card');
+const wheelCard = document.getElementById('wheel-card');
+const resultCard = document.getElementById('result-card');
+const questionText = document.getElementById('question-text');
+const optionsBox = document.getElementById('options-container');
+const balanceDisplay = document.getElementById('balance');
+const historyList = document.getElementById('history-list');
+const countryDisplay = document.getElementById('current-country');
+
+// 彈窗相關節點
+const resultPopup = document.getElementById('resultPopup');
+const popupContinent = document.getElementById('popupContinent');
+const popupCountry = document.getElementById('popupCountry');
+const popupBudget = document.getElementById('popupBudget');
+const popupConfirmBtn = document.getElementById('popupConfirmBtn');
+
+const colorPalette = {
+    "亞洲": '#EE5253', "歐洲": '#5F27CD', "美洲": '#FECA57', "大洋洲": '#1DD1A1', "非洲": '#2E86DE'
+};
+
+let wheelItems = [];
+for (const continent in geoData) {
+    geoData[continent].forEach(country => {
+        wheelItems.push({
+            continent: continent,
+            name: country.name,
+            budget: country.budget,
+            color: colorPalette[continent] || '#999'
+        });
+    });
+}
+
+const canvas = document.getElementById('wheelCanvas');
+const ctx = canvas.getContext('2d');
+const originalWidth = canvas.width;
+const originalHeight = canvas.height;
+const dpr = window.devicePixelRatio || 1;
+
+canvas.width = originalWidth * dpr;
+canvas.height = originalHeight * dpr;
+ctx.scale(dpr, dpr);
+
+const numSegments = wheelItems.length;
+const arcSize = (2 * Math.PI) / numSegments;
+const centerX = originalWidth / 2;
+const centerY = originalHeight / 2;
+const radius = centerX - 4;
+let currentRotation = 0;
+let isSpinning = false;
+
+function drawWheel() {
+    ctx.clearRect(0, 0, originalWidth, originalHeight);
+    ctx.imageSmoothingEnabled = true;
+
+    for (let i = 0; i < numSegments; i++) {
+        const angle = i * arcSize;
+        const item = wheelItems[i];
+        
+        ctx.fillStyle = item.color;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, angle, angle + arcSize);
+        ctx.lineTo(centerX, centerY);
+        ctx.fill();
+        
+        ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.save();
+        ctx.fillStyle = (item.continent === "美洲") ? '#111111' : '#ffffff';
+        ctx.font = 'bold 9px sans-serif'; 
+        ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+        ctx.translate(centerX, centerY);
+        ctx.rotate(angle + arcSize / 2);
+        ctx.fillText(item.name, radius - 10, 0); 
+        ctx.restore();
+    }
+    
+    ctx.fillStyle = '#2d2b1f'; ctx.beginPath(); ctx.arc(centerX, centerY, 15, 0, 2 * Math.PI); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI); ctx.fill();
+}
+
+drawWheel();
+
+// 點擊命運抽籤
+document.getElementById('spinBtn').addEventListener('click', function() {
+    if (isSpinning) return;
+    isSpinning = true;
+    this.disabled = true;
+
+    const randomRounds = 6 + Math.floor(Math.random() * 4); 
+    const randomAngle = Math.random() * 2 * Math.PI;
+    const targetRotation = currentRotation + (randomRounds * 2 * Math.PI) + randomAngle;
+    currentRotation = targetRotation;
+
+    canvas.style.transform = `rotate(${(targetRotation * 180) / Math.PI}deg)`;
+
+    setTimeout(() => {
+        isSpinning = false;
+        
+        const actualAngle = targetRotation % (2 * Math.PI);
+        let pointerRelativeAngle = (1.5 * Math.PI - actualAngle) % (2 * Math.PI);
+        if (pointerRelativeAngle < 0) pointerRelativeAngle += 2 * Math.PI;
+        
+        const winningIndex = Math.floor(pointerRelativeAngle / arcSize);
+        const luckyCountry = wheelItems[winningIndex];
+
+        // 一停下來，就立刻更新右側看板與紀錄
+        balance = luckyCountry.budget;
+        countryDisplay.innerText = luckyCountry.name;
+        historyList.innerHTML = ''; 
+
+        addHistoryRecord(`轉盤：出生於${luckyCountry.continent}`);
+        addHistoryRecord(`出生國家：${luckyCountry.name}`);
+        addHistoryRecord(`初始旅行預算：$${luckyCountry.budget}`);
+        updateUI();
+
+        // 跳出確認彈窗，轉盤先不消失
+        popupContinent.textContent = luckyCountry.continent;
+        popupContinent.style.backgroundColor = luckyCountry.color;
+        popupContinent.style.color = (luckyCountry.continent === "美洲") ? "#111111" : "#ffffff";
+        
+        popupCountry.textContent = luckyCountry.name;
+        popupBudget.textContent = `初始預算: NT$${luckyCountry.budget.toLocaleString()}`;
+        
+        resultPopup.classList.add('show');
+    }, 6500); 
+});
+
+// 點選彈窗的按鈕後，才切換畫面
+popupConfirmBtn.addEventListener('click', function() {
+    resultPopup.classList.remove('show'); // 關閉彈窗
+    
+    wheelCard.classList.add('hidden');    // 隱藏轉盤
+    quizCard.classList.remove('hidden');  // 打開答題卡
+    
+    currentStep = 1; // 進入第一題
+    startLevel();
+});
+
+// ========================================================
+// 答題核心與原有邏輯
+// ========================================================
+function startLevel() {
+    optionsBox.innerHTML = ''; 
+    const quizIdx = currentStep - 1;
+
+    if (quizIdx < expenseQuestions.length) {
+        const currentQ = expenseQuestions[quizIdx];
+        questionText.innerText = currentQ.q;
+
+        currentQ.opts.forEach(opt => {
+            const btn = makeButton(opt.t, () => {
+                balance -= opt.c;
+                addHistoryRecord(`消費：${opt.t}`);
+                updateUI();
+                currentStep++;
+                startLevel();
+            });
+
+            if (balance < opt.c) {
+                btn.disabled = true;
+                btn.style.opacity = "0.3";
+                btn.style.cursor = "not-allowed";
+            }
+        });
+    } else {
+        finishGame();
+    }
+}
+
+function makeButton(text, clickEvent) {
+    const btn = document.createElement('button');
+    btn.innerText = text;
+    btn.onclick = clickEvent;
+    optionsBox.appendChild(btn);
+    return btn;
+}
+
+function addHistoryRecord(text) {
+    const li = document.createElement('li');
+    li.className = 'history-item';
+    li.innerText = text;
+    historyList.appendChild(li);
+    historyList.scrollTop = historyList.scrollHeight; 
+}
+
+function updateUI() {
+    balanceDisplay.innerText = balance.toLocaleString();
+}
+
+function finishGame() {
+    quizCard.classList.add('hidden');
+    resultCard.classList.remove('hidden');
+    
+    const finalStatus = document.getElementById('final-status');
+    finalStatus.innerHTML = `<h3>遊戲結束！</h3><br>你在今日的旅途中，最終順利存活，<br>名下帳戶剩餘總額為：<span style="color:#ff9500; font-weight:bold; font-size:1.5rem;">$${balance.toLocaleString()}</span>`;
+}
+</script>
+
+</body>
+</html>

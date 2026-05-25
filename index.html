@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>消除貧窮 | Poverty Eradication</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Noto+Serif+TC:wght@300;400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     /* ===========================
        CSS 變數
@@ -507,26 +508,104 @@
        =========================== */
     #page-taiwan { background: var(--cream); }
     .taiwan-section { padding: 60px 48px 80px; }
+
+    /* 台灣子頁 Tab 導覽 */
+    .tw-tab-nav {
+      display: flex; align-items: center; gap: 0;
+      padding: 0 48px; border-bottom: 1px solid var(--border);
+      background: var(--cream); position: sticky; top: var(--nav-h); z-index: 50;
+    }
+    .tw-tab-btn {
+      padding: 0 28px; height: 52px;
+      font-family: 'Noto Serif TC', serif; font-size: 0.88rem;
+      letter-spacing: 0.06em; cursor: pointer;
+      background: none; border: none; border-bottom: 2px solid transparent;
+      color: var(--gray); transition: all 0.2s;
+      display: flex; align-items: center;
+    }
+    .tw-tab-btn.active { color: var(--olive); border-bottom-color: var(--olive); font-weight: 700; }
+    .tw-tab-btn:hover:not(.active) { color: var(--charcoal); }
+    .tw-tab-page { display: none; }
+    .tw-tab-page.active { display: block; }
+
+    /* 統計卡片 */
     .taiwan-stats {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 1px; background: var(--border); margin-bottom: 64px;
     }
-    .stat-card { background: var(--cream); padding: 36px 28px; text-align: center; }
+    .stat-card { background: var(--cream); padding: 36px 28px; text-align: center; transition: background 0.2s; }
+    .stat-card:hover { background: var(--white); }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 900; color: var(--olive-dark); line-height: 1; margin-bottom: 10px; }
     .stat-unit { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--olive-light); letter-spacing: 0.1em; display: block; margin-bottom: 8px; }
     .stat-label { font-size: 0.85rem; color: var(--gray); line-height: 1.5; }
-    .policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-    .policy-card { border-top: 2px solid var(--olive); padding-top: 24px; }
-    .policy-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 12px; }
-    .policy-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.8; margin-bottom: 16px; }
-    .policy-status {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: 'DM Mono', monospace; font-size: 0.68rem;
-      letter-spacing: 0.1em; padding: 5px 12px;
+
+    /* 互動地圖區 */
+    .map-interactive {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: start; margin-bottom: 64px;
     }
-    .status-active { background: rgba(107,107,42,0.1); color: var(--olive); }
-    .status-review { background: rgba(136,136,136,0.1); color: var(--gray); }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .map-wrap {
+      position: relative; background: var(--cream);
+      border: 1px solid var(--border); padding: 24px;
+    }
+    .map-wrap img { width: 100%; height: auto; display: block; mix-blend-mode: multiply; }
+    .map-info { padding-top: 12px; }
+    .map-info h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 16px; }
+    .map-info p { font-size: 0.88rem; color: var(--gray); line-height: 1.8; margin-bottom: 20px; }
+
+    /* 圖表區 */
+    .charts-section { border-top: 1px solid var(--border); padding-top: 64px; margin-bottom: 64px; }
+    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .chart-card { background: var(--white); border: 1px solid var(--border); padding: 28px; }
+    .chart-card h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 6px; }
+    .chart-card .chart-sub { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--olive-light); letter-spacing: 0.1em; margin-bottom: 20px; }
+    .chart-card canvas { width: 100% !important; }
+
+    /* 關鍵數據卡片 */
+    .data-highlight { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); margin-bottom: 64px; }
+    .data-card { background: var(--white); padding: 28px 20px; text-align: center; cursor: default; transition: all 0.2s; }
+    .data-card:hover { background: var(--olive-dark); color: var(--white); }
+    .data-card:hover .data-val { color: var(--olive-light); }
+    .data-card:hover .data-label { color: rgba(255,255,255,0.7); }
+    .data-val { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--olive-dark); margin-bottom: 8px; transition: color 0.2s; }
+    .data-label { font-size: 0.78rem; color: var(--gray); line-height: 1.5; transition: color 0.2s; }
+
+    /* 縣市比較互動 */
+    .compare-section { border-top: 1px solid var(--border); padding-top: 64px; }
+    .compare-grid { display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: start; }
+    .city-list { list-style: none; border: 1px solid var(--border); max-height: 360px; overflow-y: auto; }
+    .city-item { padding: 10px 14px; font-size: 0.8rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: all 0.15s; display: flex; justify-content: space-between; align-items: center; }
+    .city-item:last-child { border-bottom: none; }
+    .city-item:hover { background: var(--cream); }
+    .city-item.active { background: var(--olive-dark); color: var(--white); }
+    .city-item .city-pct { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--olive-light); }
+    .city-item.active .city-pct { color: var(--olive-light); }
+    .city-detail { background: var(--white); border: 1px solid var(--border); padding: 24px; }
+    .city-detail h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 4px; }
+    .city-detail .city-subtitle { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--olive-light); letter-spacing: 0.1em; margin-bottom: 16px; }
+
+    /* 點擊資訊面板 */
+    .click-info { display: none; margin-top: 12px; background: var(--charcoal); color: var(--white); padding: 14px 20px; }
+    .click-info.show { display: block; }
+    .click-info .ci-year { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--olive-light); letter-spacing: 0.15em; margin-bottom: 8px; }
+    .click-info .ci-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .click-info .ci-item { text-align: center; }
+    .click-info .ci-val { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--olive-light); margin-bottom: 2px; }
+    .click-info .ci-label { font-size: 0.68rem; color: rgba(255,255,255,0.6); }
+
+    /* 政策時間軸 */
+    .policy-timeline { position: relative; padding-left: 40px; margin-bottom: 64px; }
+    .policy-timeline::before { content: ''; position: absolute; left: 14px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+    .timeline-item { position: relative; margin-bottom: 40px; padding: 28px 32px; background: var(--white); border: 1px solid var(--border); transition: box-shadow 0.2s, transform 0.2s; }
+    .timeline-item:hover { box-shadow: 0 8px 32px rgba(107,107,42,0.1); transform: translateY(-2px); }
+    .timeline-item::before { content: ''; position: absolute; left: -33px; top: 32px; width: 12px; height: 12px; border-radius: 50%; background: var(--olive); border: 3px solid var(--cream); }
+    .timeline-year { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--olive-light); letter-spacing: 0.15em; margin-bottom: 8px; }
+    .timeline-item h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 12px; }
+    .timeline-item p { font-size: 0.85rem; color: var(--gray); line-height: 1.8; }
+    .timeline-item .policy-tag { display: inline-block; margin-top: 12px; padding: 4px 12px; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; background: rgba(107,107,42,0.08); color: var(--olive); }
+    .policy-link { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--olive); text-decoration: none; text-transform: uppercase; transition: gap 0.2s; margin-top: 16px; }
+    .policy-link:hover { gap: 10px; }
+    .policy-chart-section { border-top: 1px solid var(--border); padding-top: 64px; }
 
     /* ===========================
        Footer
@@ -570,8 +649,8 @@
       <li>
         <a id="nav-taiwan" onclick="switchPage('taiwan')">台灣的貧窮 <span class="arrow">▾</span></a>
         <div class="dropdown">
-          <a onclick="switchPage('taiwan'); scrollToId('taiwan-line')">台灣的貧窮線</a>
-          <a onclick="switchPage('taiwan'); scrollToId('taiwan-policy')">相關政策</a>
+          <a onclick="switchPage('taiwan'); setTimeout(()=>switchTwTab('poverty'),150)">台灣的貧窮</a>
+          <a onclick="switchPage('taiwan'); setTimeout(()=>switchTwTab('policy'),150)">相關政策</a>
         </div>
       </li>
     </ul>
@@ -585,7 +664,7 @@
     <section class="hero">
       <div class="hero-marquee">
         <div class="hero-marquee-inner">
-          Poverty Eradication | Taiwan poverty | SDGs 01 | social issue | Poverty Eradication | Taiwan poverty | SDGs 01 
+          Poverty Eradication | Taiwan poverty | SDGs 01 | social issue | End Poverty | 消除貧窮 | Poverty Eradication | Taiwan poverty | SDGs 01 | social issue | End Poverty | 消除貧窮 | Poverty Eradication | Taiwan poverty | SDGs 01 | social issue | End Poverty | 消除貧窮 | Poverty Eradication | Taiwan poverty | SDGs 01 | social issue | End Poverty | 消除貧窮
         </div>
       </div>
       <div class="hero-text fade-in">
@@ -613,8 +692,7 @@
         <img src="https://www.bhorkiran.org/img/programs/poverty-eradication.jpg" alt="Poverty in community" />
       </div>
       <div class="fade-in">
-        <p class="section-label">United Nations · 2030 Agenda</p>
-        <h2 class="section-title">SDGs 目標<br>消除各地一切形式的貧窮</h2>
+        <h2 class="section-title">SDG 01 <br>消除各地一切形式的貧窮</h2>
         <ul class="sdg-list">
           <li><span class="sdg-num">1.1</span><span>終結極端貧窮，確保所有人脫離每日生活費不足1.25美元的狀態</span></li>
           <li><span class="sdg-num">1.2</span><span>至少減少50%各國定義下的各年齡層貧窮人口</span></li>
@@ -707,60 +785,155 @@
        PAGE 5：台灣的貧窮
        ========================================= -->
   <div id="page-taiwan" class="page">
-    <section class="taiwan-section">
-      <p class="section-label">Taiwan · 台灣在地</p>
-      <h2 class="section-title">台灣的貧窮</h2>
 
-      <!-- 貧窮線統計 -->
-      <div id="taiwan-line" class="taiwan-stats fade-in">
-        <div class="stat-card">
-          <div class="stat-num">14,230</div>
-          <span class="stat-unit">TWD / 月</span>
-          <p class="stat-label">台北市最低生活費標準<br>（貧窮線基準）</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">1.2%</div>
-          <span class="stat-unit">低收入戶比率</span>
-          <p class="stat-label">台灣全國低收入戶占<br>總人口比率（2023）</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">55萬</div>
-          <span class="stat-unit">人</span>
-          <p class="stat-label">目前接受社會救助<br>的低收入戶人口數</p>
-        </div>
-      </div>
+    <!-- 子頁 1：台灣的貧窮 -->
+    <div id="tw-tab-poverty" class="tw-tab-page active">
+      <section class="taiwan-section">
+        <p class="section-label">Taiwan · 台灣在地</p>
+        <h2 class="section-title">台灣的貧窮</h2>
 
-      <!-- 政策 -->
-      <div id="taiwan-policy">
-        <p class="section-label" style="margin-bottom:20px;">貧窮政策 · Anti-Poverty Policy</p>
-        <div class="policy-grid">
-          <div class="policy-card fade-in">
+        <!-- 統計卡片 -->
+        <div id="taiwan-line" class="taiwan-stats fade-in">
+          <div class="stat-card">
+            <div class="stat-num">97,855</div>
+            <span class="stat-unit">戶</span>
+            <p class="stat-label">全國中低收入戶數<br>（113年 / 2024）</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">259,185</div>
+            <span class="stat-unit">人</span>
+            <p class="stat-label">全國中低收入戶<br>人口數（113年）</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">-17.2%</div>
+            <span class="stat-unit">↓</span>
+            <p class="stat-label">相較107年人數<br>減少幅度</p>
+          </div>
+        </div>
+
+        <!-- 互動地圖 + 說明 -->
+        <div class="map-interactive fade-in">
+          <div class="map-wrap">
+            <img src="https://scontent-hkg1-2.xx.fbcdn.net/v/t39.30808-6/645502329_916913284053091_5685990670491799009_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=uSV4gckBfPcQ7kNvwH4RU9y&_nc_oc=AdrkPTaw3pi4oPuLDEnH5eZ5v5uSOFGyJMoDPvShq7By581ZfCyEQegnO2xi1PcOp8E&_nc_zt=23&_nc_ht=scontent-hkg1-2.xx&_nc_gid=_I2AueL_MQWZg6m0X4OtEQ&_nc_ss=7b2a8&oh=00_Af6DU4l1WCdyMKx6V68DT5Yj3Zc5OMueomXs0lzX6MDvwA&oe=6A12E079" alt="台灣各鄉鎮低收入戶人口比例圖">
+          </div>
+          <div class="map-info">
+            <p class="section-label">Choropleth Map · 熱力圖</p>
+            <h3>台灣各鄉鎮低收入戶<br>人口比例分佈</h3>
+            <p>資料來源：衛生福利部行政區低收入戶戶數及人數統計。深色區域代表低收入戶比例較高的鄉鎮，集中於中央山脈沿線及偏鄉地區。</p>
+          </div>
+        </div>
+
+        <!-- 圖表區 -->
+        <div class="charts-section fade-in">
+          <p class="section-label">Data Visualization · 數據圖表</p>
+          <h2 class="section-title">歷年趨勢與分析</h2>
+          <div class="charts-grid">
+            <div class="chart-card">
+              <h4>中低收入戶人數趨勢</h4>
+              <p class="chart-sub">2018 – 2024（107–113年）· 單位：萬人</p>
+              <canvas id="chart-trend"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4>各縣市低收入戶比率</h4>
+              <p class="chart-sub">2023（112年）· 前十名縣市</p>
+              <canvas id="chart-city"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 縣市比較互動 -->
+        <div class="compare-section fade-in">
+          <p class="section-label">Comparison · 各年查詢</p>
+          <h2 class="section-title">各縣市貧窮數據比較</h2>
+          <p style="font-size:0.88rem; color:var(--gray); line-height:1.8; margin-bottom:32px;">
+            點擊左側縣市，再點擊折線圖上的資料點，即可查看該年度的詳細統計。<br>
+            <span style="font-size:0.78rem; opacity:0.7;">資料來源：107–113年行政區中低收入戶戶數及人數統計（衛生福利部）</span>
+          </p>
+          <div class="compare-grid">
+            <ul class="city-list" id="city-list"></ul>
+            <div class="city-detail" id="city-detail">
+              <h3 id="cd-name">台北市</h3>
+              <p class="city-subtitle" id="cd-subtitle">TAIPEI CITY</p>
+              <canvas id="chart-city-detail" height="160" style="cursor:pointer;"></canvas>
+              <div class="click-info" id="click-info">
+                <p class="ci-year" id="ci-year"></p>
+                <div class="ci-grid">
+                  <div class="ci-item">
+                    <div class="ci-val" id="ci-households"></div>
+                    <div class="ci-label">戶數</div>
+                  </div>
+                  <div class="ci-item">
+                    <div class="ci-val" id="ci-population"></div>
+                    <div class="ci-label">人口數</div>
+                  </div>
+                  <div class="ci-item">
+                    <div class="ci-val" id="ci-rate"></div>
+                    <div class="ci-label">佔總人口比率</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 子頁 2：相關政策 -->
+    <div id="tw-tab-policy" class="tw-tab-page">
+      <section class="taiwan-section">
+        <p class="section-label">Anti-Poverty Policy · 貧窮政策</p>
+        <h2 class="section-title">相關政策</h2>
+
+        <div class="policy-timeline fade-in">
+          <div class="timeline-item">
+            <p class="timeline-year">1980 年制定 · 2022 年修正</p>
             <h3>社會救助法</h3>
             <p>規定低收入戶與中低收入戶的認定標準，提供生活扶助、醫療補助、教育補助等多項現金與實物援助，為台灣社會安全網的核心法制。</p>
-                <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0050078" 
-   target="_blank" target="_blank" class="org-link">了解詳情 →</a>
+            <span class="policy-tag">ACTIVE · 施行中</span><br>
+            <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0050078" target="_blank" class="policy-link">了解詳情 →</a>
           </div>
-          <div class="policy-card fade-in">
-            <h3>社會住宅與租屋補助</h3>
-            <p>透過公辦社會住宅與租金補貼，協助低收入及弱勢家庭解決居住困境。目標至2025年提供20萬戶以上社會住宅。</p>
-              <a href="https://www.moi.gov.tw/cl.aspx?n=9606https://pip.moi.gov.tw/Publicize/Info/B1020?y=115&n=%E5%95%8F%E8%88%87%E7%AD%94" 
-   target="_blank" target="_blank" class="org-link">了解詳情 →</a>
-          </div>
-          <div class="policy-card fade-in">
+          <div class="timeline-item">
+            <p class="timeline-year">2003 年制定 · 2023 年修正</p>
             <h3>就業促進方案</h3>
             <p>針對長期失業、身心障礙、原住民族等弱勢族群，提供職業訓練、就業媒合與創業輔導，以促進經濟自立。</p>
-              <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0090025" 
-   target="_blank" target="_blank" class="org-link">了解詳情 →</a>
+            <span class="policy-tag">ACTIVE · 施行中</span><br>
+            <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=N0090025" target="_blank" class="policy-link">了解詳情 →</a>
           </div>
-            <div class="policy-card fade-in">
+          <div class="timeline-item">
+            <p class="timeline-year">2007 年制定 · 2020 年修正</p>
             <h3>老人福利法</h3>
             <p>台灣對針對弱勢的中老年人，提供生活扶助、醫療補助與社會服務，以保障其基本生活需求與尊嚴。</p>
-              <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=D0050149"  
-   target="_blank" target="_blank" class="org-link">了解詳情 →</a>  
+            <span class="policy-tag">ACTIVE · 施行中</span><br>
+            <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=D0050149" target="_blank" class="policy-link">了解詳情 →</a>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-year">2017 年推動 · 持續擴大中</p>
+            <h3>社會住宅與租屋補助</h3>
+            <p>透過公辦社會住宅與租金補貼，協助低收入及弱勢家庭解決居住困境。目標至2025年提供20萬戶以上社會住宅。</p>
+            <span class="policy-tag">EXPANDING · 擴大中</span><br>
+            <a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0070230" target="_blank" class="policy-link">了解詳情 →</a>
           </div>
         </div>
-      </div>
-    </section>
+
+        <!-- 政策成效圖表 -->
+        <div class="policy-chart-section fade-in">
+          <p class="section-label">Policy Impact · 政策成效</p>
+          <h2 class="section-title">社會救助支出趨勢</h2>
+          <div class="charts-grid">
+            <div class="chart-card">
+              <h4>政府社會救助支出</h4>
+              <p class="chart-sub">2018 – 2024 · 單位：億元</p>
+              <canvas id="chart-spending"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4>社會住宅興建進度</h4>
+              <p class="chart-sub">2017 – 2023 · 累計戶數</p>
+              <canvas id="chart-housing"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <!-- 參考資料 -->
     <section class="ref-section">
@@ -809,10 +982,8 @@
       <div>
         <p style="font-size:0.68rem; letter-spacing:0.15em; color:var(--olive-light); margin-bottom:14px; text-transform:uppercase;">台灣的貧窮</p>
         <div style="display:flex; flex-direction:column; gap:10px;">
-          <a onclick="switchPage('taiwan'); scrollToId('taiwan-line')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">台灣的貧窮線</a>
-          <a onclick="switchPage('taiwan'); scrollToId('taiwan-policy')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">相關政策</a>
-          <a onclick="switchPage('taiwan'); scrollToId('taiwan-policy')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">社會救助法</a>
-          <a onclick="switchPage('taiwan'); scrollToId('taiwan-policy')" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">就業促進方案</a>
+          <a onclick="switchPage('taiwan'); setTimeout(()=>switchTwTab('poverty'),150)" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">台灣的貧窮</a>
+          <a onclick="switchPage('taiwan'); setTimeout(()=>switchTwTab('policy'),150)" style="font-size:0.78rem; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; text-decoration:none;" onmouseover="this.style.color='#a0a060'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">相關政策</a>
         </div>
       </div>
 
@@ -836,6 +1007,9 @@
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       // 顯示目標頁面
       document.getElementById('page-' + pageId).classList.add('active');
+
+      // 記錄到 URL hash，重新整理時可以恢復
+      location.hash = pageId;
 
       // 更新導覽列 active 樣式
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -892,6 +1066,258 @@
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
     }
+
+    /* ------------------------------------------
+       8. 台灣子頁 Tab 切換
+       ------------------------------------------ */
+    function switchTwTab(id) {
+      document.querySelectorAll('.tw-tab-page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tw-tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tw-tab-' + id).classList.add('active');
+      event.target.classList.add('active');
+      // 初始化圖表（延遲確保 canvas 可見）
+      setTimeout(() => { initTaiwanCharts(); triggerFadeIn(); }, 100);
+    }
+
+    /* ------------------------------------------
+       9. 台灣頁圖表初始化
+       ------------------------------------------ */
+    let taiwanChartsInited = false;
+    let cityChart = null;
+
+    const brandColors = {
+      olive: '#6b6b2a', oliveDark: '#4a4a1a',
+      oliveLight: '#a0a060', cream: '#f5f3ee', border: '#d4d0c4'
+    };
+
+    const cityData = [
+      { name: '臺北市', en: 'TAIPEI CITY', h: '6,643', p: '14,861',
+        trend: [15225,16139,15984,16020,15264,15549,14861],
+        yearly: [
+          { h: '5,950', p: '15,225' }, { h: '6,412', p: '16,139' },
+          { h: '6,598', p: '15,984' }, { h: '6,763', p: '16,020' },
+          { h: '6,552', p: '15,264' }, { h: '6,819', p: '15,549' },
+          { h: '6,643', p: '14,861' }
+        ]},
+      { name: '新北市', en: 'NEW TAIPEI CITY', h: '8,486', p: '20,823',
+        trend: [25165,24723,24143,24073,24892,24051,20823],
+        yearly: [
+          { h: '8,898', p: '25,165' }, { h: '8,941', p: '24,723' },
+          { h: '8,903', p: '24,143' }, { h: '9,046', p: '24,073' },
+          { h: '9,594', p: '24,892' }, { h: '9,638', p: '24,051' },
+          { h: '8,486', p: '20,823' }
+        ]},
+      { name: '桃園市', en: 'TAOYUAN CITY', h: '5,500', p: '14,900',
+        trend: [9201,10146,11047,12535,13737,14352,14900],
+        yearly: [
+          { h: '3,074', p: '9,201' }, { h: '3,430', p: '10,146' },
+          { h: '3,820', p: '11,047' }, { h: '4,426', p: '12,535' },
+          { h: '4,979', p: '13,737' }, { h: '5,258', p: '14,352' },
+          { h: '5,500', p: '14,900' }
+        ]},
+      { name: '臺中市', en: 'TAICHUNG CITY', h: '13,218', p: '33,855',
+        trend: [32964,33820,33104,33271,34109,34518,33855],
+        yearly: [
+          { h: '11,564', p: '32,964' }, { h: '12,097', p: '33,820' },
+          { h: '12,040', p: '33,104' }, { h: '12,340', p: '33,271' },
+          { h: '12,890', p: '34,109' }, { h: '13,291', p: '34,518' },
+          { h: '13,218', p: '33,855' }
+        ]},
+      { name: '臺南市', en: 'TAINAN CITY', h: '6,764', p: '20,508',
+        trend: [27951,27372,26240,25419,24134,22813,20508],
+        yearly: [
+          { h: '8,571', p: '27,951' }, { h: '8,478', p: '27,372' },
+          { h: '8,182', p: '26,240' }, { h: '7,955', p: '25,419' },
+          { h: '7,631', p: '24,134' }, { h: '7,298', p: '22,813' },
+          { h: '6,764', p: '20,508' }
+        ]},
+      { name: '高雄市', en: 'KAOHSIUNG CITY', h: '11,712', p: '37,399',
+        trend: [60490,56628,51773,47898,44883,41825,37399],
+        yearly: [
+          { h: '18,479', p: '60,490' }, { h: '17,219', p: '56,628' },
+          { h: '15,764', p: '51,773' }, { h: '14,541', p: '47,898' },
+          { h: '13,755', p: '44,883' }, { h: '12,766', p: '41,825' },
+          { h: '11,712', p: '37,399' }
+        ]},
+      { name: '臺東縣', en: 'TAITUNG COUNTY', h: '2,088', p: '4,603',
+        trend: [5499,5814,5508,4917,4685,4615,4603],
+        yearly: [
+          { h: '2,041', p: '5,499' }, { h: '2,296', p: '5,814' },
+          { h: '2,208', p: '5,508' }, { h: '2,056', p: '4,917' },
+          { h: '2,013', p: '4,685' }, { h: '2,074', p: '4,615' },
+          { h: '2,088', p: '4,603' }
+        ]},
+      { name: '花蓮縣', en: 'HUALIEN COUNTY', h: '2,378', p: '4,921',
+        trend: [3667,4089,4467,4257,4060,4679,4921],
+        yearly: [
+          { h: '1,558', p: '3,667' }, { h: '1,748', p: '4,089' },
+          { h: '1,914', p: '4,467' }, { h: '1,887', p: '4,257' },
+          { h: '1,915', p: '4,060' }, { h: '2,214', p: '4,679' },
+          { h: '2,378', p: '4,921' }
+        ]},
+      { name: '屏東縣', en: 'PINGTUNG COUNTY', h: '11,093', p: '26,712',
+        trend: [34029,33473,31766,31548,30236,28594,26712],
+        yearly: [
+          { h: '12,848', p: '34,029' }, { h: '12,832', p: '33,473' },
+          { h: '12,312', p: '31,766' }, { h: '12,328', p: '31,548' },
+          { h: '11,978', p: '30,236' }, { h: '11,644', p: '28,594' },
+          { h: '11,093', p: '26,712' }
+        ]},
+      { name: '嘉義縣', en: 'CHIAYI COUNTY', h: '1,833', p: '5,067',
+        trend: [9168,8643,7852,7377,6602,5733,5067],
+        yearly: [
+          { h: '2,941', p: '9,168' }, { h: '2,837', p: '8,643' },
+          { h: '2,624', p: '7,852' }, { h: '2,501', p: '7,377' },
+          { h: '2,272', p: '6,602' }, { h: '2,002', p: '5,733' },
+          { h: '1,833', p: '5,067' }
+        ]},
+    ];
+
+    function initTaiwanCharts() {
+      if (taiwanChartsInited) return;
+      const trendCanvas = document.getElementById('chart-trend');
+      if (!trendCanvas || !trendCanvas.offsetParent) return; // canvas 不可見就不初始化
+      taiwanChartsInited = true;
+
+      Chart.defaults.font.family = "'Noto Serif TC', serif";
+      Chart.defaults.font.size = 12;
+      Chart.defaults.color = '#888';
+
+      // 圖表 1：中低收入戶人數趨勢（107-113年）
+      new Chart(trendCanvas, {
+        type: 'line',
+        data: {
+          labels: ['2018','2019','2020','2021','2022','2023','2024'],
+          datasets: [{ label: '中低收入戶人數（萬人）', data: [31.35,31.10,29.97,29.42,28.64,27.79,25.92],
+            borderColor: brandColors.olive, backgroundColor: 'rgba(107,107,42,0.1)',
+            borderWidth: 2, fill: true, tension: 0.3,
+            pointBackgroundColor: brandColors.olive, pointRadius: 4, pointHoverRadius: 6
+          }]
+        },
+        options: { plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true, grid: { color: brandColors.border } }, x: { grid: { display: false } } }
+        }
+      });
+
+      // 圖表 2：縣市低收入戶比率（112年）
+      new Chart(document.getElementById('chart-city'), {
+        type: 'bar',
+        data: {
+          labels: ['臺東縣','花蓮縣','屏東縣','臺北市','雲林縣','臺中市','基隆市','桃園市','澎湖縣','苗栗縣'],
+          datasets: [{ label: '低收入戶比率 (%)', data: [3.03,2.81,1.88,1.69,1.65,1.50,1.31,1.24,1.08,1.05],
+            backgroundColor: ['#4a4a1a','#5a5a2a','#6b6b2a','#7b7b3a','#8b8b4a','#9b9b5a','#a0a060','#b0b070','#c0c080','#d0d090'],
+            borderWidth: 0
+          }]
+        },
+        options: { indexAxis: 'y', plugins: { legend: { display: false } },
+          scales: { x: { grid: { color: brandColors.border }, beginAtZero: true }, y: { grid: { display: false } } }
+        }
+      });
+
+      // 縣市列表
+      const listEl = document.getElementById('city-list');
+      cityData.forEach((city, i) => {
+        const li = document.createElement('li');
+        li.className = 'city-item' + (i === 0 ? ' active' : '');
+        li.innerHTML = '<span>' + city.name + '</span>';
+        li.onclick = () => selectCity(i);
+        listEl.appendChild(li);
+      });
+      selectCity(0);
+
+      // 政策圖表
+      new Chart(document.getElementById('chart-spending'), {
+        type: 'bar',
+        data: { labels: ['2018','2019','2020','2021','2022','2023','2024'],
+          datasets: [{ label: '社會救助支出（億元）', data: [3095,3210,4960,5229,5940,5935,5506],
+            backgroundColor: brandColors.olive, borderWidth: 0
+          }]
+        },
+        options: { plugins: { legend: { display: false } },
+          scales: { y: { grid: { color: brandColors.border }, beginAtZero: true }, x: { grid: { display: false } } }
+        }
+      });
+
+      new Chart(document.getElementById('chart-housing'), {
+        type: 'line',
+        data: { labels: ['2017','2018','2019','2020','2021','2022','2023'],
+          datasets: [{ label: '累計社會住宅戶數', data: [5200,12800,28500,52000,85000,128000,168000],
+            borderColor: brandColors.oliveDark, backgroundColor: 'rgba(74,74,26,0.1)',
+            borderWidth: 2, fill: true, tension: 0.3,
+            pointBackgroundColor: brandColors.oliveDark, pointRadius: 4
+          }]
+        },
+        options: { plugins: { legend: { display: false } },
+          scales: { y: { grid: { color: brandColors.border }, beginAtZero: true }, x: { grid: { display: false } } }
+        }
+      });
+    }
+
+    function selectCity(idx) {
+      const city = cityData[idx];
+      document.querySelectorAll('.city-item').forEach((el, i) => el.classList.toggle('active', i === idx));
+      document.getElementById('cd-name').textContent = city.name;
+      document.getElementById('cd-subtitle').textContent = city.en;
+      document.getElementById('click-info').classList.remove('show');
+
+      if (cityChart) cityChart.destroy();
+      const years = ['2018','2019','2020','2021','2022','2023','2024'];
+      cityChart = new Chart(document.getElementById('chart-city-detail'), {
+        type: 'line',
+        data: { labels: years,
+          datasets: [{ label: '中低收入戶人數', data: city.trend,
+            borderColor: brandColors.olive, backgroundColor: 'rgba(107,107,42,0.08)',
+            borderWidth: 2, fill: true, tension: 0.3,
+            pointBackgroundColor: brandColors.olive, pointRadius: 6, pointHoverRadius: 9,
+            pointBorderColor: brandColors.cream, pointBorderWidth: 2
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false },
+            tooltip: { callbacks: { label: function(ctx) { return ctx.parsed.y.toLocaleString() + ' 人'; } } }
+          },
+          scales: { y: { grid: { color: brandColors.border }, beginAtZero: true, max: 65000, ticks: { callback: function(v) { return (v/10000).toFixed(1) + '萬'; } } }, x: { grid: { display: false } } },
+          onClick: function(e, elements) {
+            if (elements.length > 0) {
+              const i = elements[0].index;
+              const yd = city.yearly[i];
+              var pop = parseInt(yd.p.replace(/,/g, ''));
+              var rate = (pop / 23000000 * 100).toFixed(3) + '%';
+              document.getElementById('ci-year').textContent = years[i] + '（' + (107+i) + '年）中低收入戶資料';
+              document.getElementById('ci-households').textContent = yd.h;
+              document.getElementById('ci-population').textContent = yd.p;
+              document.getElementById('ci-rate').textContent = rate;
+              document.getElementById('click-info').classList.add('show');
+            }
+          }
+        }
+      });
+    }
+
+    // 當切換到台灣頁時初始化圖表
+    const origSwitchPage = switchPage;
+    switchPage = function(pageId) {
+      origSwitchPage(pageId);
+      if (pageId === 'taiwan') setTimeout(initTaiwanCharts, 150);
+    };
+
+    // 頁面載入時，從 URL hash 恢復上次所在頁面
+    (function restorePageFromHash() {
+      const hash = location.hash.replace('#', '');
+      const validPages = ['home','game','map','orgs','taiwan'];
+      if (hash && validPages.includes(hash)) {
+        switchPage(hash);
+      }
+    })();
+
+    // 瀏覽器上一頁/下一頁時也切換
+    window.addEventListener('hashchange', function() {
+      const hash = location.hash.replace('#', '');
+      const validPages = ['home','game','map','orgs','taiwan'];
+      if (hash && validPages.includes(hash)) {
+        switchPage(hash);
+      }
+    });
   </script>
 </body>
 </html>
