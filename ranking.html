@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國家排名 | 貧窮現況</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Chart.js (用於圖表顯示，若詳情內有圖表需引入) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 引入字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Noto+Serif+TC:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Serif TC', 'serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['DM Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#a0a060',
+                            DEFAULT: '#6b6b2a',
+                            dark: '#4a4a1a'
+                        },
+                        cream: '#f5f3ee',
+                        charcoal: '#1c1c1c',
+                        customGray: '#888',
+                        customBorder: '#d4d0c4',
+                        customWhite: '#ffffff'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --olive:      #6b6b2a;
+            --olive-dark: #4a4a1a;
+            --olive-light:#a0a060;
+            --cream:      #f5f3ee;
+            --charcoal:   #1c1c1c;
+            --gray:       #888;
+            --border:     #d4d0c4;
+            --white:      #ffffff;
+        }
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 語言切換隱藏邏輯 */
+        body.en-mode .lang-zh { display: none !important; }
+        body:not(.en-mode) .lang-en { display: none !important; }
+        
+        /* 在英文模式下，隱藏國家卡片中的中文名稱 */
+        body.en-mode .country-name-zh { display: none !important; }
+        
+        /* 為了讓英文名稱在沒有中文時看起來協調，稍微放大一點 */
+        body.en-mode .country-name-en { 
+            font-size: 1rem !important; 
+            line-height: 1.25rem !important;
+            font-weight: 700 !important;
+            font-family: 'Noto Serif TC', serif !important; /* 統一字體感受 */
+        }
+
+        /* 排名卡片 hover 效果 */
+        .rank-item {
+            transition: all 0.2s ease;
+        }
+        .rank-item:hover {
+            background-color: #faf9f6;
+            transform: translateX(5px);
+            border-left-color: var(--olive);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto p-6 md:p-10 bg-white border border-customBorder shadow-sm relative">
+        
+        <!-- 語言切換按鈕 -->
+        <button onclick="toggleLanguage()" class="absolute top-6 right-6 md:top-10 md:right-10 px-4 py-2 border border-customBorder text-charcoal bg-cream hover:bg-brand hover:border-brand hover:text-white rounded text-sm font-bold transition-colors z-10 flex items-center gap-2 shadow-sm">
+            <i class="fa-solid fa-globe"></i>
+            <span class="lang-zh">English</span>
+            <span class="lang-en">中文版</span>
+        </button>
+
+        <!-- ========================================== -->
+        <!-- 視圖 1：國家排名主頁 (Ranking Main View) -->
+        <!-- ========================================== -->
+        <div id="ranking-main-view" class="fade-in block mt-12 md:mt-0">
+            
+            <!-- 頂部資訊區塊 (左上角對齊) -->
+            <div class="mb-10 max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-charcoal mb-4 border-l-4 border-brand pl-4">
+                    <span class="lang-zh">全球最貧窮國家排名</span>
+                    <span class="lang-en">World's Poorest Countries Ranking</span>
+                </h2>
+                
+                <div class="pl-4 flex flex-col gap-3">
+                    <p class="text-gray-600 text-lg">
+                        <span class="lang-zh">點擊國家名稱即可查看詳細的經濟與貧窮數據。（排名數字越小代表越貧窮）</span>
+                        <span class="lang-en">Click on a country name to view detailed economic and poverty data. (Lower numbers indicate higher poverty.)</span>
+                    </p>
+                    
+                    <div class="text-sm text-gray-500 flex flex-col gap-1.5 mt-1">
+                        <p>
+                            <i class="fa-solid fa-link text-brand mr-1.5"></i>
+                            <strong class="text-charcoal"><span class="lang-zh">資料來源：</span><span class="lang-en">Source:</span></strong> 
+                            <a href="https://gfmag.com/data/economic-data/poorest-country-in-the-world/" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-900 hover:underline transition-colors">
+                                Global Finance - Poorest Countries in the World
+                            </a>
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-circle-exclamation text-brand mr-1.5"></i>
+                            <strong class="text-charcoal"><span class="lang-zh">說明：</span><span class="lang-en">Note:</span></strong> 
+                            <span class="lang-zh">此排名名單僅列出有出現在本網站世界地圖上的代表性國家，並非完整的全球排名。</span>
+                            <span class="lang-en">This ranking list only includes representative countries featured on the world map of this website and is not a complete global ranking.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 單一欄位垂直排列 (flex-col) 並設定最大寬度置中 -->
+            <div class="flex flex-col gap-2 max-w-3xl mx-auto">
+                
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('South Sudan')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/ss.png" alt="South Sudan flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">南蘇丹</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">South Sudan</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>1</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Burundi')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/bi.png" alt="Burundi flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">蒲隆地</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Burundi</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>2</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Central African Republic')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/cf.png" alt="Central African Republic flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">中非共和國</span>
+                            <span class="country-name-en text-xs text-customGray font-mono truncate max-w-[120px] md:max-w-none" title="Central African Republic">Central African Rep.</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>3</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Yemen')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/ye.png" alt="Yemen flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">葉門</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Yemen</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>4</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Mozambique')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/mz.png" alt="Mozambique flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">莫三比克</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Mozambique</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>5</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Malawi')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/mw.png" alt="Malawi flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">馬拉威</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Malawi</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>6</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Democratic Republic of the Congo')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/cd.png" alt="DR Congo flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">剛果民主共和國</span>
+                            <span class="country-name-en text-xs text-customGray font-mono truncate max-w-[120px] md:max-w-none" title="Democratic Republic of the Congo">DR Congo</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>7</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Somalia')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/so.png" alt="Somalia flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">索馬利亞</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Somalia</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>8</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Liberia')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/lr.png" alt="Liberia flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">賴比瑞亞</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Liberia</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>9</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Madagascar')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/mg.png" alt="Madagascar flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">馬達加斯加</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Madagascar</span>
+                        </div>
+                    </div>
+                    <span class="bg-red-100 text-red-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>10</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Solomon Islands')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/sb.png" alt="Solomon Islands flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">索羅門群島</span>
+                            <span class="country-name-en text-xs text-customGray font-mono truncate max-w-[120px] md:max-w-none" title="Solomon Islands">Solomon Islands</span>
+                        </div>
+                    </div>
+                    <span class="bg-orange-100 text-orange-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>13</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Haiti')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/ht.png" alt="Haiti flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">海地</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Haiti</span>
+                        </div>
+                    </div>
+                    <span class="bg-orange-100 text-orange-800 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>18</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Bangladesh')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/bd.png" alt="Bangladesh flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">孟加拉</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Bangladesh</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>62</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Bolivia')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/bo.png" alt="Bolivia flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">玻利維亞</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Bolivia</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>66</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('India')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/in.png" alt="India flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">印度</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">India</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>67</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Ukraine')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/ua.png" alt="Ukraine flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">烏克蘭</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Ukraine</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>97</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Brazil')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/br.png" alt="Brazil flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">巴西</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Brazil</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>104</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Mexico')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/mx.png" alt="Mexico flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">墨西哥</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Mexico</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>109</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('China')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/cn.png" alt="China flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">中國</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">China</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>114</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Greece')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/gr.png" alt="Greece flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">希臘</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Greece</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>139</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Japan')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/jp.png" alt="Japan flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">日本</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Japan</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>150</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('New Zealand')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/nz.png" alt="New Zealand flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">紐西蘭</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">New Zealand</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>152</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Saudi Arabia')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/sa.png" alt="Saudi Arabia flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">沙烏地阿拉伯</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Saudi Arabia</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>158</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('United Kingdom')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/gb.png" alt="United Kingdom flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">英國</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">United Kingdom</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>160</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Australia')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/au.png" alt="Australia flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">澳洲</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Australia</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>168</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Germany')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/de.png" alt="Germany flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">德國</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Germany</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>169</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Taiwan')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/tw.png" alt="Taiwan flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">台灣</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Taiwan</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>178</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('The United States')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/us.png" alt="United States flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">美國</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">United States</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>181</span>
+                </div>
+
+                <div class="rank-item p-3 bg-white border border-customBorder border-l-4 border-l-transparent rounded-lg cursor-pointer flex justify-between items-center shadow-sm" onclick="showMapDetails('Norway')">
+                    <div class="flex items-center gap-3">
+                        <img src="https://flagcdn.com/w40/no.png" alt="Norway flag" class="w-8 h-5 object-cover border border-customBorder shadow-sm">
+                        <div class="flex flex-col justify-center min-h-[40px]">
+                            <span class="country-name-zh font-bold text-charcoal text-base leading-tight">挪威</span>
+                            <span class="country-name-en text-xs text-customGray font-mono">Norway</span>
+                        </div>
+                    </div>
+                    <span class="bg-gray-100 text-gray-700 font-mono font-bold px-2.5 py-1 rounded text-sm shrink-0"><i class="fa-solid fa-ranking-star mr-1"></i>185</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 視圖 2：點進去後的詳細資訊 (與 poverty_Sh2.html 相同) -->
+        <!-- ========================================== -->
+        <div id="map-detail-view" class="hidden fade-in pt-4 mt-8 md:mt-0">
+            
+            <button onclick="hideMapDetails()" class="mb-8 px-5 py-2.5 bg-cream text-charcoal border border-customBorder hover:bg-brand hover:text-customWhite transition flex items-center gap-2 font-bold shadow-sm rounded">
+                <i class="fa-solid fa-arrow-left"></i> 
+                <span class="lang-zh">返回排名列表</span>
+                <span class="lang-en">Back to Ranking List</span>
+            </button>
+            
+            <!-- 標題區 -->
+            <div class="mb-8">
+                <div class="flex items-center gap-4 mb-4">
+                    <img id="detail-flag" src="" alt="國旗" class="hidden h-8 md:h-10 w-auto border border-customBorder shadow-sm object-cover">
+                    <h2 id="detail-title" class="text-4xl font-serif font-bold text-charcoal">【國家標題】</h2>
+                    <div id="detail-ranking-badge" class="hidden bg-red-50 text-red-700 px-3 py-1.5 rounded-md text-sm font-bold border border-red-200 shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-ranking-star"></i> <span id="detail-ranking"></span>
+                    </div>
+                </div>
+                <p id="detail-subtitle" class="text-xl text-gray-800 font-medium leading-relaxed max-w-4xl opacity-90">
+                    【國家簡介副標題預留位】
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[60%_35%] gap-12 mb-12">
+                <!-- 左側：動態文字區 -->
+                <div>
+                    <h3 id="detail-desc-title" class="text-2xl font-serif font-bold text-charcoal mb-4">【現況描述標題】</h3>
+                    <div id="detail-desc-content" class="space-y-4 text-gray-800 text-lg leading-relaxed">
+                        <!-- JS 將會在這裡插入 <p> 段落 -->
+                    </div>
+                </div>
+
+                <!-- 右側：資料表格區 -->
+                <div class="bg-cream p-6 border border-customBorder rounded-lg">
+                    <h4 class="text-lg font-serif font-bold text-charcoal mb-6">
+                        <span class="lang-zh">宏觀經濟與主權數據</span>
+                        <span class="lang-en">Macroeconomic & Sovereign Data</span>
+                    </h4>
+                    <table class="w-full text-sm text-left">
+                        <tbody>
+                            <tr class="border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600 w-1/2">
+                                    <span class="lang-zh">政府體制</span><span class="lang-en">Government Type</span>
+                                </td>
+                                <td id="table-gov" class="py-3 px-2 font-semibold text-charcoal"></td>
+                            </tr>
+                            <tr class="bg-customWhite border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600">
+                                    <span class="lang-zh">首都</span><span class="lang-en">Capital</span>
+                                </td>
+                                <td id="table-capital" class="py-3 px-2 font-semibold text-charcoal"></td>
+                            </tr>
+                            <tr class="border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600 align-top">
+                                    <span class="lang-zh">主權信用評級</span><span class="lang-en">Credit Rating</span>
+                                </td>
+                                <td id="table-ratings" class="py-3 px-2 font-semibold text-charcoal leading-relaxed"></td>
+                            </tr>
+                            <tr class="bg-customWhite border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600">
+                                    <span class="lang-zh">總人口</span><span class="lang-en">Population</span>
+                                </td>
+                                <td id="table-pop" class="py-3 px-2 font-semibold text-charcoal"></td>
+                            </tr>
+                            <tr class="border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600">
+                                    <span class="lang-zh">年齡中位數</span><span class="lang-en">Median Age</span>
+                                </td>
+                                <td id="table-age" class="py-3 px-2 font-semibold text-charcoal"></td>
+                            </tr>
+                            <tr class="bg-customWhite border-b border-customBorder">
+                                <td class="py-3 px-2 text-gray-600">
+                                    <span class="lang-zh">成人平均每人所得(購買力平價PPP)</span><span class="lang-en">GDP per capita (PPP)</span>
+                                </td>
+                                <td id="table-income" class="py-3 px-2 font-semibold text-charcoal"></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-2 text-gray-600">
+                                    <span class="lang-zh">國內生產總值(2023)</span><span class="lang-en">GDP (2023)</span>
+                                </td>
+                                <td id="table-gdp" class="py-3 px-2 font-semibold text-charcoal"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 區段 A：左右雙圖表 (GDP Overview) -->
+            <div id="section-overview-charts" class="hidden border-t border-customBorder pt-10 mb-12">
+                <h3 id="detail-chart-maintitle" class="text-3xl font-serif font-bold text-charcoal mb-8">【國家】GDP與經濟概況</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div id="wrapper-chart-left" class="hidden">
+                        <div id="chart-left-html" class="w-full aspect-[4/3] relative"></div>
+                    </div>
+                    <div id="wrapper-chart-right" class="hidden">
+                        <div id="chart-right-html" class="w-full aspect-[4/3] relative"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 區段 B：Banking & Finance -->
+            <div id="section-banking" class="hidden border-t border-customBorder pt-10 mb-12">
+                <h3 class="text-3xl font-serif font-bold text-charcoal mb-8">
+                    <span class="lang-zh">銀行與金融</span><span class="lang-en">Banking & Finance</span>
+                </h3>
+                <div class="grid grid-cols-1 lg:grid-cols-[40%_55%] gap-12">
+                    <!-- 左側：貿易表格 -->
+                    <div id="wrapper-trade-invest" class="hidden bg-customWhite p-6 border border-customBorder self-start rounded-lg">
+                        <h4 class="text-xl font-serif font-bold text-charcoal mb-6">
+                            <span class="lang-zh">貿易與投資</span><span class="lang-en">Trade & Investment</span>
+                        </h4>
+                        <table class="w-full text-sm text-left">
+                            <tbody id="trade-invest-tbody">
+                                <!-- JS 動態生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 右側：FDI 圖表 -->
+                    <div id="wrapper-fdi-chart" class="hidden">
+                        <div id="fdi-chart-html" class="w-full relative"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 區段 C：三個表格 -->
+            <div id="section-tables" class="hidden pt-2 mb-12">
+                <!-- 上方：Leading Companies -->
+                <div id="wrapper-leading-companies" class="hidden text-white p-8 mb-8 rounded-lg" style="background:var(--charcoal);">
+                    <h3 id="leading-companies-title" class="text-2xl font-serif font-bold text-white mb-6">【國家】 主要企業</h3>
+                    <table class="w-full text-sm text-left">
+                        <tbody id="leading-companies-tbody" class="divide-y divide-gray-600">
+                            <!-- JS 動態生成 -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 下方：Major Trade Partners -->
+                <div id="wrapper-trade-partners" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-customWhite p-8 border border-customBorder rounded-lg">
+                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">
+                            <span class="lang-zh">主要貿易夥伴 — 進口</span><span class="lang-en">Major Trade Partners — Imports</span>
+                        </h4>
+                        <table class="w-full text-sm text-left">
+                            <tbody id="partners-import-tbody">
+                                <!-- JS 動態生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-customWhite p-8 border border-customBorder rounded-lg">
+                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6">
+                            <span class="lang-zh">主要貿易夥伴 — 出口</span><span class="lang-en">Major Trade Partners — Exports</span>
+                        </h4>
+                        <table class="w-full text-sm text-left">
+                            <tbody id="partners-export-tbody">
+                                <!-- JS 動態生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p id="partners-source" class="text-xs text-customGray opacity-70 mt-4 text-center"></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 載入外部國家資料  -->
+    <script src="country_data_EN.js"></script>
+        
+    <!-- 視圖切換與資料綁定邏輯 -->
+    <script>
+        // 切換語言邏輯
+        function toggleLanguage() {
+            document.body.classList.toggle('en-mode');
+            
+            // 更新網頁標籤標題
+            if (document.body.classList.contains('en-mode')) {
+                document.title = "Country Ranking | Poverty Status";
+            } else {
+                document.title = "國家排名 | 貧窮現況";
+            }
+
+            // 如果是在詳細頁面內，重新繪製以更新 JavaScript 動態生成的雙語字串
+            const activeCountryKey = document.getElementById('detail-title').getAttribute('data-current-country');
+            if (activeCountryKey && !document.getElementById('map-detail-view').classList.contains('hidden')) {
+                showMapDetails(activeCountryKey);
+            }
+        }
+
+        function showMapDetails(countryKey) {
+            const countryEntry = countryDatabase[countryKey];
+            if(!countryEntry) {
+                alert(document.body.classList.contains('en-mode') ? 'Detailed data for this country not found.' : '找不到該國家的詳細資料。');
+                return;
+            }
+
+            // 根據當前模式選擇資料 (zh 或 en)
+            const isEnMode = document.body.classList.contains('en-mode');
+            const data = isEnMode ? countryEntry.en : countryEntry.zh;
+            
+            // 記錄當前開啟的國家 Key (必須記錄原始的 Key，而不是 title)
+            document.getElementById('detail-title').setAttribute('data-current-country', countryKey);
+
+            // 1. 填入基礎資料
+            document.getElementById('detail-title').innerText = data.title;
+            document.getElementById('detail-subtitle').innerText = data.subtitle;
+            document.getElementById('detail-desc-title').innerText = data.descTitle;
+            
+            // 國旗 (國旗 URL 和排名在頂層，不在 zh/en 內)
+            const flagImg = document.getElementById('detail-flag');
+            if (countryEntry.flagUrl) {
+                flagImg.src = countryEntry.flagUrl;
+                flagImg.classList.remove('hidden');
+            } else {
+                flagImg.classList.add('hidden');
+            }
+            
+            // 排名徽章
+            const rankingBadgeDetail = document.getElementById('detail-ranking-badge');
+            if (countryEntry.ranking) {
+                const rankText = isEnMode
+                    ? `World's Poorest Ranking (2025): #${countryEntry.ranking}`
+                    : `全球最貧窮排名(2025)：第 ${countryEntry.ranking} 名`;
+                document.getElementById('detail-ranking').innerText = rankText;
+                rankingBadgeDetail.classList.remove('hidden');
+            } else {
+                rankingBadgeDetail.classList.add('hidden');
+            }
+
+            // 描述段落
+            const contentDiv = document.getElementById('detail-desc-content');
+            contentDiv.innerHTML = ''; 
+            data.descParagraphs.forEach(para => {
+                const p = document.createElement('p'); p.innerText = para; contentDiv.appendChild(p);
+            });
+
+            // 基礎表格
+            document.getElementById('table-gov').innerText = data.table.gov;
+            document.getElementById('table-capital').innerText = data.table.capital;
+            document.getElementById('table-ratings').innerHTML = data.table.ratings;
+            document.getElementById('table-pop').innerText = data.table.pop;
+            document.getElementById('table-age').innerText = data.table.age;
+            document.getElementById('table-income').innerText = data.table.income;
+            document.getElementById('table-gdp').innerText = data.table.gdp;
+
+            // 2. 動態顯示/隱藏各模組
+            // A. 雙圖表 (GDP Overview)
+            const sectionOverview = document.getElementById('section-overview-charts');
+            const wrapLeft = document.getElementById('wrapper-chart-left');
+            const wrapRight = document.getElementById('wrapper-chart-right');
+            
+            if (data.charts) {
+                sectionOverview.classList.remove('hidden');
+                
+                const mainTitleText = isEnMode
+                    ? `${data.title} GDP & Economic Overview`
+                    : `${data.title} GDP與經濟概況`;
+                document.getElementById('detail-chart-maintitle').innerText = mainTitleText;
+                
+                if (data.charts.left) {
+                    wrapLeft.classList.remove('hidden');
+                    document.getElementById('chart-left-html').innerHTML = data.charts.left.html;
+                } else { wrapLeft.classList.add('hidden'); }
+
+                if (data.charts.right) {
+                    wrapRight.classList.remove('hidden');
+                    document.getElementById('chart-right-html').innerHTML = data.charts.right.html;
+                } else { wrapRight.classList.add('hidden'); }
+            } else {
+                sectionOverview.classList.add('hidden');
+            }
+
+            // B. Banking & Finance
+            const sectionBanking = document.getElementById('section-banking');
+            const wrapTradeInvest = document.getElementById('wrapper-trade-invest');
+            const wrapFdi = document.getElementById('wrapper-fdi-chart');
+
+            if (data.tradeAndInvestment || data.fdiChart) {
+                sectionBanking.classList.remove('hidden');
+                
+                if (data.tradeAndInvestment) {
+                    wrapTradeInvest.classList.remove('hidden');
+                    const tb = document.getElementById('trade-invest-tbody');
+                    
+                    // 動態切換貿易表格標籤的中英文
+                    const labelExport = isEnMode ? 'Total Exports' : '總出口額';
+                    const labelLeadingExport = isEnMode ? 'Leading Exports' : '主要出口項目';
+                    const labelImport = isEnMode ? 'Total Imports' : '總進口額';
+                    const labelLeadingImport = isEnMode ? 'Leading Imports' : '主要進口項目';
+
+                    tb.innerHTML = `
+                        <tr class="border-b border-customBorder"><td class="py-3 text-customGray w-2/5">${labelExport}</td><td class="py-3 font-semibold text-charcoal">${data.tradeAndInvestment.exports}</td></tr>
+                        <tr class="bg-customWhite border-b border-customBorder"><td class="py-3 text-customGray align-top">${labelLeadingExport}</td><td class="py-3 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingExports}</td></tr>
+                        <tr class="border-b border-customBorder"><td class="py-3 text-customGray">${labelImport}</td><td class="py-3 font-semibold text-charcoal">${data.tradeAndInvestment.imports}</td></tr>
+                        <tr class="bg-customWhite"><td class="py-3 text-customGray align-top">${labelLeadingImport}</td><td class="py-3 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingImports}</td></tr>
+                    `;
+                } else { wrapTradeInvest.classList.add('hidden'); }
+
+                if (data.fdiChart) {
+                    wrapFdi.classList.remove('hidden');
+                    document.getElementById('fdi-chart-html').innerHTML = data.fdiChart.html;
+                } else { wrapFdi.classList.add('hidden'); }
+            } else {
+                sectionBanking.classList.add('hidden');
+            }
+
+            // C. 底部三大表格
+            const sectionTables = document.getElementById('section-tables');
+            const wrapLeading = document.getElementById('wrapper-leading-companies');
+            const wrapPartners = document.getElementById('wrapper-trade-partners');
+
+            if (data.leadingCompanies || data.tradePartners) {
+                sectionTables.classList.remove('hidden');
+                
+                if (data.leadingCompanies && data.leadingCompanies.length > 0) {
+                    wrapLeading.classList.remove('hidden');
+                    
+                    const leadCompTitle = isEnMode
+                        ? `${data.title} Leading Companies`
+                        : `${data.title} 主要企業`;
+                    document.getElementById('leading-companies-title').innerText = leadCompTitle;
+
+                    const tbLeading = document.getElementById('leading-companies-tbody');
+                    tbLeading.innerHTML = '';
+                    data.leadingCompanies.forEach(comp => {
+                        tbLeading.innerHTML += `<tr><td class="py-4 font-semibold">${comp.name}</td><td class="py-4 text-right font-bold text-gray-300">${comp.sector}</td></tr>`;
+                    });
+                } else { wrapLeading.classList.add('hidden'); }
+
+                if (data.tradePartners) {
+                    wrapPartners.classList.remove('hidden');
+                    document.getElementById('partners-source').innerText = data.tradePartners.source || '';
+                    
+                    const tbImp = document.getElementById('partners-import-tbody');
+                    tbImp.innerHTML = '';
+                    data.tradePartners.import.forEach((p, index) => {
+                        const bg = index % 2 !== 0 ? 'bg-gray-50' : '';
+                        tbImp.innerHTML += `<tr class="border-b border-gray-100 ${bg}"><td class="py-3 px-2 text-customGray">${p.country}</td><td class="py-3 px-2 text-right font-bold text-charcoal">${p.percent}</td></tr>`;
+                    });
+
+                    const tbExp = document.getElementById('partners-export-tbody');
+                    tbExp.innerHTML = '';
+                    data.tradePartners.export.forEach((p, index) => {
+                        const bg = index % 2 !== 0 ? 'bg-gray-50' : '';
+                        tbExp.innerHTML += `<tr class="border-b border-gray-100 ${bg}"><td class="py-3 px-2 text-customGray">${p.country}</td><td class="py-3 px-2 text-right font-bold text-charcoal">${p.percent}</td></tr>`;
+                    });
+                } else {
+                    wrapPartners.classList.add('hidden');
+                    document.getElementById('partners-source').innerText = '';
+                }
+            } else {
+                sectionTables.classList.add('hidden');
+            }
+
+            // 切換視圖
+            document.getElementById('ranking-main-view').classList.add('hidden');
+            document.getElementById('ranking-main-view').classList.remove('block');
+            document.getElementById('map-detail-view').classList.remove('hidden');
+            document.getElementById('map-detail-view').classList.add('block');
+            
+            // 視窗捲動到頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hideMapDetails() {
+            document.getElementById('map-detail-view').classList.add('hidden');
+            document.getElementById('map-detail-view').classList.remove('block');
+            
+            document.getElementById('ranking-main-view').classList.remove('hidden');
+            document.getElementById('ranking-main-view').classList.add('block');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
