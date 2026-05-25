@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界地圖與詳細資訊模組</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Chart.js 用於繪製下方圖表 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 引入您 CSS 中使用的 Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Noto+Serif+TC:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        // 將您的 CSS 變數綁定到 Tailwind 配置中
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Serif TC', 'serif', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['DM Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            light: 'var(--olive-light)',
+                            DEFAULT: 'var(--olive)',
+                            dark: 'var(--olive-dark)'
+                        },
+                        cream: 'var(--cream)',
+                        charcoal: 'var(--charcoal)',
+                        customGray: 'var(--gray)',
+                        customBorder: 'var(--border)',
+                        customWhite: 'var(--white)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /*全站色彩與字體*/
+        :root {
+            --olive:      #6b6b2a;
+            --olive-dark: #4a4a1a;
+            --olive-light:#a0a060;
+            --cream:      #f5f3ee;
+            --charcoal:   #1c1c1c;
+            --gray:       #888;
+            --border:     #d4d0c4;
+            --white:      #ffffff;
+            --nav-h:      68px;
+        }
+
+        /* 全域重置與基底 */
+        body {
+            font-family: 'Noto Serif TC', 'Arial', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        /* 簡單的過渡動畫 */
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 脈衝動畫 */
+        .pulse-asia { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); animation: pulseAsia 2s infinite; }
+        @keyframes pulseAsia { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+        .pulse-europe { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); animation: pulseEurope 2s infinite; }
+        @keyframes pulseEurope { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
+        .pulse-africa { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7); animation: pulseAfrica 2s infinite; }
+        @keyframes pulseAfrica { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(234, 179, 8, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); } }
+        .pulse-americas { box-shadow: 0 0 0 0 rgba(4, 126, 49, 0.7); animation: pulseAmericas 2s infinite; }
+        @keyframes pulseAmericas { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(4, 126, 49, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(4, 126, 49, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(4, 126, 49, 0); } }
+        .pulse-oceania { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7); animation: pulseOceania 2s infinite; }
+        @keyframes pulseOceania { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(168, 85, 247, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); } }
+    </style>
+</head>
+<body class="font-sans" style="background:var(--cream); padding: 32px 48px;">
+
+    <div class="max-w-6xl mx-auto p-8 relative" style="background:var(--white); border:1px solid var(--border);">
+        
+        <!-- 💡 語言切換按鈕區 -->
+        <div class="absolute top-8 right-8 z-20">
+            <div class="inline-flex rounded-md shadow-sm" role="group">
+                <button type="button" onclick="switchLanguage('zh')" id="btn-lang-zh" class="px-4 py-2 text-sm font-medium bg-brand text-white border border-brand rounded-l-lg hover:bg-brand-dark transition">
+                    中文
+                </button>
+                <button type="button" onclick="switchLanguage('en')" id="btn-lang-en" class="px-4 py-2 text-sm font-medium bg-white text-brand border border-brand rounded-r-lg hover:bg-gray-50 transition">
+                    English
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 視圖 1：世界地圖主頁 (Main Map View) -->
+        <!-- ========================================== -->
+        <div id="map-main-view" class="fade-in block mt-12 md:mt-0">
+            <!-- 加入 data-zh 和 data-en 以便 JS 動態切換 -->
+            <h2 class="text-3xl font-bold text-brand-dark mb-4 border-l-4 border-brand pl-3 lang-str" data-zh="世界地圖：貧窮現況探索" data-en="World Map: Poverty Exploration">世界地圖：貧窮現況探索</h2>
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-6">
+                <p class="text-gray-600 lang-str" data-zh="點擊地圖上的發光圓點，即可展開該國家的詳細經濟與貧窮數據。" data-en="Click the glowing dots on the map to expand detailed economic and poverty data.">點擊地圖上的發光圓點，即可展開該國家的詳細經濟與貧窮數據。</p>
+                <a href="https://gfmag.com/data/economic-data/poorest-country-in-the-world/" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-brand hover:text-brand-dark mt-2 md:mt-0 flex items-center gap-1 transition-colors border-b border-brand pb-0.5">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> <span class="lang-str" data-zh="資料來源：Global Finance Magazine" data-en="Source: Global Finance Magazine">資料來源：Global Finance Magazine</span>
+                </a>
+            </div>
+            
+            <div class="w-full aspect-[2/1] relative border overflow-hidden" style="background:var(--cream); border-color:var(--border);">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/BlankMap-World.png" alt="世界地圖" class="w-full h-full object-contain" style="mix-blend-mode: multiply;">
+
+                <!-- 💡 修改點：onmouseenter 現在只傳入國家代號，文字由 JS 去資料庫抓！避免中英切換死角 -->
+                <!-- 亞洲熱點 -->
+                <div class="absolute top-[34%] left-[79.8%] w-2.5 h-2.5 md:w-4 md:h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Taiwan')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Taiwan')"></div>
+                <div class="absolute top-[25.5%] left-[76.8%] w-2.5 h-2.5 md:w-4 md:h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'China')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('China')"></div>
+                <div class="absolute top-[39.5%] left-[59.35%] w-2.5 h-2.5 md:w-4 md:h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Yemen')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Yemen')"></div>
+                <div class="absolute top-[34.5%] left-[71%] w-2.5 h-2.5 md:w-4 md:h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Bangladesh')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Bangladesh')"></div>
+                <div class="absolute top-[32.3%] left-[67.5%] w-2.5 h-2.5 md:w-4 md:h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'India')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('India')"></div>
+                <div class="absolute top-[26.2%] left-[83%] w-2.5 h-2.5 md:w-4 md:h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Japan')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Japan')"></div>
+                <div class="absolute top-[35%] left-[59%] w-2.5 h-2.5 md:w-4 md:h-4 bg-red-500 rounded-full cursor-pointer pulse-asia border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Saudi Arabia')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Saudi Arabia')"></div>
+
+                <!-- 歐洲熱點 -->
+                <div class="absolute top-[18%] left-[49.5%] w-2.5 h-2.5 md:w-4 md:h-4 bg-blue-400 rounded-full cursor-pointer pulse-europe border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Germany')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Germany')"></div>
+                <div class="absolute top-[17.4%] left-[47%] w-2.5 h-2.5 md:w-4 md:h-4 bg-blue-400 rounded-full cursor-pointer pulse-europe border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'United Kingdom')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('United Kingdom')"></div>
+                <div class="absolute top-[25.2%] left-[52.4%] w-2.5 h-2.5 md:w-4 md:h-4 bg-blue-400 rounded-full cursor-pointer pulse-europe border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Greece')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Greece')"></div>
+                <div class="absolute top-[14.2%] left-[49.3%] w-2.5 h-2.5 md:w-4 md:h-4 bg-blue-400 rounded-full cursor-pointer pulse-europe border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Norway')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Norway')"></div>
+                <div class="absolute top-[19%] left-[54.5%] w-2.5 h-2.5 md:w-4 md:h-4 bg-blue-400 rounded-full cursor-pointer pulse-europe border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Ukraine')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Ukraine')"></div>
+
+                <!-- 非洲熱點 -->
+                <div class="absolute top-[60.5%] left-[59.5%] w-2.5 h-2.5 md:w-4 md:h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Madagascar')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Madagascar')"></div>
+                <div class="absolute top-[44.8%] left-[55.5%] w-2.5 h-2.5 md:w-4 md:h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'South Sudan')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('South Sudan')"></div>
+                <div class="absolute top-[50%] left-[55%] w-2.5 h-2.5 md:w-4 md:h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Burundi')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Burundi')"></div>
+                <div class="absolute top-[45%] left-[52%] w-2.5 h-2.5 md:w-4 md:h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Central African Republic')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Central African Republic')"></div>
+                <div class="absolute top-[62.5%] left-[56.1%] w-2.5 h-2.5 md:w-4 md:h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Mozambique')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Mozambique')"></div>
+                <div class="absolute top-[57%] left-[56%] w-2.5 h-2.5 md:w-4 md:h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Malawi')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Malawi')"></div>
+                <div class="absolute top-[50.9%] left-[52.2%] w-2.5 h-2.5 md:w-4 md:h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Democratic Republic of the Congo')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Democratic Republic of the Congo')"></div>
+                <div class="absolute top-[47.5%] left-[59%] w-2.5 h-2.5 md:w-4 md:h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Somalia')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Somalia')"></div>
+                <div class="absolute top-[45%] left-[43.5%] w-2.5 h-2.5 md:w-4 md:h-4 bg-yellow-400 rounded-full cursor-pointer pulse-africa border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Liberia')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Liberia')"></div>
+
+                <!-- 美洲熱點 -->
+                <div class="absolute top-[58%] left-[33.5%] w-2.5 h-2.5 md:w-4 md:h-4 bg-green-700 rounded-full cursor-pointer pulse-americas border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Brazil')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Brazil')"></div>
+                <div class="absolute top-[59.2%] left-[28.8%] w-2.5 h-2.5 md:w-4 md:h-4 bg-green-700 rounded-full cursor-pointer pulse-americas border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Bolivia')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Bolivia')"></div>
+                <div class="absolute top-[37%] left-[27%] w-2.5 h-2.5 md:w-4 md:h-4 bg-green-700 rounded-full cursor-pointer pulse-americas border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Haiti')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Haiti')"></div>
+                <div class="absolute top-[36.8%] left-[19.8%] w-2.5 h-2.5 md:w-4 md:h-4 bg-green-700 rounded-full cursor-pointer pulse-americas border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Mexico')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Mexico')"></div>
+                <div class="absolute top-[25.8%] left-[27%] w-2.5 h-2.5 md:w-4 md:h-4 bg-green-700 rounded-full cursor-pointer pulse-americas border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'The United States')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('The United States')"></div>
+
+                <!-- 大洋洲熱點 -->
+                <div class="absolute top-[73.5%] left-[92%] w-2.5 h-2.5 md:w-4 md:h-4 bg-purple-700 rounded-full cursor-pointer pulse-oceania border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'New Zealand')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('New Zealand')"></div>
+                <div class="absolute top-[68.3%] left-[86.5%] w-2.5 h-2.5 md:w-4 md:h-4 bg-purple-700 rounded-full cursor-pointer pulse-oceania border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Australia')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Australia')"></div>
+                <div class="absolute top-[54.3%] left-[90%] w-2.5 h-2.5 md:w-4 md:h-4 bg-purple-700 rounded-full cursor-pointer pulse-oceania border md:border-2 border-customWhite z-10"
+                    onmouseenter="showMapTooltip(event, 'Solomon Islands')" onmousemove="moveMapTooltip(event)" onmouseleave="hideMapTooltip()" onclick="showMapDetails('Solomon Islands')"></div>
+
+            </div>
+
+            <!-- 圖例區 -->
+            <div class="flex justify-center gap-6 mt-4 text-sm text-customGray font-medium flex-wrap">
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-red-500"></div> <span class="lang-str" data-zh="亞洲" data-en="Asia">亞洲</span></span>
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-blue-400"></div> <span class="lang-str" data-zh="歐洲" data-en="Europe">歐洲</span></span>
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-yellow-400"></div> <span class="lang-str" data-zh="非洲" data-en="Africa">非洲</span></span>
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-green-700"></div> <span class="lang-str" data-zh="美洲" data-en="Americas">美洲</span></span>
+                <span class="flex items-center gap-2"><div class="w-3 h-3 rounded-full bg-purple-700"></div> <span class="lang-str" data-zh="大洋洲" data-en="Oceania">大洋洲</span></span>
+            </div>
+        </div>
+
+        <!-- 跟隨滑鼠的提示框 -->
+        <div id="map-tooltip" class="fixed hidden z-50 bg-white px-4 py-3 shadow-xl border-2 border-brand pointer-events-none transform -translate-x-1/2 -translate-y-[120%]">
+            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-b-2 border-r-2 border-brand rotate-45"></div>
+            <p id="tooltip-title" class="font-bold text-brand-dark text-lg"></p>
+            <div id="tooltip-ranking-badge" class="hidden mt-1 mb-1 bg-red-50 text-red-700 px-2 py-1 rounded text-xs font-bold border border-red-200 items-center gap-1">
+                <i class="fa-solid fa-ranking-star"></i> <span id="tooltip-ranking"></span>
+            </div>
+            <p id="tooltip-desc" class="text-gray-600 text-sm mt-1"></p>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 視圖 2：點進去後的詳細資訊【模板區塊】 -->
+        <!-- ========================================== -->
+        <div id="map-detail-view" class="hidden fade-in pt-4 mt-12 md:mt-0">
+            
+            <button onclick="hideMapDetails()" class="mb-8 px-5 py-2.5 bg-cream text-charcoal border border-customBorder hover:bg-brand hover:text-customWhite transition flex items-center gap-2 font-bold">
+                <i class="fa-solid fa-arrow-left"></i> <span class="lang-str" data-zh="返回世界地圖" data-en="Back to World Map">返回世界地圖</span>
+            </button>
+            
+            <div class="mb-8">
+                <div class="flex items-center gap-4 mb-4 flex-wrap">
+                    <img id="detail-flag" src="" alt="國旗" class="hidden h-8 md:h-10 w-auto border border-customBorder shadow-sm object-cover">
+                    <h2 id="detail-title" class="text-4xl font-serif font-bold text-charcoal"></h2>
+                    <div id="detail-ranking-badge" class="hidden bg-red-50 text-red-700 px-3 py-1.5 rounded-md text-sm font-bold border border-red-200 shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-ranking-star"></i> <span id="detail-ranking"></span>
+                    </div>
+                </div>
+                <p id="detail-subtitle" class="text-xl text-gray-800 font-medium leading-relaxed max-w-4xl opacity-90"></p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[60%_35%] gap-12 mb-12">
+                <div>
+                    <h3 id="detail-desc-title" class="text-2xl font-serif font-bold text-charcoal mb-4"></h3>
+                    <div id="detail-desc-content" class="space-y-4 text-gray-800 text-lg leading-relaxed"></div>
+                </div>
+
+                <div class="bg-cream p-6 border border-customBorder">
+                    <h4 class="text-lg font-serif font-bold text-charcoal mb-6 lang-str" data-zh="宏觀經濟與主權數據" data-en="Macroeconomy & Sovereign Data">宏觀經濟與主權數據</h4>
+                    <table class="w-full text-sm text-left">
+                        <tbody>
+                            <tr class="border-b border-customBorder"><td class="py-3 px-2 text-gray-600 w-1/2 lang-str" data-zh="政府體制" data-en="Type of Government">政府體制</td><td id="table-gov" class="py-3 px-2 font-semibold text-charcoal"></td></tr>
+                            <tr class="bg-customWhite border-b border-customBorder"><td class="py-3 px-2 text-gray-600 lang-str" data-zh="首都" data-en="Capital">首都</td><td id="table-capital" class="py-3 px-2 font-semibold text-charcoal"></td></tr>
+                            <tr class="border-b border-customBorder"><td class="py-3 px-2 text-gray-600 align-top lang-str" data-zh="主權信用評級" data-en="Sovereign Ratings">主權信用評級</td><td id="table-ratings" class="py-3 px-2 font-semibold text-charcoal leading-relaxed"></td></tr>
+                            <tr class="bg-customWhite border-b border-customBorder"><td class="py-3 px-2 text-gray-600 lang-str" data-zh="總人口" data-en="Total Population">總人口</td><td id="table-pop" class="py-3 px-2 font-semibold text-charcoal"></td></tr>
+                            <tr class="border-b border-customBorder"><td class="py-3 px-2 text-gray-600 lang-str" data-zh="年齡中位數" data-en="Median Age">年齡中位數</td><td id="table-age" class="py-3 px-2 font-semibold text-charcoal"></td></tr>
+                            <tr class="bg-customWhite border-b border-customBorder"><td class="py-3 px-2 text-gray-600 lang-str" data-zh="成人平均每人所得(PPP)" data-en="Adult Per Capita Income (PPP)">成人平均每人所得(購買力平價PPP)</td><td id="table-income" class="py-3 px-2 font-semibold text-charcoal"></td></tr>
+                            <tr><td class="py-3 px-2 text-gray-600 lang-str" data-zh="國內生產總值(2023)" data-en="Total GDP (2023)">國內生產總值(2023)</td><td id="table-gdp" class="py-3 px-2 font-semibold text-charcoal"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="section-overview-charts" class="hidden border-t border-customBorder pt-10 mb-12">
+                <h3 id="detail-chart-maintitle" class="text-3xl font-serif font-bold text-charcoal mb-8"></h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div id="wrapper-chart-left" class="hidden">
+                        <h4 id="chart-left-title" class="text-lg font-bold text-charcoal"></h4>
+                        <p id="chart-left-subtitle" class="text-sm text-customGray mb-4"></p>
+                        <div id="chart-left-html" class="w-full aspect-[4/3] relative"></div>
+                        <p id="chart-left-source" class="text-xs text-customGray opacity-70 mt-2"></p>
+                    </div>
+                    <div id="wrapper-chart-right" class="hidden">
+                        <h4 id="chart-right-title" class="text-lg font-bold text-charcoal"></h4>
+                        <p id="chart-right-subtitle" class="text-sm text-customGray mb-4"></p>
+                        <div id="chart-right-html" class="w-full aspect-[4/3] relative"></div>
+                        <p id="chart-right-source" class="text-xs text-customGray opacity-70 mt-2"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="section-banking" class="hidden border-t border-customBorder pt-10 mb-12">
+                <h3 class="text-3xl font-serif font-bold text-charcoal mb-8 lang-str" data-zh="銀行與金融" data-en="Banking & Finance">銀行與金融</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-[40%_55%] gap-12">
+                    <div id="wrapper-trade-invest" class="hidden bg-customWhite p-6 border border-customBorder self-start">
+                        <h4 class="text-xl font-serif font-bold text-charcoal mb-6 lang-str" data-zh="貿易與投資" data-en="Trade & Investment">貿易與投資</h4>
+                        <table class="w-full text-sm text-left"><tbody id="trade-invest-tbody"></tbody></table>
+                        <p id="trade-source" class="text-xs text-customGray opacity-70 mt-4"></p>
+                    </div>
+                    <div id="wrapper-fdi-chart" class="hidden">
+                        <h4 id="fdi-chart-title" class="text-lg font-bold text-charcoal"></h4>
+                        <p id="fdi-chart-subtitle" class="text-sm text-customGray mb-4"></p>
+                        <div id="fdi-chart-html" class="w-full relative"></div>
+                        <p id="fdi-chart-source" class="text-xs text-customGray opacity-70 mt-2"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="section-tables" class="hidden pt-2 mb-12">
+                <div id="wrapper-leading-companies" class="hidden text-white p-8 mb-8" style="background:var(--charcoal);">
+                    <h3 id="leading-companies-title" class="text-2xl font-serif font-bold text-white mb-6"></h3>
+                    <table class="w-full text-sm text-left"><tbody id="leading-companies-tbody" class="divide-y divide-gray-600"></tbody></table>
+                </div>
+                <div id="wrapper-trade-partners" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-customWhite p-8 border border-customBorder">
+                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6 lang-str" data-zh="主要貿易夥伴 — 進口" data-en="Major Trade Partners — Import">主要貿易夥伴 — 進口</h4>
+                        <table class="w-full text-sm text-left"><tbody id="partners-import-tbody"></tbody></table>
+                    </div>
+                    <div class="bg-customWhite p-8 border border-customBorder">
+                        <h4 class="text-xl font-serif font-bold text-charcoal text-center mb-6 lang-str" data-zh="主要貿易夥伴 — 出口" data-en="Major Trade Partners — Export">主要貿易夥伴 — 出口</h4>
+                        <table class="w-full text-sm text-left"><tbody id="partners-export-tbody"></tbody></table>
+                    </div>
+                </div>
+                <p id="partners-source" class="text-xs text-customGray opacity-70 mt-4"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 載入外部國家資料庫 (務必保持這個順序) -->
+    <script src="country_data_EN.js"></script>
+        
+    <!-- 語言切換與視圖互動邏輯 -->
+    <script>
+        // 💡 1. 語言設定全域變數
+        let currentLang = 'zh'; // 預設語言
+        let currentCountryKey = null; // 紀錄目前打開的是哪個國家，方便語言切換時重新刷新
+
+        // 💡 2. 語言切換主函數
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // 更新切換按鈕的樣式 (亮起目前選擇的語言)
+            if (lang === 'zh') {
+                document.getElementById('btn-lang-zh').classList.add('bg-brand', 'text-white');
+                document.getElementById('btn-lang-zh').classList.remove('bg-white', 'text-brand');
+                document.getElementById('btn-lang-en').classList.add('bg-white', 'text-brand');
+                document.getElementById('btn-lang-en').classList.remove('bg-brand', 'text-white');
+            } else {
+                document.getElementById('btn-lang-en').classList.add('bg-brand', 'text-white');
+                document.getElementById('btn-lang-en').classList.remove('bg-white', 'text-brand');
+                document.getElementById('btn-lang-zh').classList.add('bg-white', 'text-brand');
+                document.getElementById('btn-lang-zh').classList.remove('bg-brand', 'text-white');
+            }
+
+            // 替換 HTML 中所有帶有 .lang-str 標籤的靜態文字
+            const elements = document.querySelectorAll('.lang-str');
+            elements.forEach(el => {
+                if (lang === 'zh') {
+                    el.innerText = el.getAttribute('data-zh');
+                } else {
+                    el.innerText = el.getAttribute('data-en');
+                }
+            });
+
+            // 如果目前有打開國家詳細資訊，自動刷新該國家的數據
+            if (currentCountryKey) {
+                showMapDetails(currentCountryKey);
+            }
+        }
+
+        // ===============================================
+        // 地圖互動與工具提示 (Tooltip)
+        const tooltip = document.getElementById('map-tooltip');
+
+        function showMapTooltip(event, countryKey) {
+            // 💡 這裡直接根據 countryKey 去找資料庫，不再依賴寫死的 HTML 參數
+            if (typeof countryDatabase === 'undefined' || !countryDatabase[countryKey]) return;
+
+            const countryObj = countryDatabase[countryKey];
+            // 抓取目前語言的資料，如果英文還沒寫，就 fallback 回中文，避免報錯
+            const langData = countryObj[currentLang] || countryObj['zh'] || countryObj;
+
+            document.getElementById('tooltip-title').innerText = langData.title || countryKey;
+            
+            // 設定 tooltip 的雙語描述
+            const defaultDesc = currentLang === 'zh' ? '點擊查看詳細資料' : 'Click to view details';
+            document.getElementById('tooltip-desc').innerText = defaultDesc;
+
+            const rankingBadge = document.getElementById('tooltip-ranking-badge');
+            if (countryObj.ranking) {
+                const rankPrefix = currentLang === 'zh' ? '全球最貧窮排名：第' : 'Global Poorest Ranking: #';
+                const rankSuffix = currentLang === 'zh' ? '名' : '';
+                document.getElementById('tooltip-ranking').innerText = `${rankPrefix} ${countryObj.ranking} ${rankSuffix}`;
+                rankingBadge.classList.remove('hidden');
+                rankingBadge.classList.add('inline-flex');
+            } else {
+                rankingBadge.classList.add('hidden');
+                rankingBadge.classList.remove('inline-flex');
+            }
+
+            tooltip.classList.remove('hidden');
+            moveMapTooltip(event);
+        }
+
+        function moveMapTooltip(event) {
+            tooltip.style.left = event.clientX + 'px';
+            tooltip.style.top = (event.clientY - 15) + 'px'; 
+        }
+
+        function hideMapTooltip() {
+            tooltip.classList.add('hidden');
+        }
+
+        // ===============================================
+        // 詳細資訊視圖 (Detail View)
+        function showMapDetails(countryKey) {
+            hideMapTooltip();
+            if (typeof countryDatabase === 'undefined') {
+                alert(currentLang === 'zh' ? "無法載入國家資料庫！" : "Failed to load country database!");
+                return;
+            }
+
+            const countryObj = countryDatabase[countryKey];
+            if(!countryObj) return;
+
+            // 紀錄目前選擇的國家
+            currentCountryKey = countryKey;
+            
+            // 💡 抓取對應語言的資料
+            const data = countryObj[currentLang] || countryObj['zh'] || countryObj;
+            
+            // 如果只有英文標題 "Taiwan"，那就用 "Taiwan"，如果是中文 "台灣 (Taiwan)"，也可以照舊
+            const countryShortName = (data.title || '').split(' ')[0];
+
+            // 1. 填入基礎資料
+            document.getElementById('detail-title').innerText = data.title || '';
+            document.getElementById('detail-subtitle').innerText = data.subtitle || '';
+            document.getElementById('detail-desc-title').innerText = data.descTitle || '';
+            
+            const flagImg = document.getElementById('detail-flag');
+            if (countryObj.flagUrl) {
+                flagImg.src = countryObj.flagUrl;
+                flagImg.classList.remove('hidden');
+            } else {
+                flagImg.classList.add('hidden');
+            }
+            
+            const rankingBadgeDetail = document.getElementById('detail-ranking-badge');
+            if (countryObj.ranking) {
+                const rankPrefix = currentLang === 'zh' ? '全球最貧窮排名(2025)：第' : 'Global Poorest Ranking(2025): #';
+                const rankSuffix = currentLang === 'zh' ? '名' : '';
+                document.getElementById('detail-ranking').innerText = `${rankPrefix} ${countryObj.ranking} ${rankSuffix}`;
+                rankingBadgeDetail.classList.remove('hidden');
+            } else {
+                rankingBadgeDetail.classList.add('hidden');
+            }
+
+            const contentDiv = document.getElementById('detail-desc-content');
+            contentDiv.innerHTML = ''; 
+            if(data.descParagraphs) {
+                data.descParagraphs.forEach(para => {
+                    const p = document.createElement('p'); p.innerText = para; contentDiv.appendChild(p);
+                });
+            }
+
+            if(data.table) {
+                document.getElementById('table-gov').innerText = data.table.gov || '';
+                document.getElementById('table-capital').innerText = data.table.capital || '';
+                document.getElementById('table-ratings').innerHTML = data.table.ratings || '';
+                document.getElementById('table-pop').innerText = data.table.pop || '';
+                document.getElementById('table-age').innerText = data.table.age || '';
+                document.getElementById('table-income').innerText = data.table.income || '';
+                document.getElementById('table-gdp').innerText = data.table.gdp || '';
+            }
+
+            // A. 雙圖表 (GDP Overview)
+            const sectionOverview = document.getElementById('section-overview-charts');
+            const wrapLeft = document.getElementById('wrapper-chart-left');
+            const wrapRight = document.getElementById('wrapper-chart-right');
+            
+            if (data.charts) {
+                sectionOverview.classList.remove('hidden');
+                document.getElementById('detail-chart-maintitle').innerText = currentLang === 'zh' ? `${countryShortName} GDP與經濟概況` : `${countryShortName} GDP & Economic Overview`;
+                
+                if (data.charts.left) {
+                    wrapLeft.classList.remove('hidden');
+                    document.getElementById('chart-left-title').innerText = data.charts.left.title || '';
+                    document.getElementById('chart-left-subtitle').innerText = data.charts.left.subtitle || '';
+                    document.getElementById('chart-left-source').innerText = data.charts.left.source || '';
+                    document.getElementById('chart-left-html').innerHTML = data.charts.left.html || '';
+                } else { wrapLeft.classList.add('hidden'); }
+
+                if (data.charts.right) {
+                    wrapRight.classList.remove('hidden');
+                    document.getElementById('chart-right-title').innerText = data.charts.right.title || '';
+                    document.getElementById('chart-right-subtitle').innerText = data.charts.right.subtitle || '';
+                    document.getElementById('chart-right-source').innerText = data.charts.right.source || '';
+                    document.getElementById('chart-right-html').innerHTML = data.charts.right.html || '';
+                } else { wrapRight.classList.add('hidden'); }
+            } else {
+                sectionOverview.classList.add('hidden');
+            }
+
+            // B. Banking & Finance
+            const sectionBanking = document.getElementById('section-banking');
+            const wrapTradeInvest = document.getElementById('wrapper-trade-invest');
+            const wrapFdi = document.getElementById('wrapper-fdi-chart');
+
+            if (data.tradeAndInvestment || data.fdiChart) {
+                sectionBanking.classList.remove('hidden');
+                
+                if (data.tradeAndInvestment) {
+                    wrapTradeInvest.classList.remove('hidden');
+                    document.getElementById('trade-source').innerText = data.tradeAndInvestment.source || '';
+                    
+                    // 💡 雙語化表格靜態欄位
+                    const tExport = currentLang === 'zh' ? '總出口額' : 'Total Exports';
+                    const lExport = currentLang === 'zh' ? '主要出口項目' : 'Leading Exports';
+                    const tImport = currentLang === 'zh' ? '總進口額' : 'Total Imports';
+                    const lImport = currentLang === 'zh' ? '主要進口項目' : 'Leading Imports';
+
+                    const tb = document.getElementById('trade-invest-tbody');
+                    tb.innerHTML = `
+                        <tr class="border-b border-customBorder"><td class="py-3 px-2 text-customGray w-2/5">${tExport}</td><td class="py-3 px-2 font-semibold text-charcoal">${data.tradeAndInvestment.exports || ''}</td></tr>
+                        <tr class="bg-customWhite border-b border-customBorder"><td class="py-3 px-2 text-customGray align-top">${lExport}</td><td class="py-3 px-2 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingExports || ''}</td></tr>
+                        <tr class="border-b border-customBorder"><td class="py-3 px-2 text-customGray">${tImport}</td><td class="py-3 px-2 font-semibold text-charcoal">${data.tradeAndInvestment.imports || ''}</td></tr>
+                        <tr class="bg-customWhite"><td class="py-3 px-2 text-customGray align-top">${lImport}</td><td class="py-3 px-2 font-semibold text-charcoal leading-relaxed">${data.tradeAndInvestment.leadingImports || ''}</td></tr>
+                    `;
+                } else { wrapTradeInvest.classList.add('hidden'); }
+
+                if (data.fdiChart) {
+                    wrapFdi.classList.remove('hidden');
+                    document.getElementById('fdi-chart-title').innerText = data.fdiChart.title || '';
+                    document.getElementById('fdi-chart-subtitle').innerText = data.fdiChart.subtitle || '';
+                    document.getElementById('fdi-chart-source').innerText = data.fdiChart.source || '';
+                    document.getElementById('fdi-chart-html').innerHTML = data.fdiChart.html || '';
+                } else { wrapFdi.classList.add('hidden'); }
+            } else {
+                sectionBanking.classList.add('hidden');
+            }
+
+            // C. 底部三大表格
+            const sectionTables = document.getElementById('section-tables');
+            const wrapLeading = document.getElementById('wrapper-leading-companies');
+            const wrapPartners = document.getElementById('wrapper-trade-partners');
+
+            if (data.leadingCompanies || data.tradePartners) {
+                sectionTables.classList.remove('hidden');
+                
+                if (data.leadingCompanies && data.leadingCompanies.length > 0) {
+                    wrapLeading.classList.remove('hidden');
+                    document.getElementById('leading-companies-title').innerText = currentLang === 'zh' ? `${countryShortName} 主要企業` : `${countryShortName} Leading Companies`;
+                    const tbLeading = document.getElementById('leading-companies-tbody');
+                    tbLeading.innerHTML = '';
+                    data.leadingCompanies.forEach(comp => {
+                        tbLeading.innerHTML += `<tr><td class="py-4 font-semibold text-white">${comp.name}</td><td class="py-4 text-right font-bold text-gray-300">${comp.sector}</td></tr>`;
+                    });
+                } else { wrapLeading.classList.add('hidden'); }
+
+                if (data.tradePartners) {
+                    wrapPartners.classList.remove('hidden');
+                    document.getElementById('partners-source').innerText = data.tradePartners.source || '';
+                    
+                    const tbImp = document.getElementById('partners-import-tbody');
+                    tbImp.innerHTML = '';
+                    data.tradePartners.import.forEach((p, index) => {
+                        const bg = index % 2 !== 0 ? 'bg-gray-50' : '';
+                        tbImp.innerHTML += `<tr class="border-b border-gray-100 ${bg}"><td class="py-3 px-2 text-customGray">${p.country}</td><td class="py-3 px-2 text-right font-bold text-charcoal">${p.percent}</td></tr>`;
+                    });
+
+                    const tbExp = document.getElementById('partners-export-tbody');
+                    tbExp.innerHTML = '';
+                    data.tradePartners.export.forEach((p, index) => {
+                        const bg = index % 2 !== 0 ? 'bg-gray-50' : '';
+                        tbExp.innerHTML += `<tr class="border-b border-gray-100 ${bg}"><td class="py-3 px-2 text-customGray">${p.country}</td><td class="py-3 px-2 text-right font-bold text-charcoal">${p.percent}</td></tr>`;
+                    });
+                } else {
+                    wrapPartners.classList.add('hidden');
+                    document.getElementById('partners-source').innerText = '';
+                }
+            } else {
+                sectionTables.classList.add('hidden');
+            }
+
+            document.getElementById('map-main-view').classList.add('hidden');
+            document.getElementById('map-main-view').classList.remove('block');
+            document.getElementById('map-detail-view').classList.remove('hidden');
+            document.getElementById('map-detail-view').classList.add('block');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hideMapDetails() {
+            currentCountryKey = null; // 清除目前選擇的國家
+            document.getElementById('map-detail-view').classList.add('hidden');
+            document.getElementById('map-detail-view').classList.remove('block');
+            document.getElementById('map-main-view').classList.remove('hidden');
+            document.getElementById('map-main-view').classList.add('block');
+        }
+    </script>
+</body>
+</html>
