@@ -643,7 +643,11 @@
       <li><a id="nav-home" class="active" onclick="switchPage('home')">首頁</a></li>
       <li><a id="nav-game" onclick="switchPage('game')">互動遊戲 <span class="arrow"></span></a>
       <li>
-        <a id="nav-map" onclick="switchPage('map')">世界地圖 <span class="arrow"></span></a>
+        <a id="nav-map">世界地圖 <span class="arrow">▾</span></a>
+        <div class="dropdown">
+          <a href="poverty_Sh3_EN.html">探索貧窮</a>
+          <a href="ranking.html">貧窮排名</a>
+        </div>
       </li>
       <li><a id="nav-orgs" onclick="switchPage('orgs')">捐款組織</a></li>
       <li>
@@ -720,7 +724,7 @@
        ========================================= -->
   <div id="page-map" class="page">
     <section style="padding: 0; height: calc(100vh - 68px);">
-      <iframe src="poverty_Sh2.html" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+      <iframe src="poverty_Sh3_EN.html" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
     </section>
   </div>
 
@@ -918,17 +922,27 @@
         <!-- 政策成效圖表 -->
         <div class="policy-chart-section fade-in">
           <p class="section-label">Policy Impact · 政策成效</p>
-          <h2 class="section-title">社會救助支出趨勢</h2>
+          <h2 class="section-title">社會救助</h2>
           <div class="charts-grid">
             <div class="chart-card">
               <h4>政府社會救助支出</h4>
               <p class="chart-sub">2018 – 2024 · 單位：億元</p>
               <canvas id="chart-spending"></canvas>
             </div>
-            <div class="chart-card">
-              <h4>社會住宅興建進度</h4>
-              <p class="chart-sub">2017 – 2023 · 累計戶數</p>
-              <canvas id="chart-housing"></canvas>
+          </div>
+          <h2 class="section-title" style="margin-top:48px;">社會住宅</h2>
+          <div class="charts-grid">
+            <div class="chart-card" style="grid-column:1/-1;">
+              <h4>各縣市社會住宅興辦進度</h4>
+              <p class="chart-sub">截至 2026 年 4 月 · 單位：戶</p>
+              <div style="display:grid; grid-template-columns:150px 1fr; gap:16px; margin-top:12px;">
+                <ul class="city-list" id="housing-list" style="max-height:320px;"></ul>
+                <div>
+                  <h3 id="h-name" style="font-family:'Playfair Display',serif; font-size:1.1rem; margin-bottom:4px;"></h3>
+                  <p id="h-total" style="font-size:0.82rem; color:var(--gray); margin-bottom:12px;"></p>
+                  <canvas id="chart-housing" height="180"></canvas>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1238,19 +1252,68 @@
         }
       });
 
-      new Chart(document.getElementById('chart-housing'), {
-        type: 'line',
-        data: { labels: ['2017','2018','2019','2020','2021','2022','2023'],
-          datasets: [{ label: '累計社會住宅戶數', data: [5200,12800,28500,52000,85000,128000,168000],
-            borderColor: brandColors.oliveDark, backgroundColor: 'rgba(74,74,26,0.1)',
-            borderWidth: 2, fill: true, tension: 0.3,
-            pointBackgroundColor: brandColors.oliveDark, pointRadius: 4
-          }]
-        },
-        options: { plugins: { legend: { display: false } },
-          scales: { y: { grid: { color: brandColors.border }, beginAtZero: true }, x: { grid: { display: false } } }
-        }
+      // 社會住宅各縣市資料（截至2026/4/30）
+      const housingData = [
+        { name:'臺北市', done:18368, building:3716, waiting:2769, subtotal:24853, planning:1464, total:26317 },
+        { name:'新北市', done:10688, building:10542, waiting:2808, subtotal:24038, planning:17415, total:41453 },
+        { name:'桃園市', done:4837, building:5604, waiting:3508, subtotal:13949, planning:3401, total:17350 },
+        { name:'臺中市', done:5117, building:9887, waiting:461, subtotal:15465, planning:736, total:16201 },
+        { name:'臺南市', done:2061, building:8115, waiting:1866, subtotal:12042, planning:0, total:12042 },
+        { name:'高雄市', done:2745, building:15080, waiting:5221, subtotal:23046, planning:0, total:23046 },
+        { name:'基隆市', done:0, building:449, waiting:0, subtotal:449, planning:0, total:449 },
+        { name:'新竹市', done:9, building:1381, waiting:1121, subtotal:2511, planning:306, total:2817 },
+        { name:'新竹縣', done:0, building:132, waiting:0, subtotal:132, planning:0, total:132 },
+        { name:'苗栗縣', done:331, building:0, waiting:256, subtotal:587, planning:0, total:587 },
+        { name:'彰化縣', done:4, building:557, waiting:72, subtotal:633, planning:320, total:953 },
+        { name:'南投縣', done:0, building:432, waiting:279, subtotal:711, planning:0, total:711 },
+        { name:'雲林縣', done:393, building:400, waiting:0, subtotal:793, planning:0, total:793 },
+        { name:'嘉義市', done:0, building:491, waiting:2, subtotal:493, planning:0, total:493 },
+        { name:'嘉義縣', done:0, building:1006, waiting:0, subtotal:1006, planning:0, total:1006 },
+        { name:'屏東縣', done:229, building:1045, waiting:85, subtotal:1359, planning:0, total:1359 },
+        { name:'宜蘭縣', done:0, building:810, waiting:0, subtotal:810, planning:0, total:810 },
+        { name:'花蓮縣', done:0, building:922, waiting:0, subtotal:922, planning:0, total:922 },
+        { name:'臺東縣', done:250, building:288, waiting:0, subtotal:538, planning:0, total:538 },
+        { name:'澎湖縣', done:0, building:148, waiting:0, subtotal:148, planning:0, total:148 },
+        { name:'金門縣', done:0, building:225, waiting:0, subtotal:225, planning:0, total:225 },
+        { name:'連江縣', done:20, building:0, waiting:86, subtotal:106, planning:40, total:146 }
+      ];
+
+      let housingChart = null;
+      const hList = document.getElementById('housing-list');
+      housingData.forEach((c, i) => {
+        const li = document.createElement('li');
+        li.className = 'city-item' + (i === 0 ? ' active' : '');
+        li.innerHTML = '<span>' + c.name + '</span>';
+        li.onclick = () => selectHousing(i);
+        hList.appendChild(li);
       });
+      selectHousing(0);
+
+      function selectHousing(idx) {
+        const c = housingData[idx];
+        document.querySelectorAll('#housing-list .city-item').forEach((el, i) => el.classList.toggle('active', i === idx));
+        document.getElementById('h-name').textContent = c.name;
+        document.getElementById('h-total').textContent = '總計 ' + c.total.toLocaleString() + ' 戶（達成 ' + c.subtotal.toLocaleString() + ' + 規劃中 ' + c.planning.toLocaleString() + '）';
+        if (housingChart) housingChart.destroy();
+        housingChart = new Chart(document.getElementById('chart-housing'), {
+          type: 'bar',
+          data: {
+            labels: ['已完工','興建中','已決標待開工','規劃中'],
+            datasets: [{
+              data: [c.done, c.building, c.waiting, c.planning],
+              backgroundColor: [brandColors.oliveDark, brandColors.olive, brandColors.oliveLight, brandColors.border]
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { beginAtZero: true, grid: { color: brandColors.border } },
+              y: { grid: { display: false } }
+            }
+          }
+        });
+      }
     }
 
     function selectCity(idx) {
