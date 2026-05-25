@@ -80,7 +80,37 @@
         @keyframes pulseOceania { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(168, 85, 247, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); } }
     </style>
 </head>
-<body class="font-sans" style="background:var(--cream); padding: 32px 48px;">
+<body class="font-sans" style="background:var(--cream); padding: 32px 48px; padding-top:100px;">
+
+  <!-- 導覽列 -->
+  <nav style="position:fixed;top:0;left:0;right:0;height:68px;background:rgba(245,243,238,0.97);backdrop-filter:blur(8px);border-bottom:1px solid #d4d0c4;display:flex;align-items:center;justify-content:space-between;padding:0 48px;z-index:1000;font-family:'Noto Serif TC',serif;">
+    <a href="index.html" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#4a4a1a;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;">
+      POVERTY ERADICATION<span style="color:#888;font-weight:400;font-size:0.8rem;margin-left:8px;"> 消除貧窮</span>
+    </a>
+    <ul style="display:flex;align-items:center;list-style:none;margin:0;padding:0;">
+      <li><a href="index.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">首頁</a></li>
+      <li><a href="index.html#game" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">互動遊戲</a></li>
+      <li style="position:relative;">
+        <a style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#6b6b2a;text-decoration:none;cursor:pointer;">世界地圖 ▾</a>
+        <div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);">
+          <a href="poverty_Sh3_EN.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#6b6b2a;text-decoration:none;border-bottom:1px solid #d4d0c4;font-weight:700;">探索貧窮</a>
+          <a href="ranking.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">貧窮排名</a>
+        </div>
+      </li>
+      <li><a href="index.html#orgs" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">捐款組織</a></li>
+      <li style="position:relative;">
+        <a href="index.html#taiwan" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">台灣的貧窮 ▾</a>
+        <div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);">
+          <a href="index.html#taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">台灣的貧窮</a>
+          <a href="index.html#taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">相關政策</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <style>
+    li:hover > .nav-dropdown { opacity:1 !important; pointer-events:auto !important; transform:translateY(0) !important; }
+    .nav-dropdown a:hover { background:#f5f3ee; color:#6b6b2a; }
+  </style>
 
     <div class="max-w-6xl mx-auto p-8 relative" style="background:var(--white); border:1px solid var(--border);">
         
