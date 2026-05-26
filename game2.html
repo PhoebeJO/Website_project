@@ -576,10 +576,26 @@ document.getElementById('spinBtn').addEventListener('click', function() {
         countryDisplay.innerText = luckyCountry.name;
         historyList.innerHTML = '';
 
+        const countryZH = {
+            "Bangladesh": "孟加拉", "China": "中國", "India": "印度", "Japan": "日本", "Saudi Arabia": "沙烏地阿拉伯", "Taiwan": "台灣", "Yemen, Rep.": "葉門",
+            "Germany": "德國", "United Kingdom": "英國", "Greece": "希臘", "Norway": "挪威", "Ukraine": "烏克蘭",
+            "Bolivia": "玻利維亞", "Brazil": "巴西", "Haiti": "海地", "Mexico": "墨西哥", "United States": "美國",
+            "Australia": "澳洲", "New Zealand": "紐西蘭", "Solomon Islands": "索羅門群島",
+            "Burundi": "蒲隆地", "Central African Republic": "中非共和國", "Congo, Dem. Rep.": "剛果民主共和國", "Madagascar": "馬達加斯加", "Mozambique": "莫三比克", "Somalia, Fed. Rep.": "索馬利亞"
+        };
+
         var en = isEn();
+        var displayCountryName = en ? luckyCountry.name : `${luckyCountry.name} (${countryZH[luckyCountry.name] || ''})`;
+
+        // 將右側看板同步換成新定義的文字
+        countryDisplay.innerText = displayCountryName;
+        historyList.innerHTML = '';
+
         var cName = en ? (continentEN[luckyCountry.continent]||luckyCountry.continent) : luckyCountry.continent;
         addHistoryRecord(en ? `Wheel: Born in ${cName}` : `轉盤：出生於${luckyCountry.continent}`);
-        addHistoryRecord(en ? `Country: ${luckyCountry.name}` : `出生國家：${luckyCountry.name}`);
+        
+        // 將右側消費足跡紀錄同步換成帶有中文括號的文字
+        addHistoryRecord(en ? `Country: ${displayCountryName}` : `出生國家：${displayCountryName}`);
         addHistoryRecord(en ? `Starting budget: $${luckyCountry.budget}` : `初始旅行預算：$${luckyCountry.budget}`);
         updateUI();
 
@@ -588,7 +604,7 @@ document.getElementById('spinBtn').addEventListener('click', function() {
         popupContinent.style.backgroundColor = luckyCountry.color;
         popupContinent.style.color = (luckyCountry.continent === "美洲") ? "#111111" : "#ffffff";
 
-        popupCountry.textContent = luckyCountry.name;
+        popupCountry.textContent = displayCountryName;
         popupBudget.textContent = en ? `Starting Budget: NT$${luckyCountry.budget.toLocaleString()}` : `初始預算: NT$${luckyCountry.budget.toLocaleString()}`;
         
         resultPopup.classList.add('show');
@@ -667,7 +683,7 @@ function finishGame() {
     if(isEn()){
         finalStatus.innerHTML = `<h3>Game Over!</h3><br>You survived today's journey.<br>Remaining balance: <span style="color:#ff9500; font-weight:bold; font-size:1.5rem;">$${balance.toLocaleString()}</span>`;
     } else {
-        finalStatus.innerHTML = `<h3>遊戲結束！</h3><br>你在今日的旅途中，最終順利存活，<br>名下帳戶剩餘總額為：<span style="color:#ff9500; font-weight:bold; font-size:1.5rem;">$${balance.toLocaleString()}</span>`;
+        finalStatus.innerHTML = `<h3>遊戲結束！</h3><br>你的今日餘額為：<span style="color:#ff9500; font-weight:bold; font-size:1.5rem;">$${balance.toLocaleString()}</span>`;
     }
 }
 </script>

@@ -278,6 +278,7 @@ const geoData = {
 // 取得當前語言
 function isEn(){ return localStorage.getItem('siteLang')==='en'; }
 const continentEN = {"亞洲":"Asia","歐洲":"Europe","美洲":"Americas","大洋洲":"Oceania","非洲":"Africa"};
+const budgetEN= {"預算":"Budget"};
 
 // 消費題目清單
 const expenseQuestions = [
@@ -401,12 +402,36 @@ function startLevel() {
         var cName = en ? (continentEN[selectedContinent]||selectedContinent) : selectedContinent;
         questionText.innerText = en ? `In ${cName}, which country were you born in?` : `在 ${selectedContinent}，你出生的國家？`;
         geoData[selectedContinent].forEach(country => {
-            makeButton(country.name, () => {
+
+            const countryZH = {
+                "Bangladesh": "孟加拉", "China": "中國", "India": "印度", "Japan": "日本", "Saudi Arabia": "沙烏地阿拉伯", "Taiwan": "台灣", "Yemen, Rep.": "葉門",
+                "Germany": "德國", "United Kingdom": "英國", "Greece": "希臘", "Norway": "挪威", "Ukraine": "烏克蘭",
+                "Bolivia": "玻利維亞", "Brazil": "巴西", "Haiti": "海地", "Mexico": "墨西哥", "United States": "美國",
+                "Australia": "澳洲", "New Zealand": "紐西蘭", "Solomon Islands": "索羅門群島",
+                "Burundi": "蒲隆地", "Central African Republic": "中非共和國", "Congo, Dem. Rep.": "剛果民主共和國", "Madagascar": "馬達加斯加", "Mozambique": "莫三比克", "Somalia, Fed. Rep.": "索馬利亞"
+            };
+
+            const budgetEN = { "預算": "Budget" };
+
+            var buttonText = country.name;
+            if (en) {
+                buttonText = country.name.replace("預算", budgetEN["預算"]);
+            } else {
+                // 找出資料中的英文國名，並塞入中文翻譯（例如 "China 預算:NT$470" 變成 "China (中國) 預算:NT$470"）
+                for (let engName in countryZH) {
+                    if (country.name.startsWith(engName)) {
+                        buttonText = country.name.replace(engName, `${engName} (${countryZH[engName]})`);
+                        break;
+                    }
+                }
+            }
+
+            makeButton(buttonText, () => {
                 balance = country.budget;
-                countryDisplay.innerText = country.name;
+                countryDisplay.innerText = buttonText;
 
                 historyList.innerHTML = '';
-                addHistoryRecord(en ? `Country: ${country.name}` : `出生國家：${country.name}`);
+                addHistoryRecord(en ? `Country: ${buttonText}` : `出生國家：${buttonText}`); 
                 addHistoryRecord(en ? `Daily budget: $${country.budget}` : `當地消費預算：$${country.budget}`);
 
                 updateUI();
