@@ -167,43 +167,63 @@
 <body style="padding-top:68px;">
 
   <!-- 導覽列 -->
-  <nav style="position:fixed;top:0;left:0;right:0;height:68px;background:rgba(245,243,238,0.97);backdrop-filter:blur(8px);border-bottom:1px solid #d4d0c4;display:flex;align-items:center;justify-content:space-between;padding:0 48px;z-index:1000;font-family:'Noto Serif TC',serif;">
+  <nav style="position:fixed;top:0;left:0;right:0;height:68px;background:rgba(245,243,238,0.97);backdrop-filter:blur(8px);border-bottom:1px solid #d4d0c4;display:flex;align-items:center;padding:0 48px;z-index:1000;font-family:'Noto Serif TC',serif;">
     <a href="index.html" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#4a4a1a;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;">POVERTY ERADICATION<span style="color:#888;font-weight:400;font-size:0.8rem;margin-left:8px;"> 消除貧窮</span></a>
-    <ul style="display:flex;align-items:center;list-style:none;margin:0;padding:0;">
-      <li><a href="index.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">首頁</a></li>
-      <li style="position:relative;"><a href="intro.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#6b6b2a;text-decoration:none;">互動遊戲 ▾</a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="intro.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">遊戲介紹</a><a href="game1.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">遊戲開始</a><a href="game2.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">抽籤遊戲</a></div></li>
-      <li style="position:relative;"><a href="poverty_Sh3_EN.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">世界地圖 ▾</a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="poverty_Sh3_EN.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">探索貧窮</a><a href="ranking.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">貧窮排名</a></div></li>
-      <li><a href="index.html#orgs" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">捐款組織</a></li>
-      <li style="position:relative;"><a href="index.html#taiwan" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">台灣的貧窮 ▾</a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="index.html#taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">台灣的貧窮</a><a href="index.html#taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">相關政策</a></div></li>
+    <ul style="display:flex;align-items:center;list-style:none;margin:0 0 0 auto;padding:0;">
+      <li><a href="index.html" data-zh="首頁" data-en="Home" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a></li>
+      <li style="position:relative;"><a href="intro.html" data-zh="互動遊戲 ▾" data-en="Games ▾" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#6b6b2a;text-decoration:none;"></a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="intro.html" data-zh="遊戲介紹" data-en="Introduction" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="game1.html" data-zh="遊戲開始" data-en="Start Game" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="game2.html" data-zh="抽籤遊戲" data-en="Lottery Game" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;"></a></div></li>
+      <li style="position:relative;"><a href="poverty_Sh3_EN.html" data-zh="世界地圖 ▾" data-en="World Map ▾" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="poverty_Sh3_EN.html" data-zh="探索貧窮" data-en="Explore Poverty" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="ranking.html" data-zh="貧窮排名" data-en="Poverty Ranking" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;"></a></div></li>
+      <li><a href="index.html#orgs" data-zh="捐款組織" data-en="Donate" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a></li>
+      <li style="position:relative;"><a href="index.html#taiwan" data-zh="台灣的貧窮 ▾" data-en="Taiwan ▾" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="index.html#taiwan" data-zh="台灣的貧窮" data-en="Poverty in Taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="index.html#taiwan" data-zh="相關政策" data-en="Policies" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;"></a></div></li>
     </ul>
+    <div style="display:flex;border:1px solid #d4d0c4;border-radius:4px;overflow:hidden;font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;margin-left:18px;">
+      <button class="lang-btn active" onclick="setLang('zh')" style="padding:6px 14px;background:transparent;border:none;border-right:1px solid #d4d0c4;cursor:pointer;color:#888;font-family:'DM Mono',monospace;font-size:0.72rem;">中</button>
+      <button class="lang-btn" onclick="setLang('en')" style="padding:6px 14px;background:transparent;border:none;cursor:pointer;color:#888;font-family:'DM Mono',monospace;font-size:0.72rem;">EN</button>
+    </div>
   </nav>
-  <style>li:hover>.nav-dropdown{opacity:1!important;pointer-events:auto!important;transform:translateY(0)!important}.nav-dropdown a:hover{background:#f5f3ee;color:#6b6b2a}</style>
+  <style>
+    li:hover>.nav-dropdown{opacity:1!important;pointer-events:auto!important;transform:translateY(0)!important}
+    .nav-dropdown a:hover{background:#f5f3ee;color:#6b6b2a}
+    .lang-btn.active{background:#4a4a1a!important;color:#fff!important}
+    body.en-mode .lang-zh{display:none!important}
+    body:not(.en-mode) .lang-en{display:none!important}
+    .lang-btn:hover:not(.active){background:#f5f3ee;color:#6b6b2a}
+  </style>
+  <script>
+    function setLang(l){localStorage.setItem('siteLang',l);applyLang(l)}
+    function applyLang(l){
+      document.querySelectorAll('[data-zh][data-en]').forEach(function(e){e.textContent=l==='zh'?e.dataset.zh:e.dataset.en});
+      document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.textContent.trim()===(l==='zh'?'中':'EN'))});
+      if(l==='en'){document.body.classList.add('en-mode')}else{document.body.classList.remove('en-mode')}
+    }
+    applyLang(localStorage.getItem('siteLang')||'zh');
+  </script>
 
 <div class="main-wrapper">
     <div class="game-container">
         <div id="quiz-card">
-            <h2 id="question-text">載入中...</h2>
+            <h2 id="question-text"><span class="lang-zh">載入中...</span><span class="lang-en">Loading...</span></h2>
             <div id="options-container"></div>
         </div>
 
        
         
         <div id="result-card" class="hidden">
-            <h2>今日結算</h2>
+            <h2><span class="lang-zh">今日結算</span><span class="lang-en">Daily Summary</span></h2>
             <p id="final-status"></p>
-            <button onclick="location.reload()">再玩一次</button>
+            <button onclick="location.reload()"><span class="lang-zh">再玩一次</span><span class="lang-en">Play Again</span></button>
         </div>
     </div>
      <div class="history-container">
             <div id="balance-container">
-                <div class="info-item">出生國家：<span id="current-country">尚未選擇</span></div>
-                <div class="info-item">今日餘額：$<span id="balance">0</span></div>
+                <div class="info-item"><span class="lang-zh">出生國家：</span><span class="lang-en">Country: </span><span id="current-country"><span class="lang-zh">尚未選擇</span><span class="lang-en">Not selected</span></span></div>
+                <div class="info-item"><span class="lang-zh">今日餘額：</span><span class="lang-en">Balance: </span>$<span id="balance">0</span></div>
             </div>
             
-            <h3>消費足跡</h3>
+            <h3><span class="lang-zh">消費足跡</span><span class="lang-en">Spending History</span></h3>
             <ul id="history-list">
                 <!-- 透過 JS 動態新增紀錄 -->
-                <li class="history-item" style="color: #999; text-align: center; border: none; margin-top: 20px;">尚未開始旅行...</li>
+                <li class="history-item" style="color: #999; text-align: center; border: none; margin-top: 20px;"><span class="lang-zh">尚未開始旅行...</span><span class="lang-en">Journey not started...</span></li>
             </ul>
         </div>
     </div>
@@ -255,90 +275,94 @@ const geoData = {
     ]
 };
 
+// 取得當前語言
+function isEn(){ return localStorage.getItem('siteLang')==='en'; }
+const continentEN = {"亞洲":"Asia","歐洲":"Europe","美洲":"Americas","大洋洲":"Oceania","非洲":"Africa"};
+
 // 消費題目清單
 const expenseQuestions = [
-    { q: "早安，早餐吃什麼？",
+    { q: "早安，早餐吃什麼？", qe: "Good morning! What's for breakfast?",
          opts: [
-            { t: "奢華全套早午餐 花費:NT$650", c: 650 }, 
-            { t: "連鎖咖啡廳早餐 花費:NT$220", c: 220 },
-            { t: "美而美早餐店 花費:NT$70", c: 70 },
-            { t: "超商肉鬆飯糰 花費:NT$25", c:25},
-            { t: "茶葉蛋 花費:NT$10", c:10},
-            { t: "過期吐司 花費:NT$5", c:5},
-            { t: "不吃 花費:NT$0", c:0}
-        ] 
+            { t: "奢華全套早午餐 花費:NT$650", te: "Luxury brunch NT$650", c: 650 },
+            { t: "連鎖咖啡廳早餐 花費:NT$220", te: "Cafe breakfast NT$220", c: 220 },
+            { t: "美而美早餐店 花費:NT$70", te: "Local breakfast shop NT$70", c: 70 },
+            { t: "超商肉鬆飯糰 花費:NT$25", te: "Convenience store rice ball NT$25", c:25},
+            { t: "茶葉蛋 花費:NT$10", te: "Tea egg NT$10", c:10},
+            { t: "過期吐司 花費:NT$5", te: "Expired toast NT$5", c:5},
+            { t: "不吃 花費:NT$0", te: "Skip NT$0", c:0}
+        ]
     },
-    { q: "去上班，交通方式?", 
+    { q: "去上班，交通方式?", qe: "Time for work. How do you commute?",
         opts: [
-            { t: "Uber 花費:NT$300", c: 300 },
-            { t: "捷運 花費:NT$40", c: 40 },
-            { t: "公車 花費:NT$25", c:25},
-            { t: "走路 花費:NT$0", c:0}
-        ] 
+            { t: "Uber 花費:NT$300", te: "Uber NT$300", c: 300 },
+            { t: "捷運 花費:NT$40", te: "Metro NT$40", c: 40 },
+            { t: "公車 花費:NT$25", te: "Bus NT$25", c:25},
+            { t: "走路 花費:NT$0", te: "Walk NT$0", c:0}
+        ]
     },
-    { q: "中午了，午餐吃什麼？", 
+    { q: "中午了，午餐吃什麼？", qe: "It's noon. What's for lunch?",
         opts: [
-            { t: "米其林名店 花費:NT$1200", c: 1200 },
-            { t: "主題餐廳 花費:NT$800", c: 800 },
-            { t: "美食街 花費:NT$280", c:280 },
-            { t: "雞腿便當 花費:NT$90", c:90 },
-            { t: "滷肉飯 花費:NT$50", c:50},
-            { t: "白米飯 花費:NT$10", c:10},
-            { t: "不吃 花費:NT$0", c:0}
-        ] 
+            { t: "米其林名店 花費:NT$1200", te: "Michelin restaurant NT$1200", c: 1200 },
+            { t: "主題餐廳 花費:NT$800", te: "Theme restaurant NT$800", c: 800 },
+            { t: "美食街 花費:NT$280", te: "Food court NT$280", c:280 },
+            { t: "雞腿便當 花費:NT$90", te: "Chicken leg bento NT$90", c:90 },
+            { t: "滷肉飯 花費:NT$50", te: "Braised pork rice NT$50", c:50},
+            { t: "白米飯 花費:NT$10", te: "Plain rice NT$10", c:10},
+            { t: "不吃 花費:NT$0", te: "Skip NT$0", c:0}
+        ]
     },
-    { q: "下午茶時間到", 
+    { q: "下午茶時間到", qe: "Afternoon tea time!",
         opts: [
-            { t: "精緻千層蛋糕配咖啡 花費:NT$450", c: 450 }, 
-            { t: "手搖飲 花費:NT$65", c: 65 },
-            { t: "小零食 花費:NT$10", c:10},
-            { t: "不吃 花費:NT$0", c:0}
-        ] 
+            { t: "精緻千層蛋糕配咖啡 花費:NT$450", te: "Mille crepe cake & coffee NT$450", c: 450 },
+            { t: "手搖飲 花費:NT$65", te: "Bubble tea NT$65", c: 65 },
+            { t: "小零食 花費:NT$10", te: "Small snack NT$10", c:10},
+            { t: "不吃 花費:NT$0", te: "Skip NT$0", c:0}
+        ]
     },
-    { q: "下班逛街，買衣服嗎？", 
+    { q: "下班逛街，買衣服嗎？", qe: "Shopping after work. Buy clothes?",
         opts: [
-            { t: "買 花費:NT$1000", c: 1000 }, 
-            { t: "不買 花費:NT$0", c: 0 }
-        ] 
+            { t: "買 花費:NT$1000", te: "Yes NT$1000", c: 1000 },
+            { t: "不買 花費:NT$0", te: "No NT$0", c: 0 }
+        ]
     },
-    { q: "不小心感冒了，看醫生嗎", 
+    { q: "不小心感冒了，看醫生嗎", qe: "You caught a cold. See a doctor?",
         opts: [
-            { t: "看 花費:NT$200", c: 200 }, 
-            { t: "不看 花費:NT$0", c: 0 }
-        ] 
+            { t: "看 花費:NT$200", te: "Yes NT$200", c: 200 },
+            { t: "不看 花費:NT$0", te: "No NT$0", c: 0 }
+        ]
     },
-    { q: "晚餐吃什麼？", 
+    { q: "晚餐吃什麼？", qe: "What's for dinner?",
         opts: [
-            { t: "吃到飽餐廳 花費:NT$1500", c: 1500 },
-            { t: "居酒屋 花費:NT$800", c: 800 },
-            { t: "小火鍋 花費:NT$500", c:500},
-            { t: "拉麵 花費:NT$300", c:300 },
-            { t: "便當 花費:NT$90", c:90 },
-            { t: "i珍食 花費:NT$50", c:50},
-            { t: "不吃 花費:NT$0", c:0}
-        ] 
+            { t: "吃到飽餐廳 花費:NT$1500", te: "All-you-can-eat buffet NT$1500", c: 1500 },
+            { t: "居酒屋 花費:NT$800", te: "Izakaya NT$800", c: 800 },
+            { t: "小火鍋 花費:NT$500", te: "Hot pot NT$500", c:500},
+            { t: "拉麵 花費:NT$300", te: "Ramen NT$300", c:300 },
+            { t: "便當 花費:NT$90", te: "Bento box NT$90", c:90 },
+            { t: "i珍食 花費:NT$50", te: "Food bank meal NT$50", c:50},
+            { t: "不吃 花費:NT$0", te: "Skip NT$0", c:0}
+        ]
     },
-    { q: "有一場想看的電影，看不看?", 
+    { q: "有一場想看的電影，看不看?", qe: "There's a movie you want to see. Watch it?",
         opts: [
-            { t: "看 花費:NT$200", c: 200 },
-            { t: "不看 花費:NT$0", c: 0 }
-        ] 
+            { t: "看 花費:NT$200", te: "Yes NT$200", c: 200 },
+            { t: "不看 花費:NT$0", te: "No NT$0", c: 0 }
+        ]
     },
-    { q: "怎麼回家?", 
+    { q: "怎麼回家?", qe: "How do you get home?",
         opts: [
-            { t: "Uber 花費:NT$100", c: 100 },
-            { t: "公車 花費:NT$20", c:20},
-            { t: "走路 花費:NT$0", c:0}
-        ] 
-    },    
-    { q: "住哪(租屋處)？", 
+            { t: "Uber 花費:NT$100", te: "Uber NT$100", c: 100 },
+            { t: "公車 花費:NT$20", te: "Bus NT$20", c:20},
+            { t: "走路 花費:NT$0", te: "Walk NT$0", c:0}
+        ]
+    },
+    { q: "住哪(租屋處)？", qe: "Where do you live (rental)?",
         opts: [
-            { t: "豪華大別墅 花費:NT$4000", c: 4000 },
-            { t: "普通公寓 花費:NT$900", c: 900 },
-            { t: "合租套房 花費:NT$500", c: 500 },
-            { t: "破舊雅房 花費:NT$300", c: 300 },
-            { t: "睡路邊 花費:NT$0", c:0 }
-        ] 
+            { t: "豪華大別墅 花費:NT$4000", te: "Luxury villa NT$4000", c: 4000 },
+            { t: "普通公寓 花費:NT$900", te: "Regular apartment NT$900", c: 900 },
+            { t: "合租套房 花費:NT$500", te: "Shared room NT$500", c: 500 },
+            { t: "破舊雅房 花費:NT$300", te: "Run-down room NT$300", c: 300 },
+            { t: "睡路邊 花費:NT$0", te: "Sleep on the street NT$0", c:0 }
+        ]
     }
 ];
 
@@ -356,36 +380,37 @@ const historyList = document.getElementById('history-list');
 const countryDisplay = document.getElementById('current-country');
 
 function startLevel() {
-    optionsBox.innerHTML = ''; // 清空舊按鈕
+    optionsBox.innerHTML = '';
+    var en = isEn();
 
     // --- 第一關：選五大洲 ---
     if (currentStep === 0) {
-        questionText.innerText = "請選擇你出生的洲：";
-        // 直接從 geoData 抓出所有的「鍵 (Key)」：亞洲, 歐洲...
+        questionText.innerText = en ? "Choose your continent of birth:" : "請選擇你出生的洲：";
         Object.keys(geoData).forEach(continent => {
-            makeButton(continent, () => {
-                selectedContinent = continent; // 儲存選擇
-                addHistoryRecord(`出生於：${continent}`);
+            var label = en ? (continentEN[continent]||continent) : continent;
+            makeButton(label, () => {
+                selectedContinent = continent;
+                addHistoryRecord(en ? `Born in: ${continentEN[continent]||continent}` : `出生於：${continent}`);
                 currentStep = 1;
                 startLevel();
             });
         });
-    } 
+    }
     // --- 第二關：根據剛才選的洲，顯示對應國家 ---
     else if (currentStep === 1) {
-        questionText.innerText = `在 ${selectedContinent}，你出生的國家？`;
-        // 這裡完全不用 if，直接用選好的 continent 去抓 array
+        var cName = en ? (continentEN[selectedContinent]||selectedContinent) : selectedContinent;
+        questionText.innerText = en ? `In ${cName}, which country were you born in?` : `在 ${selectedContinent}，你出生的國家？`;
         geoData[selectedContinent].forEach(country => {
             makeButton(country.name, () => {
-                balance = country.budget; // 設定初始金額
-                countryDisplay.innerText = country.name; //同步國家
+                balance = country.budget;
+                countryDisplay.innerText = country.name;
 
-                historyList.innerHTML = ''; 
-                addHistoryRecord(`出生國家：${country.name}`);
-                addHistoryRecord(`當地消費預算：$${country.budget}`);
+                historyList.innerHTML = '';
+                addHistoryRecord(en ? `Country: ${country.name}` : `出生國家：${country.name}`);
+                addHistoryRecord(en ? `Daily budget: $${country.budget}` : `當地消費預算：$${country.budget}`);
 
                 updateUI();
-                currentStep = 2; // 進入消費題目
+                currentStep = 2;
                 startLevel();
             });
         });
@@ -395,16 +420,13 @@ function startLevel() {
         const quizIdx = currentStep - 2;
         if (quizIdx < expenseQuestions.length) {
             const currentQ = expenseQuestions[quizIdx];
-            questionText.innerText = currentQ.q;
-
-            const minCostInQuiz = Math.min(...currentQ.opts.map(o => o.c));
+            questionText.innerText = en ? currentQ.qe : currentQ.q;
 
             currentQ.opts.forEach(opt => {
-                const btn=makeButton(opt.t, () => {
+                var label = en ? opt.te : opt.t;
+                const btn=makeButton(label, () => {
                     balance -= opt.c;
-
-                    addHistoryRecord(`消費：${opt.t} `);
-
+                    addHistoryRecord(en ? `Spent: ${opt.te}` : `消費：${opt.t}`);
                     updateUI();
                     currentStep++;
                     startLevel();
@@ -412,7 +434,7 @@ function startLevel() {
 
                 if (balance < opt.c) {
                     btn.disabled = true;
-                    btn.style.opacity = "0.5"; // 讓按鈕變淡暗示不能選
+                    btn.style.opacity = "0.5";
                     btn.style.cursor = "not-allowed";
                 }
             });
@@ -446,8 +468,11 @@ function updateUI() {
 }
 
 function finishGame() {
-    questionText.innerText = "遊戲結束！";
-    optionsBox.innerHTML = `<h3 style="color:#f5f3ee ; margin-bottom: 15px;">你的今日餘額為：${balance}</h3><button onclick="location.reload()">重新玩</button>`;
+    var en = isEn();
+    questionText.innerText = en ? "Game Over!" : "遊戲結束！";
+    optionsBox.innerHTML = en
+        ? `<h3 style="color:#f5f3ee; margin-bottom: 15px;">Your remaining balance: $${balance.toLocaleString()}</h3><button onclick="location.reload()">Play Again</button>`
+        : `<h3 style="color:#f5f3ee; margin-bottom: 15px;">你的今日餘額為：$${balance.toLocaleString()}</h3><button onclick="location.reload()">重新玩</button>`;
 }
 
 // 啟動遊戲

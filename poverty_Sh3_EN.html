@@ -83,34 +83,44 @@
 <body class="font-sans" style="background:var(--cream); padding: 32px 48px; padding-top:100px;">
 
   <!-- 導覽列 -->
-  <nav style="position:fixed;top:0;left:0;right:0;height:68px;background:rgba(245,243,238,0.97);backdrop-filter:blur(8px);border-bottom:1px solid #d4d0c4;display:flex;align-items:center;justify-content:space-between;padding:0 48px;z-index:1000;font-family:'Noto Serif TC',serif;">
+  <nav style="position:fixed;top:0;left:0;right:0;height:68px;background:rgba(245,243,238,0.97);backdrop-filter:blur(8px);border-bottom:1px solid #d4d0c4;display:flex;align-items:center;padding:0 48px;z-index:1000;font-family:'Noto Serif TC',serif;">
     <a href="index.html" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#4a4a1a;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;">POVERTY ERADICATION<span style="color:#888;font-weight:400;font-size:0.8rem;margin-left:8px;"> 消除貧窮</span></a>
-    <ul style="display:flex;align-items:center;list-style:none;margin:0;padding:0;">
-      <li><a href="index.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">首頁</a></li>
-      <li style="position:relative;"><a href="intro.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">互動遊戲 ▾</a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="intro.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">遊戲介紹</a><a href="game1.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">遊戲開始</a><a href="game2.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">抽籤遊戲</a></div></li>
-      <li style="position:relative;"><a href="poverty_Sh3_EN.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#6b6b2a;text-decoration:none;">世界地圖 ▾</a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="poverty_Sh3_EN.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#6b6b2a;text-decoration:none;border-bottom:1px solid #d4d0c4;font-weight:700;">探索貧窮</a><a href="ranking.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">貧窮排名</a></div></li>
-      <li><a href="index.html#orgs" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">捐款組織</a></li>
-      <li style="position:relative;"><a href="index.html#taiwan" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">台灣的貧窮 ▾</a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="index.html#taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">台灣的貧窮</a><a href="index.html#taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">相關政策</a></div></li>
+    <ul style="display:flex;align-items:center;list-style:none;margin:0 0 0 auto;padding:0;">
+      <li><a href="index.html" data-zh="首頁" data-en="Home" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a></li>
+      <li style="position:relative;"><a href="intro.html" data-zh="互動遊戲 ▾" data-en="Games ▾" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="intro.html" data-zh="遊戲介紹" data-en="Introduction" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="game1.html" data-zh="遊戲開始" data-en="Start Game" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="game2.html" data-zh="抽籤遊戲" data-en="Lottery Game" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;"></a></div></li>
+      <li style="position:relative;"><a href="poverty_Sh3_EN.html" data-zh="世界地圖 ▾" data-en="World Map ▾" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#6b6b2a;text-decoration:none;"></a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="poverty_Sh3_EN.html" data-zh="探索貧窮" data-en="Explore Poverty" style="display:block;padding:10px 18px;font-size:0.82rem;color:#6b6b2a;text-decoration:none;border-bottom:1px solid #d4d0c4;font-weight:700;"></a><a href="ranking.html" data-zh="貧窮排名" data-en="Poverty Ranking" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;"></a></div></li>
+      <li><a href="index.html#orgs" data-zh="捐款組織" data-en="Donate" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a></li>
+      <li style="position:relative;"><a href="index.html#taiwan" data-zh="台灣的貧窮 ▾" data-en="Taiwan ▾" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="index.html#taiwan" data-zh="台灣的貧窮" data-en="Poverty in Taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="index.html#taiwan" data-zh="相關政策" data-en="Policies" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;"></a></div></li>
     </ul>
+    <div style="display:flex;border:1px solid #d4d0c4;border-radius:4px;overflow:hidden;font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;margin-left:18px;">
+      <button class="lang-btn active" onclick="setLang('zh')" style="padding:6px 14px;background:transparent;border:none;border-right:1px solid #d4d0c4;cursor:pointer;color:#888;font-family:'DM Mono',monospace;font-size:0.72rem;">中</button>
+      <button class="lang-btn" onclick="setLang('en')" style="padding:6px 14px;background:transparent;border:none;cursor:pointer;color:#888;font-family:'DM Mono',monospace;font-size:0.72rem;">EN</button>
+    </div>
   </nav>
   <style>
     li:hover > .nav-dropdown { opacity:1 !important; pointer-events:auto !important; transform:translateY(0) !important; }
     .nav-dropdown a:hover { background:#f5f3ee; color:#6b6b2a; }
+    .lang-btn.active{background:#4a4a1a!important;color:#fff!important}
+    .lang-btn:hover:not(.active){background:#f5f3ee;color:#6b6b2a}
   </style>
+  <script>
+    function setLang(l){
+      localStorage.setItem('siteLang',l);
+      applyLang(l);
+      // Sync with this page's own switchLanguage if available
+      if(typeof switchLanguage==='function') switchLanguage(l);
+    }
+    function applyLang(l){
+      document.querySelectorAll('[data-zh][data-en]').forEach(function(e){e.textContent=l==='zh'?e.dataset.zh:e.dataset.en});
+      document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.textContent.trim()===(l==='zh'?'中':'EN'))});
+    }
+    // Will be called again after switchLanguage is defined
+    applyLang(localStorage.getItem('siteLang')||'zh');
+  </script>
 
     <div class="max-w-6xl mx-auto p-8 relative" style="background:var(--white); border:1px solid var(--border);">
         
-        <!-- 💡 語言切換按鈕區 -->
-        <div class="absolute top-8 right-8 z-20">
-            <div class="inline-flex rounded-md shadow-sm" role="group">
-                <button type="button" onclick="switchLanguage('zh')" id="btn-lang-zh" class="px-4 py-2 text-sm font-medium bg-brand text-white border border-brand rounded-l-lg hover:bg-brand-dark transition">
-                    中文
-                </button>
-                <button type="button" onclick="switchLanguage('en')" id="btn-lang-en" class="px-4 py-2 text-sm font-medium bg-white text-brand border border-brand rounded-r-lg hover:bg-gray-50 transition">
-                    English
-                </button>
-            </div>
-        </div>
+        <!-- 語言切換按鈕已移至導覽列 -->
 
         <!-- ========================================== -->
         <!-- 視圖 1：世界地圖主頁 (Main Map View) -->
@@ -329,19 +339,15 @@
         // 💡 2. 語言切換主函數
         function switchLanguage(lang) {
             currentLang = lang;
-            
-            // 更新切換按鈕的樣式 (亮起目前選擇的語言)
-            if (lang === 'zh') {
-                document.getElementById('btn-lang-zh').classList.add('bg-brand', 'text-white');
-                document.getElementById('btn-lang-zh').classList.remove('bg-white', 'text-brand');
-                document.getElementById('btn-lang-en').classList.add('bg-white', 'text-brand');
-                document.getElementById('btn-lang-en').classList.remove('bg-brand', 'text-white');
-            } else {
-                document.getElementById('btn-lang-en').classList.add('bg-brand', 'text-white');
-                document.getElementById('btn-lang-en').classList.remove('bg-white', 'text-brand');
-                document.getElementById('btn-lang-zh').classList.add('bg-white', 'text-brand');
-                document.getElementById('btn-lang-zh').classList.remove('bg-brand', 'text-white');
-            }
+            // Save to localStorage for cross-page persistence
+            localStorage.setItem('siteLang', lang);
+
+            // 更新導覽列的 data-zh/data-en 元素
+            document.querySelectorAll('[data-zh][data-en]').forEach(function(e){e.textContent=lang==='zh'?e.dataset.zh:e.dataset.en});
+            // 更新導覽列 lang-btn
+            document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.textContent.trim()===(lang==='zh'?'中':'EN'))});
+
+            // 更新導覽列 lang-btn 的 active 狀態（已移除頁面內嵌按鈕）
 
             // 替換 HTML 中所有帶有 .lang-str 標籤的靜態文字
             const elements = document.querySelectorAll('.lang-str');
@@ -587,6 +593,12 @@
             document.getElementById('map-main-view').classList.remove('hidden');
             document.getElementById('map-main-view').classList.add('block');
         }
+
+        // Apply saved language on page load
+        (function(){
+            var saved = localStorage.getItem('siteLang') || 'zh';
+            if(saved !== 'zh') switchLanguage(saved);
+        })();
     </script>
 </body>
 </html>

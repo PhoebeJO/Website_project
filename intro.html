@@ -149,64 +149,87 @@
 <body style="padding-top:68px;">
 
   <!-- 導覽列 -->
-  <nav style="position:fixed;top:0;left:0;right:0;height:68px;background:rgba(245,243,238,0.97);backdrop-filter:blur(8px);border-bottom:1px solid #d4d0c4;display:flex;align-items:center;justify-content:space-between;padding:0 48px;z-index:1000;font-family:'Noto Serif TC',serif;">
+  <nav style="position:fixed;top:0;left:0;right:0;height:68px;background:rgba(245,243,238,0.97);backdrop-filter:blur(8px);border-bottom:1px solid #d4d0c4;display:flex;align-items:center;padding:0 48px;z-index:1000;font-family:'Noto Serif TC',serif;">
     <a href="index.html" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#4a4a1a;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;">POVERTY ERADICATION<span style="color:#888;font-weight:400;font-size:0.8rem;margin-left:8px;"> 消除貧窮</span></a>
-    <ul style="display:flex;align-items:center;list-style:none;margin:0;padding:0;">
-      <li><a href="index.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">首頁</a></li>
-      <li style="position:relative;"><a href="intro.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#6b6b2a;text-decoration:none;">互動遊戲 ▾</a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="intro.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">遊戲介紹</a><a href="game1.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">遊戲開始</a><a href="game2.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">抽籤遊戲</a></div></li>
-      <li style="position:relative;"><a href="poverty_Sh3_EN.html" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">世界地圖 ▾</a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="poverty_Sh3_EN.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">探索貧窮</a><a href="ranking.html" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">貧窮排名</a></div></li>
-      <li><a href="index.html#orgs" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">捐款組織</a></li>
-      <li style="position:relative;"><a href="index.html#taiwan" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;">台灣的貧窮 ▾</a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="index.html#taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;">台灣的貧窮</a><a href="index.html#taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;">相關政策</a></div></li>
+    <ul style="display:flex;align-items:center;list-style:none;margin:0 0 0 auto;padding:0;">
+      <li><a href="index.html" data-zh="首頁" data-en="Home" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a></li>
+      <li style="position:relative;"><a href="intro.html" data-zh="互動遊戲 ▾" data-en="Games ▾" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#6b6b2a;text-decoration:none;"></a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="intro.html" data-zh="遊戲介紹" data-en="Introduction" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="game1.html" data-zh="遊戲開始" data-en="Start Game" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="game2.html" data-zh="抽籤遊戲" data-en="Lottery Game" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;"></a></div></li>
+      <li style="position:relative;"><a href="poverty_Sh3_EN.html" data-zh="世界地圖 ▾" data-en="World Map ▾" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="poverty_Sh3_EN.html" data-zh="探索貧窮" data-en="Explore Poverty" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="ranking.html" data-zh="貧窮排名" data-en="Poverty Ranking" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;"></a></div></li>
+      <li><a href="index.html#orgs" data-zh="捐款組織" data-en="Donate" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a></li>
+      <li style="position:relative;"><a href="index.html#taiwan" data-zh="台灣的貧窮 ▾" data-en="Taiwan ▾" style="padding:0 18px;height:68px;display:flex;align-items:center;font-size:0.85rem;letter-spacing:0.06em;color:#1c1c1c;text-decoration:none;"></a><div class="nav-dropdown" style="position:absolute;top:100%;left:0;background:#fff;border:1px solid #d4d0c4;min-width:140px;opacity:0;pointer-events:none;transition:all 0.2s;transform:translateY(-4px);"><a href="index.html#taiwan" data-zh="台灣的貧窮" data-en="Poverty in Taiwan" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;border-bottom:1px solid #d4d0c4;"></a><a href="index.html#taiwan" data-zh="相關政策" data-en="Policies" style="display:block;padding:10px 18px;font-size:0.82rem;color:#1c1c1c;text-decoration:none;"></a></div></li>
     </ul>
+    <div style="display:flex;border:1px solid #d4d0c4;border-radius:4px;overflow:hidden;font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;margin-left:18px;">
+      <button class="lang-btn active" onclick="setLang('zh')" style="padding:6px 14px;background:transparent;border:none;border-right:1px solid #d4d0c4;cursor:pointer;color:#888;font-family:'DM Mono',monospace;font-size:0.72rem;">中</button>
+      <button class="lang-btn" onclick="setLang('en')" style="padding:6px 14px;background:transparent;border:none;cursor:pointer;color:#888;font-family:'DM Mono',monospace;font-size:0.72rem;">EN</button>
+    </div>
   </nav>
-  <style>li:hover>.nav-dropdown{opacity:1!important;pointer-events:auto!important;transform:translateY(0)!important}.nav-dropdown a:hover{background:#f5f3ee;color:#6b6b2a}</style>
+  <style>
+    li:hover>.nav-dropdown{opacity:1!important;pointer-events:auto!important;transform:translateY(0)!important}
+    .nav-dropdown a:hover{background:#f5f3ee;color:#6b6b2a}
+    .lang-btn.active{background:#4a4a1a!important;color:#fff!important}
+    .lang-btn:hover:not(.active){background:#f5f3ee;color:#6b6b2a}
+    body.en-mode .lang-zh{display:none!important}
+    body:not(.en-mode) .lang-en{display:none!important}
+  </style>
+  <script>
+    function setLang(l){localStorage.setItem('siteLang',l);applyLang(l)}
+    function applyLang(l){
+      document.querySelectorAll('[data-zh][data-en]').forEach(function(e){e.textContent=l==='zh'?e.dataset.zh:e.dataset.en});
+      document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.textContent.trim()===(l==='zh'?'中':'EN'))});
+      if(l==='en'){document.body.classList.add('en-mode')}else{document.body.classList.remove('en-mode')}
+    }
+    applyLang(localStorage.getItem('siteLang')||'zh');
+  </script>
 
     <div class="container">
         <!-- 遊戲標題 -->
-        <h1 class="game-title">互動遊戲說明</h1>
+        <h1 class="game-title"><span class="lang-zh">互動遊戲說明</span><span class="lang-en">Interactive Game Guide</span></h1>
         <div class="game-subtitle">INTRODUCTION</div>
 
         <!-- 遊戲簡介 -->
         <div class="game-description">
+            <div class="lang-zh">
             <p>
-                如果你只有當地人平均一天的生活費，你能順利度過一天嗎？這款互動遊戲將帶你跨越國界
-                ，以各國<strong>居民最終消費支出</strong>(Households and NPISHs Final Consumption Expenditure)
-                為核心指標，真實模擬世界各角落的日常縮影。從飽餐一頓
-                、搭車通勤到遮風避雨的居住成本，遊戲將一日的食衣住行育樂數據化。我們希望藉由這場體感實驗，
-                讓大眾看清在極端貧窮的國家裡，那些我們視為理所當然的
-                平常生活竟有多麼遙不可及，並進一步反思全球財富分配不均的深刻議題。
-
+                如果你只有當地人平均一天的生活費，你能順利度過一天嗎？這款互動遊戲將帶你跨越國界，以各國<strong>居民最終消費支出</strong>(Households and NPISHs Final Consumption Expenditure)為核心指標，真實模擬世界各角落的日常縮影。從飽餐一頓、搭車通勤到遮風避雨的居住成本，遊戲將一日的食衣住行育樂數據化。我們希望藉由這場體感實驗，讓大眾看清在極端貧窮的國家裡，那些我們視為理所當然的平常生活竟有多麼遙不可及，並進一步反思全球財富分配不均的深刻議題。
             </p>
             <br>
             <p>
-                在這裡你可以自行選擇想出生在五大洲的哪一洲，
-                進入頁面後再繼續選擇國家，以獲得你的初始預算（當地居民平均一天的生活費）。
-                或是你想體驗更真實的出生方式，透過隨機抽籤來決定出生的國家，
-                一樣會獲得相應的生活費。
-                當得到初始預算後，即可開始你的一天！
+                在這裡你可以自行選擇想出生在五大洲的哪一洲，進入頁面後再繼續選擇國家，以獲得你的初始預算（當地居民平均一天的生活費）。或是你想體驗更真實的出生方式，透過隨機抽籤來決定出生的國家，一樣會獲得相應的生活費。當得到初始預算後，即可開始你的一天！
             </p>
-
             <br>
-            <!-- 換行的地方ui會空一格，記得改 -->
             <p>
-                本遊戲之原始數據皆採用資料庫中最新的年度資料，並統一以 2015 年
-                為物價換算基準年。考量到原始資料庫係以美元計價，為提升台灣使用者的互
-                動體驗與體感直覺，本遊戲統一採用 1：32.0 的匯率將美元數據換算為新台幣
-                呈現。
-
+                本遊戲之原始數據皆採用資料庫中最新的年度資料，並統一以 2015 年為物價換算基準年。考量到原始資料庫係以美元計價，為提升台灣使用者的互動體驗與體感直覺，本遊戲統一採用 1：32.0 的匯率將美元數據換算為新台幣呈現。
             </p>
             <br>
             <p> 資料來源:
                <br>國際數據: https://data.worldbank.org/indicator/NE.CON.PRVT.PC.KD
                <br>台灣: https://www.stat.gov.tw/cp.aspx?n=3914
             </p>
+            </div>
+            <div class="lang-en">
+            <p>
+                If you only had one day's average living expenses of a local resident, could you make it through the day? This interactive game takes you across borders, using each country's <strong>Households and NPISHs Final Consumption Expenditure</strong> as the core indicator to simulate daily life around the world. From meals and commuting to housing costs, the game quantifies a full day of living expenses. Through this immersive experiment, we hope to reveal how the everyday life we take for granted is far out of reach in extremely impoverished countries, prompting reflection on global wealth inequality.
+            </p>
+            <br>
+            <p>
+                You can choose which continent you'd like to be born in, then select a country to receive your initial budget (the local average daily living expense). Or, for a more realistic experience, use the random lottery to determine your birth country and receive the corresponding budget. Once you have your initial budget, your day begins!
+            </p>
+            <br>
+            <p>
+                All data in this game uses the latest annual figures from databases, with 2015 as the base year for price conversion. Since the original data is denominated in USD, we use an exchange rate of 1:32.0 to convert to NTD for a more intuitive experience for users in Taiwan.
+            </p>
+            <br>
+            <p> Data Sources:
+               <br>International: https://data.worldbank.org/indicator/NE.CON.PRVT.PC.KD
+               <br>Taiwan: https://www.stat.gov.tw/cp.aspx?n=3914
+            </p>
+            </div>
         </div>
 
         <!-- 進入遊戲按鈕區 -->
         <div class="btn-group">
-            <!-- 替換 href 後面的網址即可導向不同分頁 -->
-            <a href="game1.html" class="btn btn-web">自行選擇出生地</a>
-            <a href="game2.html" class="btn btn-download">聽天由命</a>
+            <a href="game1.html" class="btn btn-web"><span class="lang-zh">自行選擇出生地</span><span class="lang-en">Choose Your Birthplace</span></a>
+            <a href="game2.html" class="btn btn-download"><span class="lang-zh">聽天由命</span><span class="lang-en">Random Lottery</span></a>
         </div>
     </div>
 
