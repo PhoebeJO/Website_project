@@ -38,9 +38,9 @@
 
         /* 主容器卡片 */
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             width: 100%;
-            background: var(--olive-dark);
+            background: var(--olive-light);
             color:var(--white);
             box-shadow: 0 ;
             padding: 40px;
@@ -55,14 +55,14 @@
         .game-title {
             font-family: 'Noto Serif TC', serif;
             font-size: 2.5rem;
-            color: var(--white);
+            color: var(--charcoal);
             margin-bottom: 10px;
             
         }
 
         .game-subtitle {
             font-size: 1.1rem;
-            color: var(--white);
+            color: var(--charcoal);
             margin-bottom: 30px;
             letter-spacing: 2px;
         }
@@ -74,7 +74,7 @@
             color: rgba(255, 255, 255, 0.85);
             text-align: left;
             margin-bottom: 40px;
-            background: var(--charcoal);
+            background: #3d3b2a;
             padding: 25px;
             border-radius: 8px;
         }
@@ -104,27 +104,23 @@
 
         /* 按鈕一：網頁版 */
         .btn-web {
-            background: var(--olive);
-            border: 2px solid var(--olive);
+            background: var(--olive-dark);
             color: var(--white);
         }
 
         .btn-web:hover {
             transform: translateY(-3px);
-            background: var(--olive-light);
-            border-color: var(--olive-light);
+            background: var(--olive);
         }
 
         /* 按鈕二：下載版/試玩版 */
         .btn-download {
-            background: var(--olive);
-            border: 2px solid var(--olive);
+            background: var(--olive-dark);
             color: var(--white);
         }
 
         .btn-download:hover {
-            background: var(--olive-light);
-            border-color: var(--olive-light);
+            background: var(--olive);
             transform: translateY(-3px);
            
         }
@@ -201,9 +197,9 @@
                 本遊戲之原始數據皆採用資料庫中最新的年度資料，並統一以 2015 年為物價換算基準年。考量到原始資料庫係以美元計價，為提升台灣使用者的互動體驗與體感直覺，本遊戲統一採用 1：32.0 的匯率將美元數據換算為新台幣呈現。
             </p>
             <br>
-            <p> 資料來源:
-               <br>國際數據: https://data.worldbank.org/indicator/NE.CON.PRVT.PC.KD
-               <br>台灣: https://www.stat.gov.tw/cp.aspx?n=3914
+            <p> <small>資料來源:</small>
+               <br><small>國際數據: <a href="https://data.worldbank.org/indicator/NE.CON.PRVT.PC.KD" target="_blank" style="color: white; text-decoration: underline;">https://data.worldbank.org/indicator/NE.CON.PRVT.PC.KD</a></small>
+               <br><small>台灣數據: <a href="https://www.stat.gov.tw/cp.aspx?n=3914" target="_blank" style="color: white; text-decoration: underline;">https://www.stat.gov.tw/cp.aspx?n=3914</a></small>
             </p>
             </div>
             <div class="lang-en">
@@ -219,17 +215,17 @@
                 All data in this game uses the latest annual figures from databases, with 2015 as the base year for price conversion. Since the original data is denominated in USD, we use an exchange rate of 1:32.0 to convert to NTD for a more intuitive experience for users in Taiwan.
             </p>
             <br>
-            <p> Data Sources:
-               <br>International: https://data.worldbank.org/indicator/NE.CON.PRVT.PC.KD
-               <br>Taiwan: https://www.stat.gov.tw/cp.aspx?n=3914
+            <p> <small>Data Sources:</small>
+               <br><small>International: <a href="https://data.worldbank.org/indicator/NE.CON.PRVT.PC.KD" target="_blank" style="color: white; text-decoration: underline;">https://data.worldbank.org/indicator/NE.CON.PRVT.PC.KD </a></small>
+               <br><small>Taiwan: <a href="https://www.stat.gov.tw/cp.aspx?n=3914 target="_blank" style="color: white; text-decoration: underline;">https://www.stat.gov.tw/cp.aspx?n=3914</a></small>
             </p>
             </div>
         </div>
 
         <!-- 進入遊戲按鈕區 -->
         <div class="btn-group">
-            <a href="game1.html" class="btn btn-web"><span class="lang-zh">自行選擇出生地</span><span class="lang-en">Choose Your Birthplace</span></a>
-            <a href="game2.html" class="btn btn-download"><span class="lang-zh">聽天由命</span><span class="lang-en">Random Lottery</span></a>
+            <a href="game1.html" class="btn btn-web"><span class="lang-zh">自行選擇出生地</span><span class="lang-en">Choose by your own</span></a>
+            <a href="game2.html" class="btn btn-download"><span class="lang-zh">聽天由命</span><span class="lang-en">Random truntable</span></a>
         </div>
     </div>
 
