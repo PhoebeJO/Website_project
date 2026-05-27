@@ -600,7 +600,7 @@
     .city-detail-chart-wrap { position: relative; overflow: hidden; }
 
     /* 點擊資訊面板 */
-    .click-info { display: none; position: absolute; bottom: 0; left: 0; right: 0; background: var(--charcoal); color: var(--white); padding: 14px 20px; z-index: 10; }
+    .click-info { display: none; margin-top: 12px; background: var(--charcoal); color: var(--white); padding: 14px 20px; }
     .click-info.show { display: block; }
     .click-info .ci-year { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--olive-light); letter-spacing: 0.15em; margin-bottom: 8px; }
     .click-info .ci-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -882,21 +882,21 @@
               <p class="city-subtitle" id="cd-subtitle">TAIPEI CITY</p>
               <div class="city-detail-chart-wrap">
                 <canvas id="chart-city-detail" height="160" style="cursor:pointer;"></canvas>
-                <div class="click-info" id="click-info">
-                  <p class="ci-year" id="ci-year"></p>
-                  <div class="ci-grid">
-                    <div class="ci-item">
-                      <div class="ci-val" id="ci-households"></div>
-                      <div class="ci-label" data-zh="戶數" data-en="Households"></div>
-                    </div>
-                    <div class="ci-item">
-                      <div class="ci-val" id="ci-population"></div>
-                      <div class="ci-label" data-zh="人口數" data-en="Population"></div>
-                    </div>
-                    <div class="ci-item">
-                      <div class="ci-val" id="ci-rate"></div>
-                      <div class="ci-label" data-zh="佔總人口比率" data-en="% of Total Pop."></div>
-                    </div>
+              </div>
+              <div class="click-info" id="click-info">
+                <p class="ci-year" id="ci-year"></p>
+                <div class="ci-grid">
+                  <div class="ci-item">
+                    <div class="ci-val" id="ci-households"></div>
+                    <div class="ci-label" data-zh="戶數" data-en="Households"></div>
+                  </div>
+                  <div class="ci-item">
+                    <div class="ci-val" id="ci-population"></div>
+                    <div class="ci-label" data-zh="人口數" data-en="Population"></div>
+                  </div>
+                  <div class="ci-item">
+                    <div class="ci-val" id="ci-rate"></div>
+                    <div class="ci-label" data-zh="佔總人口比率" data-en="% of Total Pop."></div>
                   </div>
                 </div>
               </div>
