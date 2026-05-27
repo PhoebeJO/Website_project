@@ -603,10 +603,11 @@
     }
     .city-detail h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 4px; flex-shrink: 0; }
     .city-detail .city-subtitle { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--olive-light); letter-spacing: 0.1em; margin-bottom: 12px; flex-shrink: 0; }
-    .city-detail canvas { flex: 1; min-height: 0; }
+    .city-detail-chart-wrap { flex: 1; min-height: 0; position: relative; }
+    .city-detail canvas { width: 100% !important; height: 100% !important; display: block; }
 
     /* 點擊資訊面板 */
-    .click-info { display: none; margin-top: 12px; background: var(--charcoal); color: var(--white); padding: 14px 20px; }
+    .click-info { display: none; position: absolute; bottom: 0; left: 0; right: 0; background: var(--charcoal); color: var(--white); padding: 14px 20px; z-index: 10; }
     .click-info.show { display: block; }
     .click-info .ci-year { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--olive-light); letter-spacing: 0.15em; margin-bottom: 8px; }
     .click-info .ci-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -870,7 +871,7 @@
             </div>
             <div class="chart-card">
               <h4 data-zh="各縣市低收入戶比率" data-en="Low-Income Rate by County"></h4>
-              <p class="chart-sub" data-zh="2023（112年）· 前十名縣市" data-en="2023 · Top 10 Counties"></p>
+              <p class="chart-sub" data-zh="2024（113年）· 前十名縣市" data-en="2024 · Top 10 Counties"></p>
               <canvas id="chart-city"></canvas>
             </div>
           </div>
@@ -886,21 +887,23 @@
             <div class="city-detail" id="city-detail">
               <h3 id="cd-name">台北市</h3>
               <p class="city-subtitle" id="cd-subtitle">TAIPEI CITY</p>
-              <canvas id="chart-city-detail" style="cursor:pointer;"></canvas>
-              <div class="click-info" id="click-info">
-                <p class="ci-year" id="ci-year"></p>
-                <div class="ci-grid">
-                  <div class="ci-item">
-                    <div class="ci-val" id="ci-households"></div>
-                    <div class="ci-label" data-zh="戶數" data-en="Households"></div>
-                  </div>
-                  <div class="ci-item">
-                    <div class="ci-val" id="ci-population"></div>
-                    <div class="ci-label" data-zh="人口數" data-en="Population"></div>
-                  </div>
-                  <div class="ci-item">
-                    <div class="ci-val" id="ci-rate"></div>
-                    <div class="ci-label" data-zh="佔總人口比率" data-en="% of Total Pop."></div>
+              <div class="city-detail-chart-wrap">
+                <canvas id="chart-city-detail" style="cursor:pointer;"></canvas>
+                <div class="click-info" id="click-info">
+                  <p class="ci-year" id="ci-year"></p>
+                  <div class="ci-grid">
+                    <div class="ci-item">
+                      <div class="ci-val" id="ci-households"></div>
+                      <div class="ci-label" data-zh="戶數" data-en="Households"></div>
+                    </div>
+                    <div class="ci-item">
+                      <div class="ci-val" id="ci-population"></div>
+                      <div class="ci-label" data-zh="人口數" data-en="Population"></div>
+                    </div>
+                    <div class="ci-item">
+                      <div class="ci-val" id="ci-rate"></div>
+                      <div class="ci-label" data-zh="佔總人口比率" data-en="% of Total Pop."></div>
+                    </div>
                   </div>
                 </div>
               </div>
