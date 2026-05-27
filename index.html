@@ -582,8 +582,9 @@
     .compare-grid {
       display: grid; grid-template-columns: 160px 1fr;
       gap: 16px; align-items: start;
+      max-width: 900px;
     }
-    .city-list { list-style: none; border: 1px solid var(--border); max-height: 420px; overflow-y: auto; }
+    .city-list { list-style: none; border: 1px solid var(--border); max-height: 340px; overflow-y: auto; }
     .city-item { padding: 10px 14px; font-size: 0.8rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: all 0.15s; display: flex; justify-content: space-between; align-items: center; }
     .city-item:last-child { border-bottom: none; }
     .city-item:hover { background: var(--cream); }
@@ -591,11 +592,12 @@
     .city-item .city-pct { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--olive-light); }
     .city-item.active .city-pct { color: var(--olive-light); }
     .city-detail {
-      background: var(--white); border: 1px solid var(--border); padding: 24px;
+      background: var(--white); border: 1px solid var(--border); padding: 20px;
+      overflow: hidden;
     }
     .city-detail h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 4px; }
     .city-detail .city-subtitle { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--olive-light); letter-spacing: 0.1em; margin-bottom: 16px; }
-    .city-detail-chart-wrap { position: relative; }
+    .city-detail-chart-wrap { position: relative; overflow: hidden; }
 
     /* 點擊資訊面板 */
     .click-info { display: none; position: absolute; bottom: 0; left: 0; right: 0; background: var(--charcoal); color: var(--white); padding: 14px 20px; z-index: 10; }
@@ -879,7 +881,7 @@
               <h3 id="cd-name">台北市</h3>
               <p class="city-subtitle" id="cd-subtitle">TAIPEI CITY</p>
               <div class="city-detail-chart-wrap">
-                <canvas id="chart-city-detail" height="220" style="cursor:pointer;"></canvas>
+                <canvas id="chart-city-detail" height="160" style="cursor:pointer;"></canvas>
                 <div class="click-info" id="click-info">
                   <p class="ci-year" id="ci-year"></p>
                   <div class="ci-grid">
@@ -1374,7 +1376,8 @@
           plugins: { legend: { display: false },
             tooltip: { callbacks: { label: function(ctx) { return ctx.parsed.y.toLocaleString() + (en ? ' people' : ' 人'); } } }
           },
-          scales: { y: { grid: { color: brandColors.border }, beginAtZero: true, max: 65000, ticks: { callback: function(v) { return en ? (v/1000).toFixed(0) + 'k' : (v/10000).toFixed(1) + '萬'; } } }, x: { grid: { display: false } } },
+          maintainAspectRatio: false,
+          scales: { y: { grid: { color: brandColors.border }, beginAtZero: false, ticks: { callback: function(v) { return en ? (v/1000).toFixed(0) + 'k' : (v/10000).toFixed(1) + '萬'; } } }, x: { grid: { display: false } } },
           onClick: function(e, elements) {
             if (elements.length > 0) {
               const i = elements[0].index;
