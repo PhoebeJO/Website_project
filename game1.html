@@ -195,9 +195,25 @@
       document.querySelectorAll('[data-zh][data-en]').forEach(function(e){e.textContent=l==='zh'?e.dataset.zh:e.dataset.en});
       document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.textContent.trim()===(l==='zh'?'中':'EN'))});
       if(l==='en'){document.body.classList.add('en-mode')}else{document.body.classList.remove('en-mode')}
+
+      // 更新動態設定的國家看板
+      const countryDisp = document.getElementById('current-country');
+      if(countryDisp && countryDisp.getAttribute('data-zh')){
+        countryDisp.innerText = l === 'zh' ? countryDisp.getAttribute('data-zh') : countryDisp.getAttribute('data-en');
+        }
+
+      // 如果遊戲已經載入（函式存在），切換語言時就立即重新渲染當前關卡
+      if (typeof startLevel === 'function') {
+        startLevel();
+        }
     }
-    applyLang(localStorage.getItem('siteLang')||'zh');
-  </script>
+
+    // 初始化語言環境
+    document.addEventListener("DOMContentLoaded", function() {
+        applyLang(localStorage.getItem('siteLang')||'zh');
+    });
+
+    </script>
 
 <div class="main-wrapper">
     <div class="game-container">
@@ -391,7 +407,11 @@ function startLevel() {
             var label = en ? (continentEN[continent]||continent) : continent;
             makeButton(label, () => {
                 selectedContinent = continent;
-                addHistoryRecord(en ? `Born in: ${continentEN[continent]||continent}` : `出生於：${continent}`);
+
+                addHistoryRecord({
+                    zh: `出生於：${continent}`,
+                    en: `Born in: ${continentEN[continent]||continent}`
+                });                
                 currentStep = 1;
                 startLevel();
             });
@@ -428,11 +448,23 @@ function startLevel() {
 
             makeButton(buttonText, () => {
                 balance = country.budget;
-                countryDisplay.innerText = buttonText;
+
+                // 為了讓看板國家名稱能即時切換語言，給它設定 data 屬性
+                var zhName = country.name;
+                for (let engName in countryZH) {
+                    if (country.name.startsWith(engName)) {
+                        zhName = country.name.replace(engName, `${engName} (${countryZH[engName]})`);
+                        break;
+                    }
+                }
+                var enName = country.name.replace("預算", budgetEN["預算"]);
+                countryDisplay.setAttribute('data-zh', zhName);
+                countryDisplay.setAttribute('data-en', enName);
+                countryDisplay.innerText = en ? enName : zhName;
 
                 historyList.innerHTML = '';
-                addHistoryRecord(en ? `Country: ${buttonText}` : `出生國家：${buttonText}`); 
-                addHistoryRecord(en ? `Daily budget: $${country.budget}` : `當地消費預算：$${country.budget}`);
+                addHistoryRecord({ zh: `出生國家：${zhName}`, en: `Country: ${enName}` }); 
+                addHistoryRecord({ zh: `當地消費預算：$${country.budget}`, en: `Daily budget: $${country.budget}` });
 
                 updateUI();
                 currentStep = 2;
@@ -451,7 +483,8 @@ function startLevel() {
                 var label = en ? opt.te : opt.t;
                 const btn=makeButton(label, () => {
                     balance -= opt.c;
-                    addHistoryRecord(en ? `Spent: ${opt.te}` : `消費：${opt.t}`);
+
+                    addHistoryRecord({ zh: `消費：${opt.t}`, en: `Spent: ${opt.te}` });        
                     updateUI();
                     currentStep++;
                     startLevel();
@@ -478,10 +511,13 @@ function makeButton(text, clickEvent) {
 }
 
 // 選擇紀錄
-function addHistoryRecord(text) {
+function addHistoryRecord(langObj) {
     const li = document.createElement('li');
     li.className = 'history-item';
-    li.innerText = text;
+
+    // 建立雙語結構
+    li.innerHTML = `<span class="lang-zh">${langObj.zh}</span><span class="lang-en">${langObj.en}</span>`;
+
     historyList.appendChild(li);
             
     // 讓滾輪自動滾到最下面，方便看最新紀錄
