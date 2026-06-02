@@ -1271,13 +1271,13 @@
       });
 
       // 圖表 2：縣市低收入戶比率（112年）
-      var _cityLabelsZh = ['臺東縣','花蓮縣','屏東縣','臺北市','雲林縣','臺中市','基隆市','桃園市','澎湖縣','苗栗縣'];
-      var _cityLabelsEn = ['Taitung','Hualien','Pingtung','Taipei','Yunlin','Taichung','Keelung','Taoyuan','Penghu','Miaoli'];
+      var _cityLabelsZh = ['臺東縣','花蓮縣','屏東縣','雲林縣','臺北市','臺中市','彰化市','澎湖縣','基隆市','宜蘭縣'];
+      var _cityLabelsEn = ['Taitung','Hualien','Pingtung','Yunlin','Taipei','Taichung','Changhua','Penghu','Keelung','Yilan'];
       _cityBarChart = new Chart(document.getElementById('chart-city'), {
         type: 'bar',
         data: {
           labels: _en ? _cityLabelsEn : _cityLabelsZh,
-          datasets: [{ label: _en ? 'Low-income Household Rate (%)' : '低收入戶比率 (%)', data: [3.03,2.81,1.88,1.69,1.65,1.50,1.31,1.24,1.08,1.05],
+          datasets: [{ label: _en ? 'Low-income Household Rate (%)' : '低收入戶比率 (%)', data: [4.32,3.53,2.93,2.3,2.08,1.97,1.99,1.69,1.68,1.59],
             backgroundColor: ['#4a4a1a','#5a5a2a','#6b6b2a','#7b7b3a','#8b8b4a','#9b9b5a','#a0a060','#b0b070','#c0c080','#d0d090'],
             borderWidth: 0
           }]
